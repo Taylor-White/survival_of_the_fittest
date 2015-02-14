@@ -1,0 +1,3 @@
+/*****************
+Displays information about settings
+*****************/
