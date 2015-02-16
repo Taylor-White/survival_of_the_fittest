@@ -13,10 +13,3 @@ Array.matrix = function (m, n, initial) {
       }
       return mat;
     };
-/*
-function State(double[][]){
-	this.state = s[][]; //A 2d matrix storing values based on alive cells or dead cells (there is probably a better way)
-	this.getState = function getState(){
-		return state[][];
-	};
-}*/
