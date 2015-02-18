@@ -1,14 +1,22 @@
-/*****************
-Organism object.  
-File owner: 
-*****************/
+/*
+State: State
+File owner:
+*/
 
+/* function for when the simulation should step the simulation */
+function step()
+{
 
-var Organism{}
+}
 
-Organism.LENGTH; //number of cells (length)
-Organism.WIDTH; //number of cells (width)
+/* function for the coordinates of the organism */
+function toggleCell(int x, int y)
+{
 
-Organism.HISTORY; //History structure an organism is linked with
-Organism.STATE; //Current state
+}
 
+/* function to clear the organism */
+function clearOrganism()
+{
+
+}
