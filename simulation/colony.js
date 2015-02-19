@@ -4,17 +4,17 @@ File owner: Xi
 */
 boolean run = true;
 int lifeTime = 20;
-var organisms;
+var organism_list;
 
 
 // create an empty list of organism objs
 function OrganismList(){
-  organisms = [];
+  organism_list = [];
 }
  
 // add new obj to the list
-OrganismList.add = function( organism_obj ){
-  return this.organisms.push( organism_obj );
+function OrganismList_add( organism_obj ){
+  return this.organism_list.push( organism_obj );
 };
  
 // OrganismList.prototype.count = function(){
@@ -47,8 +47,8 @@ OrganismList.add = function( organism_obj ){
 /* function for when the simulation should step all the parts of the simulation*/
 function stepAll()
 {
-	for( i=0; i<OrganismList.length; i++){
-		OrganismList[i].step();
+	for( i=0; i<organism_list.length; i++){
+		organism_list[i].step();
 	}
 }
 
@@ -57,25 +57,24 @@ function runAll()
 {
 	run = true;
 	while(run){
-
-		for(i=0; i<OrganismList.length; i++){
-			OrganismList[i].step();
-		}
+		stepEndAll();
+		// for(i=0; i<OrganismList.length; i++){
+		// 	OrganismList[i].step();
+		// }
 	}
-
 }
 
 /* function for when the simulation should stop stepping the simulation*/
 function stepEndAll()
 {
+	run = true;
 	for(i=0; i< lifeTime; i++){
-		for(i=0; i<OrganismList.length; i++){
-			OrganismList[i].step();
+		for(i=0; i<organism_list.length; i++){
+			organism_list[i].step();
 		}
 		if(run == false)
 		{
 			i = lifeTime;
-			run = true;
 		}
 	}	
 }
