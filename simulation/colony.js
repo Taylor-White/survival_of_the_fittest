@@ -58,9 +58,6 @@ function runAll()
 	run = true;
 	while(run){
 		stepEndAll();
-		// for(i=0; i<OrganismList.length; i++){
-		// 	OrganismList[i].step();
-		// }
 	}
 }
 
@@ -69,12 +66,13 @@ function stepEndAll()
 {
 	run = true;
 	for(i=0; i< lifeTime; i++){
+		// step each organism
 		for(i=0; i<organism_list.length; i++){
 			organism_list[i].step();
 		}
 		if(run == false)
 		{
-			i = lifeTime;
+			break		
 		}
 	}	
 }
