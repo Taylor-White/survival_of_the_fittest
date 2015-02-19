@@ -3,7 +3,8 @@
   <head>
     <title>Survival</title>
     <meta charset="utf-8">
-    <script src="libraries/jQuery.js"></script>
+    <script src="libraries/jquery.js"></script>
+    <script src="view/colonyView.js"></script>
     <script src="simulation/state.js"></script>
      <script src="view/organismView.js"></script>
 	<link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css">
@@ -32,7 +33,7 @@
     
     <div class="row">
     <div class="col-md-6">
-      <canvas id="canvas" width="600px" height="600px"> <script> update(); randomize(20); update(); </script> </canvas>
+      <canvas id="canvas" width="600px" height="600px"> <script> update(); randomize(20); update(); select(3); </script> </canvas>
     </div>
     <div class="col-md-6">
       <div role="tabpanel">
