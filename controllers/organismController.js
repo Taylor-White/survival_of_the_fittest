@@ -8,7 +8,7 @@ File owner: Jared
 /* function for when user chooses random */
 function userRandState()
 {
-	Organism.randState();
+	Organism.randomize();
 }
 
 /* function for when the user clicks on the canvas, records the coordinates */
@@ -32,6 +32,6 @@ function changeSelectedOrg(Organism org)
 /* function for when the organism changes from alive or dead */
 function stateChanged()
 {
-	//OrganismView.update();
-	//need a way to update OrganismView with new matrix
+	matrix = State.getMatrix();
+	OrganismView.updateOrgCanvas(matrix);
 }
