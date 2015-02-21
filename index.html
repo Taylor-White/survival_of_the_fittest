@@ -33,7 +33,7 @@
     
     <div class="row">
     <div class="col-md-6">
-      <canvas id="canvas" width="600px" height="600px"> <script> update(); randomize(20); update(); select(3); </script> </canvas>
+      <canvas id="canvas" width="600px" height="600px"> <script> update(); </script> </canvas>
     </div>
     <div class="col-md-6">
       <div role="tabpanel">
@@ -90,7 +90,10 @@
        <button type="button" class="btn btn-default">Save Seed</button>
        <button type="button" class="btn btn-default">Load Seed</button>
        <button type="button" class="btn btn-default">Create Seed</button>
-       <button type="button" class="btn btn-default">Random Seed</button>     
+       <button type="button" id="rand" class="btn btn-default" onClick="randomize(20); update()">Random Seed </button> 
+       
+      
+   
     </div>
   </div>  
     
