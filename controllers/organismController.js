@@ -4,6 +4,10 @@ View: OrganismView
 File owner: Jared
 */
 
+/*
+OBSERVER FUNCTIONS
+- receiveMessage(observable, msg): parses the message passed and decides how to handle it
+*/
 
 /* function for when user chooses random */
 function userRandState()
@@ -35,3 +39,4 @@ function stateChanged()
 	matrix = State.getMatrix();
 	OrganismView.updateOrgCanvas(matrix);
 }
+

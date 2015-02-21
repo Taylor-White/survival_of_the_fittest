@@ -4,6 +4,11 @@ View: ColonyView
 File owner: Kat
 */
 
+/*
+OBSERVER FUNCTIONS
+- receiveMessage(observable, msg): parses the message passed and decides how to handle it
+*/
+
 var colony;/*This may be totally unnecessary but it all depends on how we import files*/
 
 /* function for when user chooses an organism*/
