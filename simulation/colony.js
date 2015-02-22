@@ -4,36 +4,29 @@ File owner: Xi
 */
 
 /* represents the colony class */
-function colony(pop){
+function colony(population){
 	alert("Making a colony");
 
-
+	this.population = population;
 	this.organism_list = [];
 	this.lifetime = 20;
 	this.run = false;
 
-	/*	OBSERVABLE METHODS
-		addObserver(obs)
-		removeObserver(obs)
-		notify()
-	*/
-
+	/*	OBSERVABLE METHODS */
 	this.observers = [];
-
 	this.addObserver = function(observer){
-		this.observers.push(observer);
-	}
+		this.observers.push(observer);	}
+	this.removeObserver = function(observer){
+		var numObs = this.observers.length;
+		for (int i=0; i<numObs; i++){
+			if (this.observers[i] === observer){
+				this.observers.splice(i,1);	}}}
+	this.notifyObservers = function(msg){
+		for (int i=0; i<numObs; i++){
+			this.observers.[i].receiveMessage(this, msg);	}
 
 
-
-	/* fill list of orgs */
-	for (i=0; i<pop; i++){
-		this.organism_list.push( new organism() );
-	}
-
-
-
-
+	/* STEPPING & RUNNING METHODS */
 
 	/* 	method for when the simulation should step 
 		all the organisms in the simulation one time */
@@ -70,6 +63,15 @@ function colony(pop){
 	/* method for the simulation to pause */
 	function pause(){
 		this.run = false;
+	}
+
+
+	/* SETUP */
+	/* fill list of orgs */
+	for (int i=0; i<population; i++){
+		var org = new organism();
+		this.organism_list.push( org );
+		// org.addObserver(this);
 	}
 
 }

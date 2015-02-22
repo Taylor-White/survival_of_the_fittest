@@ -5,8 +5,17 @@ File owner: Kat
 */
 function colonyController(){
 	alert("Making Colony Controller");
+
 	this.colony = new colony(10);
 
+	/*	OBSERVER METHODS */
+	/* parses the message passed and decides how to handle it */
+	this.receiveMessage = function(observable, msg){
+		// If msg == "steppedAll" 
+	}
+
+
+	/* USER ACTIONS*/
 	/* function for when user chooses an organism*/
 	this.userSelectOrg = function(int orgID){
 		/*orgID = get orgModel*/
@@ -35,13 +44,6 @@ function colonyController(){
 		colony.pause();
 	}
 
-	/*	OBSERVER METHODS
-		receiveMessage(observable, msg)
-			parses the message passed and decides how to handle it
-	*/
-	this.receiveMessage = function(observable, msg){
-		// If msg == "steppedAll" 
-	}
 
 }
 

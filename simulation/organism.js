@@ -11,7 +11,7 @@ function organism(){
 
 	/* function for when the simulation should step the simulation */
 	this.step = function(){
-
+		this.age++;
 	}
 
 	/* function for the coordinates of the organism */
