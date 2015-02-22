@@ -16,6 +16,9 @@ function organism(numCols, numRows){
 	this.sustainArray = [0, 0, 1, 1, 0, 0, 0, 0, 0]
 
 	this.age = 0;
+	this.birthCount = 0;
+	this.susCount = 0;
+	this.deathCount = 0;
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -36,23 +39,35 @@ function organism(numCols, numRows){
 	this.step = function(){
 		this.age++;
 		var nextState = createMatrix(this.numRows, this.numCols, 0);
+		console.log("next: " + nextState);
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
 				neighbours = CalcNeighbours(this.state, row, col);
-				if(this.state[row,col] == ALIVE){
+				// console.log("neighbours " + row + ", " + col + ": " + neighbours);
+				if(this.state[row][col] == ALIVE){
 					if(this.sustainArray[neighbours] == 1){
-						nextState[row,col] = ALIVE;
+						this.susCount++;
+						nextState[row][col] = ALIVE;
+					} else {
+						this.deathCount++;
+						nextState[row][col] = DEAD;
 					}
 				} else if (this.birthArray[neighbours] == 1) {
-					nextState[row,col] = ALIVE;
+					this.birthCount++;
+					nextState[row][col] = ALIVE;
+				} else {
+					this.deathCount++;
+					nextState[row][col] = DEAD;
 				}
 			}
 		}
+		console.log("next: " + nextState);
 		this.state = nextState;
 		this.notifyObservers("StateChanged");
 		return;
 
 		function CalcNeighbours(s, r, c){
+
 			var total = 0;
 			if(s[r][c] == 1){
 				total--;
@@ -99,6 +114,7 @@ function organism(numCols, numRows){
 	}
 
 	this.getMatrix = function(){
+		console.log("Getting Matrix: " + this.state);
 		return this.state;
 	}
 
@@ -129,13 +145,23 @@ function organism(numCols, numRows){
 
 /* Creates and returns a matrix filled with a passed in value. Usually 0 */
 function createMatrix(m, n, initial){
-	mat = [m];
+	var mat = new Array(m);
 	for (var i = 0; i < m; i += 1) {
-		var a = [];
+		var a =   new Array(n);
 		for (var j = 0; j < n; j += 1) {
 			a[j] = initial;
 		}
 		mat[i]= a;
 	}
 	return mat;
+}
+
+function copyMatrix(oldMat, newMat){
+	var rows = oldMat.length;
+	var cols = oldMat[0].length;
+	for (var i=0; i<rows; i++ ){
+		for (var j=0; j<cols; j++){
+			newMat[i,j] = oldMat[i,j];
+		}
+	}
 }

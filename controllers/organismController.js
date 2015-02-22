@@ -15,9 +15,6 @@ function organismController(){
 		console.log("orgCtrl received " + msg);
 		if(msg == "StateChanged"){
 			this.stateChanged();
-		} else if (msg.substring(0,11) == "OrgSelected"){
-			var orgID = parseInt(msg.substring(11, msg.length));	
-			this.setSelectedOrg(colony.getOrg(orgID));
 		}
 	}
 
@@ -38,7 +35,6 @@ function organismController(){
 
 	/* function for when the user wants to change the organism they are using */
 	this.setSelectedOrg = function(org){
-		console.log("SETSELSANTOEHUSRARCOEUB");
 		if (this.org){
 			this.org.removeObserver(this);
 		}
@@ -51,6 +47,7 @@ function organismController(){
 	this.stateChanged = function(){
 		this.orgView.update(this.org.getMatrix());
 	}
+
 
 
 
