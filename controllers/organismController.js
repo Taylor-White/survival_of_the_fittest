@@ -12,8 +12,12 @@ function organismController(){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
+		console.log("orgCtrl received " + msg);
 		if(msg == "StateChanged"){
-			this.orgView.update(observable.getMatrix());
+			this.stateChanged();
+		} else if (msg.substring(0,11) == "OrgSelected"){
+			var orgID = parseInt(msg.substring(11, msg.length));	
+			this.setSelectedOrg(colony.getOrg(orgID));
 		}
 	}
 

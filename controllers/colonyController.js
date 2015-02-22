@@ -27,6 +27,9 @@ function colonyController(orgCtr){
 			this.userRunOneGen();
 		} else if (msg == "UserResetCol"){
 			this.userResetCol();
+		} else if (msg.substring(0,11) == "OrgSelected"){
+			var orgID = parseInt(msg.substring(11, msg.length));	
+			this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
 		}
 
 
