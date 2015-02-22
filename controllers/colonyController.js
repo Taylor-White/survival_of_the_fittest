@@ -3,9 +3,13 @@ Colony: Colony
 View: ColonyView 
 File owner: Kat
 */
-function colonyController(){
+function colonyController(orgCtr){
 	console.log("creating Colony Controller");
+
+	this.orgCtr = orgCtr;
+	this.colView = new colonyView();
 	this.colony = new colony(10);
+	this.selectedOrgID = 0;
 
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
@@ -21,6 +25,11 @@ function colonyController(){
 		/*organismController.changeOrg(orgID);
 			^^ NEED TO ADD THIS WITH OBSERVER
 		*/
+
+		this.colView.deselectOrg(this.selectedOrgID);
+		this.selectedOrgID = orgID;
+		this.colView.selectOrg(orgID);
+		this.orgCtr.setSeledOrg(this.colony.getOrg(orgID));
 	}
 
 	/* function for when the user chooses to step the simulation */
@@ -42,9 +51,6 @@ function colonyController(){
 	this.userPause = function(){
 		colony.pause();
 	}
-}
 
-function eu(){
-	alert("eu");
+	
 }
-

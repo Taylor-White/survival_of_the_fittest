@@ -62,7 +62,7 @@ function colony(numOrgs){
 	}
 
 	/* method for the simulation to pause */
-	function pause(){
+	this.pause = function(){
 		this.run = false;
 	}
 
@@ -73,6 +73,16 @@ function colony(numOrgs){
 		var org = new organism();
 		this.organism_list.push( org );
 		// org.addObserver(this);
+	}
+
+	this.getOrg = function(orgID){
+		return organism_list[orgID];
+	}
+
+	this.randAll = function(numLive){
+		for (org in organism_list){
+			org.randomize(numLive);
+		}
 	}
 
 }

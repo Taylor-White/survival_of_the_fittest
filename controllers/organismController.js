@@ -18,7 +18,6 @@ function organismController(org){
 		}
 	}
 
-
 	/* function for when user chooses random */
 	this.userRandState = function(){
 		this.currentOrg.randomize();
@@ -35,14 +34,14 @@ function organismController(org){
 	}
 
 	/* function for when the user wants to change the organism they are using */
-	this.changeSelectedOrg = function(org){
+	this.setSelectedOrg = function(org){
 		this.currentOrg = org;
 	}
 
 	/* function for when the organism changes from alive or dead */
 	this.stateChanged = function(){
 		matrix = State.getMatrix();
-		OrganismView.updateOrgCanvas(matrix);
+		this.orgView.update(matrix);
 	}
 
 }

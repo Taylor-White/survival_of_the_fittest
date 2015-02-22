@@ -41,7 +41,10 @@ function organismView(){
 				c.closePath();
 			}
 		}
-	}	
+	}
+
+	/* Register OnClicks */
+
 }
 /*
 function handleClick(e) {
