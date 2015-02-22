@@ -42,7 +42,7 @@ function colony(numOrgs){
 	this.run = function(){
 		this.run = true;
 		while(this.run){
-			this.runOnce();
+			this.runOneGen();
 		}
 	}
 
@@ -50,7 +50,7 @@ function colony(numOrgs){
 	continue stepping untill the organisms have reached lifetime */
 	this.runOneGen = function(){
 		this.run = true;
-		for(i=0; i< lifeTime; i++){
+		for(i=0; i< this.lifetime; i++){
 			// step each organism
 			for(i=0; i<this.organism_list.length; i++){
 				this.organism_list[i].step();

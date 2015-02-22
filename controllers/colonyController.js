@@ -58,12 +58,12 @@ function colonyController(orgCtr){
 
 	/* function for when the user wants to run the whole simulation out */
 	this.userRun = function(){
-		this.colony.runAll();
+		this.colony.run();
 	}
 
 	/* function for when the user wants to stop the simulation from stepping */
 	this.UserRunOneGen = function(){
-		this.colony.stepEndAll();
+		this.colony.runOneGen();
 	}
 
 	/* function for when the user wants to pause the simulation */
@@ -72,7 +72,7 @@ function colonyController(orgCtr){
 	}
 
 	this.userRand = function(){
-		this.colony.rand(3);
+		this.colony.rand(4);
 	}
 
 	this.colView.addObserver(this);
