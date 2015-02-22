@@ -4,8 +4,7 @@ View: ColonyView
 File owner: Kat
 */
 function colonyController(){
-	alert("Making Colony Controller");
-
+	console.log("creating Colony Controller");
 	this.colony = new colony(10);
 
 	/*	OBSERVER METHODS */

@@ -4,10 +4,10 @@ File owner: Xi
 */
 
 /* represents the colony class */
-function colony(population){
-	alert("Making a colony");
+function colony(numOrgs){
+	console.log("creating Colony");
 
-	this.population = population;
+	this.numOrgs = numOrgs;
 	this.organism_list = [];
 	this.lifetime = 20;
 	this.run = false;
@@ -69,7 +69,7 @@ function colony(population){
 
 	/* SETUP */
 	/* fill list of orgs */
-	for (var i=0; i<population; i++){
+	for (var i=0; i<numOrgs; i++){
 		var org = new organism();
 		this.organism_list.push( org );
 		// org.addObserver(this);

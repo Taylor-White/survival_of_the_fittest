@@ -7,16 +7,30 @@ var DEAD = 0;
 var ALIVE = 1;
 
 /* represents the organism "class" */
-function organism(numCols, numRows, initial){
-	alert("Making an org");
+function organism(numCols, numRows){
+	console.log("creating an Organism");
 
 	this.numCols = numCols;
 	this.numRows = numRows;
-	this.state = createMatrix(numCols, numRows, initial);
+	this.state = createMatrix(numCols, numRows, 0);
 	this.birthArray = [0, 0, 0, 1, 0, 0, 0, 0, 0];
 	this.sustainArray = [0, 0, 1, 1, 0, 0, 0, 0, 0]
 
 	this.age = 0;
+
+	/*	OBSERVABLE METHODS */
+	this.observers = [];
+	this.addObserver = function(observer){
+		this.observers.push(observer);	}
+	this.removeObserver = function(observer){
+		var numObs = this.observers.length;
+		for (var i=0; i<numObs; i++){
+			if (this.observers[i] === observer){
+				this.observers.splice(i,1);	}}}
+	this.notifyObservers = function(msg){
+		for (var i=0; i<numObs; i++){
+			this.observers[i].receiveMessage(this, msg);
+		}}
 
 	/* function for when the simulation should step the simulation */
 	this.step = function(){
@@ -36,6 +50,7 @@ function organism(numCols, numRows, initial){
 		}
 
 		this.state = nextState;
+		notifyObservers("StateChanged");
 		return;
 
 		function CalcNeighbours(r, c){
@@ -64,10 +79,12 @@ function organism(numCols, numRows, initial){
 					state[row][col] = 1; 
 			}
 		}
+		notifyObservers("StateChanged");
 	}
 
 	this.toggleCell = function(row, col){
 		state[row][col] = !state[row][col];
+		notiyfObservers("StateChanged");
 	}
 
 	this.clearState = function(){
@@ -76,6 +93,7 @@ function organism(numCols, numRows, initial){
 				state[row][col] = 0;
 			}
 		}
+		notifyObservers("StateChanged");
 	}
 
 	this.getMatrix = function(){
