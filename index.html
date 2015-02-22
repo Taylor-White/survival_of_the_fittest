@@ -4,10 +4,13 @@
     <title>Survival</title>
     <meta charset="utf-8">
     <script src="libraries/jquery.js"></script>
-    <script src="main.js"></script>
-    <script src="view/colonyView.js"></script>
     <script src="simulation/state.js"></script>
-     <script src="view/organismView.js"></script>
+    <script src="simulation/organism.js"></script>
+    <script src="simulation/colony.js"></script>
+    <script src="view/colonyView.js"></script>
+    <script src="controllers/colonyController.js"></script>
+    <script src="view/organismView.js"></script>
+    <script src="main.js"></script>
 	<link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css">
 	<script src="libraries/bootstrap/js/bootstrap.min.js"></script>
    
@@ -25,7 +28,8 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   </head>
-  <body onload="main()">
+  <body>
+  <script>main();</script>
   <div class="container">
     <div class="jumbotron">
   	   <h1>Welcome to Conway's Game of life!</h1>    

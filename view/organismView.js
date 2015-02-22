@@ -48,4 +48,4 @@ function handleClick(e) {
     c.fillRect(Math.floor(e.offsetX/10)*10,
                Math.floor(e.offsetY/10)*10,
                10, 10);
-}
+} */

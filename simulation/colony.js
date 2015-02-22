@@ -18,12 +18,13 @@ function colony(population){
 		this.observers.push(observer);	}
 	this.removeObserver = function(observer){
 		var numObs = this.observers.length;
-		for (int i=0; i<numObs; i++){
+		for (var i=0; i<numObs; i++){
 			if (this.observers[i] === observer){
 				this.observers.splice(i,1);	}}}
 	this.notifyObservers = function(msg){
-		for (int i=0; i<numObs; i++){
-			this.observers.[i].receiveMessage(this, msg);	}
+		for (var i=0; i<numObs; i++){
+			this.observers[i].receiveMessage(this, msg);
+		}}
 
 
 	/* STEPPING & RUNNING METHODS */
@@ -68,7 +69,7 @@ function colony(population){
 
 	/* SETUP */
 	/* fill list of orgs */
-	for (int i=0; i<population; i++){
+	for (var i=0; i<population; i++){
 		var org = new organism();
 		this.organism_list.push( org );
 		// org.addObserver(this);

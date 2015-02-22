@@ -15,9 +15,9 @@ function colonyController(){
 	}
 
 
-	/* USER ACTIONS*/
-	/* function for when user chooses an organism*/
-	this.userSelectOrg = function(int orgID){
+	/* USER ACTIONS */
+	/* function for when user chooses an organism */
+	this.userSelectOrg = function(orgID){
 		/*orgID = get orgModel*/
 		/*organismController.changeOrg(orgID);
 			^^ NEED TO ADD THIS WITH OBSERVER
@@ -43,7 +43,9 @@ function colonyController(){
 	this.userPause = function(){
 		colony.pause();
 	}
+}
 
-
+function eu(){
+	alert("eu");
 }
 

@@ -7,13 +7,8 @@ File owner: Jared
 /* Constructor */
 function organismController(org){
 	alert("Making an orgCtr");
-	this.org = org;
-	this.x = x;
+	this.currentOrg = org;
 
-	this.y = y;
-	this.aoeu = function myFunction(){
-	    document.getElementById("demo").innerHTML = this.x + ", " + this.y;
-	};
 }
 
 /*

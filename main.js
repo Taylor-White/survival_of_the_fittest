@@ -1,9 +1,5 @@
 function main(){
-	alert("Page Loaded");
-
-	// create colonycontroller
-	// create orgcontroller
-
+	colonyController = new colonyController();
 	
-
+	// create orgcontroller
 }
