@@ -4,8 +4,10 @@
     <title>Survival</title>
     <meta charset="utf-8">
   <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="libraries/bootstrap/css/custom.css">
     <script src="libraries/jquery.js"></script>
   <script src="libraries/bootstrap/js/bootstrap.min.js"></script>
+
    
     
 
@@ -18,7 +20,7 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   </head>
-  <body>
+  <body onload="$( document ).ready(main());">
 
   <div class="container">
     <div class="jumbotron">
@@ -60,31 +62,29 @@
     </div>
   
     <div class="row">    
-     <div class="btn-group">
-       <button type="button" class="btn btn-default mini-org">1</button>
-       <button type="button" class="btn btn-default mini-org">2</button>
-       <button type="button" class="btn btn-default mini-org">3</button>
-       <button type="button" class="btn btn-default mini-org">4</button>
-       <button type="button" class="btn btn-default mini-org">5</button>
-       <button type="button" class="btn btn-default mini-org">6</button>
-       <button type="button" class="btn btn-default mini-org">7</button>
-       <button type="button" class="btn btn-default mini-org">8</button>
-       <button type="button" class="btn btn-default mini-org">9</button>
-       <button type="button" class="btn btn-default mini-org">10</button>
+     <div class="btn-group colony-group">
+       <button type="button" id="mo1" class="btn btn-default mini-org">1</button>
+       <button type="button" id="mo2" class="btn btn-default mini-org">2</button>
+       <button type="button" id="mo3" class="btn btn-default mini-org">3</button>
+       <button type="button" id="mo4" class="btn btn-default mini-org">4</button>
+       <button type="button" id="mo5" class="btn btn-default mini-org">5</button>
+       <button type="button" id="mo6" class="btn btn-default mini-org">6</button>
+       <button type="button" id="mo7" class="btn btn-default mini-org">7</button>
+       <button type="button" id="mo8" class="btn btn-default mini-org">8</button>
+       <button type="button" id="mo9" class="btn btn-default mini-org">9</button>
+       <button type="button" id="mo10" class="btn btn-default mini-org">10</button>
      </div>
   </div>
   
     <div class="row"> 
      <div class="btn-group btn-group-lg">
        <button type="button" class="btn btn-default">Run</button>
-       <button type="button" id="rand" class="btn btn-default" onClick="step();">Step</button>
-       <button type="button" class="btn btn-default">Pause</button>
-       <button type="button" class="btn btn-default">End of Run</button>
-       <button type="button" class="btn btn-default">Reset Run</button>
-       <button type="button" class="btn btn-default">Speed</button>
-       <button type="button" class="btn btn-default">Save Seed</button>
-       <button type="button" class="btn btn-default">Load Seed</button>
-       <button type="button" class="btn btn-default">Create Seed</button>
+       <button type="button" id="step" class="btn btn-default">Step</button>
+       <button type="button" id="pause" class="btn btn-default">Pause</button>
+       <button type="button" id="run-to-end" class="btn btn-default">Run 1 Lifetime</button>
+       <button type="button" id="reset" class="btn btn-default">Reset Run</button>
+       <button type="button" id="save" class="btn btn-default">Save Seed</button>
+       <button type="button" id="load" class="btn btn-default">Load Seed</button>
        <button type="button" id="rand" class="btn btn-default">Random Seed </button> 
        
    
@@ -95,16 +95,15 @@
     
   
     <script src="simulation/organism.js"></script>
-    <script src="view/organismView.js"></script>
-    <script src="controllers/organismController.js"></script>
     <script src="simulation/colony.js"></script>
     <script src="view/colonyView.js"></script>
+    <script src="view/organismView.js"></script>
+    <script src="controllers/organismController.js"></script>
     <script src="controllers/colonyController.js"></script>
     <script src="main.js"></script>
     <script src="view/save.js"></script>
     <script src="view/settings.js"></script>
     <script src="view/stats.js"></script>
-    <script>main();</script>
   </body>
 </html>
 

@@ -17,6 +17,7 @@ function colony(numOrgs){
 	this.addObserver = function(observer){
 		this.observers.push(observer);	}
 	this.removeObserver = function(observer){
+		if (this.observers.length == 0){return;}
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			if (this.observers[i] === observer){
@@ -67,24 +68,24 @@ function colony(numOrgs){
 	}
 
 
-	/* SETUP */
-	/* fill list of orgs */
-	for (var i=0; i<numOrgs; i++){
-		var org = new organism();
-		this.organism_list.push( org );
-		// org.addObserver(this);
-	}
 
 	this.getOrg = function(orgID){
-		return organism_list[orgID];
+		return this.organism_list[orgID-1];
 	}
 
 	this.randAll = function(numLive){
-		for (org in organism_list){
+		for (org of this.organism_list){
 			org.randomize(numLive);
 		}
 	}
 
+	/* SETUP */
+	/* fill list of orgs */
+	for (var i=0; i<numOrgs; i++){
+		var org = new organism(50,50);
+		this.organism_list.push( org );
+		// org.addObserver(this);
+	}
 }
 
 

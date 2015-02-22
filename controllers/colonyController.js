@@ -14,8 +14,10 @@ function colonyController(orgCtr){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
+		console.log("colonyController received "+ msg + " from " + observable);
 		// If msg == "steppedAll" 
 	}
+
 
 
 	/* USER ACTIONS */
@@ -52,5 +54,12 @@ function colonyController(orgCtr){
 		colony.pause();
 	}
 
-	
+	this.userRandAll = function(){
+		colony.randAll(3);
+	}
+
+	this.colView.addObserver(this);
+	this.colView.selectOrg(1);
+	this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
+	this.colony.randAll(2);
 }
