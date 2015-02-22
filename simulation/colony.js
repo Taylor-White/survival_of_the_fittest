@@ -2,83 +2,61 @@
 Organisms: list of Organisms
 File owner: Xi
 */
-boolean run = true;
-int lifeTime = 20;
-var organism_list;
 
+/* represents the colony class */
+function colony(pop){
+	alert("Making a colony");
 
-// create an empty list of organism objs
-function OrganismList(){
-  organism_list = [];
-}
- 
-// add new obj to the list
-function OrganismList_add( organism_obj ){
-  return this.organism_list.push( organism_obj );
-};
- 
-// OrganismList.prototype.count = function(){
-//   return this.OrganismList.length;
-// };
- 
-// OrganismList.prototype.get = function( index ){
-//   if( index > -1 && index < this.OrganismList.length ){
-//     return this.OrganismList[ index ];
-//   }
-// };
- 
-// OrganismList.prototype.indexOf = function( obj, startIndex ){
-//   var i = startIndex;
- 
-//   while( i < this.OrganismList.length ){
-//     if( this.OrganismList[i] === obj ){
-//       return i;
-//     }
-//     i++;
-//   }
- 
-//   return -1;
-// };
- 
-// OrganismList.prototype.removeAt = function( index ){
-//   this.OrganismList.splice( index, 1 );
-// };
+	this.organism_list = [];
+	this.lifetime = 20;
+	this.run = false;
 
-/* function for when the simulation should step all the parts of the simulation*/
-function stepAll()
-{
-	for( i=0; i<organism_list.length; i++){
-		organism_list[i].step();
+	/* fill list of orgs */
+	for (i=0; i<pop; i++){
+		this.organism_list.push( new organism() );
 	}
-}
 
-/* function for when the simulation should continue to run out the simulation*/
-function runAll()
-{
-	run = true;
-	while(run){
-		stepEndAll();
+	/* method for when the simulation should step 
+	all the organisms in the simulation one time */
+	this.stepAll = function(){
+		for( i=0; i<this.organism_list.length; i++){
+			this.organism_list[i].step();
+		}
 	}
+
+	/* method for when the simulation should continue to run out the simulation*/
+	this.runAll = function(){
+		this.run = true;
+		while(this.run){
+			this.stepEndAll();
+		}
+	}
+
+	/* method for when the simulation should
+	continue stepping untill the organisms have reached lifetime */
+	this.stepEndAll = function(){
+		this.run = true;
+		for(i=0; i< lifeTime; i++){
+			// step each organism
+			for(i=0; i<this.organism_list.length; i++){
+				this.organism_list[i].step();
+			}
+			if(this.run == false)
+			{
+				break		
+			}
+		}	
+	}
+
+	/* method for the simulation to pause */
+	function pause(){
+		this.run = false;
+	}
+
+	/*	OBSERVABLE METHODS
+
+	*/
+
 }
 
-/* function for when the simulation should stop stepping the simulation*/
-function stepEndAll()
-{
-	run = true;
-	for(i=0; i< lifeTime; i++){
-		// step each organism
-		for(i=0; i<organism_list.length; i++){
-			organism_list[i].step();
-		}
-		if(run == false)
-		{
-			break		
-		}
-	}	
-}
 
-/* function for the simulation to pause */
-function pause()
-{
-	run = false;
-}

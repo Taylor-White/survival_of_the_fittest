@@ -3,20 +3,24 @@ State: State
 File owner:
 */
 
-/* function for when the simulation should step the simulation */
-function step()
-{
+/* represents the organism "class" */
+function organism(){
+	alert("Making an org");
 
-}
+	this.age = 0;
 
-/* function for the coordinates of the organism */
-function toggleCell(int x, int y)
-{
+	/* function for when the simulation should step the simulation */
+	this.step = function(){
 
-}
+	}
 
-/* function to clear the organism */
-function clearOrganism()
-{
+	/* function for the coordinates of the organism */
+	this.toggleCell = function(x,y){
 
+	}
+
+	/* function to clear the organism */
+	this.clearOrginism = function(){
+
+	}
 }

@@ -4,6 +4,18 @@ View: OrganismView
 File owner: Jared
 */
 
+/* Constructor */
+function organismController(org){
+	alert("Making an orgCtr");
+	this.org = org;
+	this.x = x;
+
+	this.y = y;
+	this.aoeu = function myFunction(){
+	    document.getElementById("demo").innerHTML = this.x + ", " + this.y;
+	};
+}
+
 /*
 OBSERVER FUNCTIONS
 - receiveMessage(observable, msg): parses the message passed and decides how to handle it
@@ -39,4 +51,3 @@ function stateChanged()
 	matrix = State.getMatrix();
 	OrganismView.updateOrgCanvas(matrix);
 }
-
