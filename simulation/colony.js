@@ -7,17 +7,36 @@ File owner: Xi
 function colony(pop){
 	alert("Making a colony");
 
+
 	this.organism_list = [];
 	this.lifetime = 20;
 	this.run = false;
+
+	/*	OBSERVABLE METHODS
+		addObserver(obs)
+		removeObserver(obs)
+		notify()
+	*/
+
+	this.observers = [];
+
+	this.addObserver = function(observer){
+		this.observers.push(observer);
+	}
+
+
 
 	/* fill list of orgs */
 	for (i=0; i<pop; i++){
 		this.organism_list.push( new organism() );
 	}
 
-	/* method for when the simulation should step 
-	all the organisms in the simulation one time */
+
+
+
+
+	/* 	method for when the simulation should step 
+		all the organisms in the simulation one time */
 	this.stepAll = function(){
 		for( i=0; i<this.organism_list.length; i++){
 			this.organism_list[i].step();
@@ -52,10 +71,6 @@ function colony(pop){
 	function pause(){
 		this.run = false;
 	}
-
-	/*	OBSERVABLE METHODS
-
-	*/
 
 }
 
