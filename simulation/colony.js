@@ -32,23 +32,23 @@ function colony(numOrgs){
 
 	/* 	method for when the simulation should step 
 		all the organisms in the simulation one time */
-	this.stepAll = function(){
+	this.step = function(){
 		for( i=0; i<this.organism_list.length; i++){
 			this.organism_list[i].step();
 		}
 	}
 
 	/* method for when the simulation should continue to run out the simulation*/
-	this.runAll = function(){
+	this.run = function(){
 		this.run = true;
 		while(this.run){
-			this.stepEndAll();
+			this.runOnce();
 		}
 	}
 
 	/* method for when the simulation should
 	continue stepping untill the organisms have reached lifetime */
-	this.stepEndAll = function(){
+	this.runOneGen = function(){
 		this.run = true;
 		for(i=0; i< lifeTime; i++){
 			// step each organism
@@ -73,7 +73,7 @@ function colony(numOrgs){
 		return this.organism_list[orgID-1];
 	}
 
-	this.randAll = function(numLive){
+	this.rand = function(numLive){
 		for (org of this.organism_list){
 			org.randomize(numLive);
 		}

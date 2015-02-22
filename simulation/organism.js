@@ -38,29 +38,30 @@ function organism(numCols, numRows){
 		var nextState = createMatrix(this.numRows, this.numCols, 0);
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
-				neighbours = CalcNeighbours(row, col);
+				neighbours = CalcNeighbours(this.state, row, col);
 				if(this.state[row,col] == ALIVE){
 					if(this.sustainArray[neighbours] == 1){
 						nextState[row,col] = ALIVE;
 					}
-				} else if (birthArray[neighbours] == 1) {
+				} else if (this.birthArray[neighbours] == 1) {
 					nextState[row,col] = ALIVE;
 				}
 			}
 		}
 		this.state = nextState;
-		notifyObservers("StateChanged");
+		this.notifyObservers("StateChanged");
 		return;
 
-		function CalcNeighbours(r, c){
+		function CalcNeighbours(s, r, c){
 			var total = 0;
-			if(this.state[r][c] == 1)
+			if(s[r][c] == 1){
 				total--;
+			}
 			for (var h = -1; h <= 1; h++) {
     		    for (var w = -1; w <= 1; w++) {
 				  if((r+h >= ROWS) || (c+w >= COLUMNS) || (r+h < 0) || (c+w < 0)){
 				  }	else{
-					  if (this.state[r+h][c+w] !== DEAD) {
+					  if (s[r+h][c+w] !== DEAD) {
 						total++;
 					  }
 				  } 
@@ -72,6 +73,7 @@ function organism(numCols, numRows){
 
 	this.randomize = function(numLive){
 		console.log("randomizing");
+		this.clearState();
 		for (var row = 0; row < this.numRows; row++) {
 			for (var col = 0; col < this.numCols; col++) {
 				var i = Math.floor(Math.random() * numLive);
@@ -84,7 +86,7 @@ function organism(numCols, numRows){
 
 	this.toggleCell = function(row, col){
 		state[row][col] = !state[row][col];
-		notiyfObservers("StateChanged");
+		this.notiyfObservers("StateChanged");
 	}
 
 	this.clearState = function(){
@@ -93,7 +95,7 @@ function organism(numCols, numRows){
 				this.state[row][col] = 0;
 			}
 		}
-		notifyObservers("StateChanged");
+		this.notifyObservers("StateChanged");
 	}
 
 	this.getMatrix = function(){
@@ -123,4 +125,17 @@ function organism(numCols, numRows){
 	}
 
 	this.initState(numRows, numCols, 0);
+}
+
+/* Creates and returns a matrix filled with a passed in value. Usually 0 */
+function createMatrix(m, n, initial){
+	mat = [m];
+	for (var i = 0; i < m; i += 1) {
+		var a = [];
+		for (var j = 0; j < n; j += 1) {
+			a[j] = initial;
+		}
+		mat[i]= a;
+	}
+	return mat;
 }

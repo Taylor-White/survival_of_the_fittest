@@ -15,7 +15,21 @@ function colonyController(orgCtr){
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
 		console.log("colonyController received "+ msg + " from " + observable);
-		// If msg == "steppedAll" 
+		if (msg == "UserRand"){
+			this.userRand();
+		} else if (msg == "UserStep"){
+			this.userStep();
+		} else if (msg == "UserRun"){
+			this.userRun();
+		} else if (msg == "UserPause"){
+			this.userPause();
+		} else if (msg == "UserRunOneGen"){
+			this.userRunOneGen();
+		} else if (msg == "UserResetCol"){
+			this.userResetCol();
+		}
+
+
 	}
 
 
@@ -35,31 +49,31 @@ function colonyController(orgCtr){
 	}
 
 	/* function for when the user chooses to step the simulation */
-	this.userStepAll = function(){
-		colony.stepAll();
+	this.userStep = function(){
+		this.colony.step();
 	}
 
 	/* function for when the user wants to run the whole simulation out */
-	this.userRunAll = function(){
-		colony.runAll();
+	this.userRun = function(){
+		this.colony.runAll();
 	}
 
 	/* function for when the user wants to stop the simulation from stepping */
-	this.UserStepEndAll = function(){
-		colony.stepEndAll();
+	this.UserRunOneGen = function(){
+		this.colony.stepEndAll();
 	}
 
 	/* function for when the user wants to pause the simulation */
 	this.userPause = function(){
-		colony.pause();
+		this.colony.pause();
 	}
 
-	this.userRandAll = function(){
-		colony.randAll(3);
+	this.userRand = function(){
+		this.colony.rand(3);
 	}
 
 	this.colView.addObserver(this);
 	this.colView.selectOrg(1);
 	this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
-	this.colony.randAll(2);
+	this.colony.rand(3);
 }

@@ -34,17 +34,18 @@ function organismController(){
 
 	/* function for when the user wants to change the organism they are using */
 	this.setSelectedOrg = function(org){
+		console.log("SETSELSANTOEHUSRARCOEUB");
 		if (this.org){
 			this.org.removeObserver(this);
 		}
 		this.org = org;
 		this.org.addObserver(this);
+		this.orgView.update(this.org.getMatrix());
 	}
 
 	/* function for when the organism changes from alive or dead */
 	this.stateChanged = function(){
-		var matrix = this.org.getMatrix();
-		this.orgView.update(matrix);
+		this.orgView.update(this.org.getMatrix());
 	}
 
 
