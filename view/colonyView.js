@@ -25,7 +25,6 @@ function colonyView(){
 			this.observers[i].receiveMessage(this, msg);
 		}}
 
-
 	this.selectOrg = function(orgID){
 		console.log("ORG " + orgID + " SELECTED");
 		var oldID = this.currOrgID;
@@ -35,6 +34,9 @@ function colonyView(){
 		$( "#mo" + orgID).css("border", "6px solid red");
 
 		this.notifyObservers("OrgSelected" + orgID);
+	}
+	this.updateGenCount = function(gens){
+		$("#gens").html("Generation: " + gens);
 	}
 	this.prepAfterLoad = function(cv){
 		$( ".mini-org" ).click(function(event){
@@ -66,6 +68,7 @@ function colonyView(){
 		$( "#reset" ).click(function(event){
 			cv.notifyObservers("UserResetCol");
 		});
+
 
 	}
 	$(document).ready(this.prepAfterLoad(this));

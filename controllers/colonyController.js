@@ -34,6 +34,8 @@ function colonyController(orgCtr){
 			this.colony.viewReady();
 		} else if (msg == "RunFlagChange"){
 			this.runFlagChange();
+		} else if (msg == "GenDone"){
+			this.genDone(observable.gens);
 		}
 
 
@@ -57,6 +59,7 @@ function colonyController(orgCtr){
 
 	/* function for when the user chooses to step the simulation */
 	this.userStep = function(){
+		this.colony.setRunning(false);
 		if (err = this.colony.step(this.colony)){
 			alert(this.colony.errToString(err));
 		}
@@ -70,7 +73,8 @@ function colonyController(orgCtr){
 
 	/* function for when the user wants to stop the simulation from stepping */
 	this.userRunOneGen = function(){
-		if (err = this.colony.runOneGen(this.colony)){
+		this.colony.shouldAdvanceGen = false;
+		if (err = this.colony.runOneGen()){
 			alert(this.colony.errToString(err));
 		}
 	}
@@ -92,11 +96,15 @@ function colonyController(orgCtr){
 	this.runFlagChange = function(){
 
 	}
+	this.genDone = function(gens){
+		this.colView.updateGenCount(gens);
+	}
 
 	this.colView.addObserver(this);
 	this.orgCtr.addObserver(this);
 	this.colony.addObserver(this);
 	this.colView.selectOrg(1);
+	this.colView.updateGenCount(this.colony.gens);
 	this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
 	this.colony.rand(3);
 }

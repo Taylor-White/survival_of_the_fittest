@@ -9,6 +9,7 @@ function colony(numOrgs){
 
 	/* Colony Properties */
 	this.age = 0;
+	this.gens = 0;
 	this.lifetime = 50;
 
 	/* Org stuff */
@@ -20,7 +21,7 @@ function colony(numOrgs){
 	this.running = false;
 	this.isOrgsReady = false;
 	this.isViewReady = false;
-	this.shouldAdvanceGen = false;
+	this.shouldAdvanceGen = true;
 	// this.isGenReady = true;
 
 	/*	OBSERVABLE METHODS */
@@ -62,6 +63,7 @@ function colony(numOrgs){
 		console.log("Colony just turned " + this.age);
 		if (this.age >= this.lifetime){
 			this.pause();
+			this.genDone();
 		}
 	}
 
@@ -83,6 +85,7 @@ function colony(numOrgs){
 		console.log("Resetting Colony");
 		this.pause();
 		this.age = 0;
+		this.gens = 0;
 		this.clearCheckinList();
 		for (org of this.organism_list){
 			org.age = 0;
@@ -156,17 +159,21 @@ function colony(numOrgs){
 
 	/* method for when the simulation should continue to run out the simulation*/
 	this.run = function(){
-		this.setRunning(true);
-		while(this.running){
-			console.log('SNATOHEU');
-			this.runOneGen();
+		this.shouldAdvanceGen = true;
+		if (this.age == this.lifetime){
+			this.genDone();
+			return;
 		}
+		this.runOneGen();
 	}
 
 	/* method for when the simulation should
 	continue stepping untill the organisms have reached lifetime */
 	this.runOneGen = function(){
-		if (!this.running){			// if not running
+		// this.shouldAdvanceGen = false;
+		if (this.running){
+			this.shouldAdvanceGen = false;
+		} else {			// if not running
 			if (this.age >= this.lifetime){
 				/* error code 1: Can't step past lifetime*/
 				return 1;
@@ -186,9 +193,15 @@ function colony(numOrgs){
 
 
 	this.genDone = function(){
+		console.log("Gen Done");
+		this.gens++;
 		this.pause();
 		this.clearCheckinList();
-
+		this.notifyObservers("GenDone");
+		if(this.shouldAdvanceGen){
+			this.resetCol();
+			this.runOneGen();
+		}
 	}
 
 	/* method for the simulation to pause */

@@ -44,8 +44,6 @@ function organismView(){
 			}
 		}
 
-
-
 		callback(context);
 	}
 
