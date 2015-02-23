@@ -71,46 +71,47 @@ function colony(numOrgs){
 		}
 	}
 
+	/* reset colony
+		currently randomizes */
 	this.resetCol = function(){
 		console.log("Resetting Colony");
 		this.pause();
-		this.age = 0;
-		this.gens = 0;
-		this.clearCheckinList();
+		this.age = 0;	// reset age counter
+		this.gens = 0;	// reset generation counter
+		this.clearCheckinList();	// clear checkin list
 		for (org of this.organism_list){
-			org.age = 0;
+			org.age = 0;	// reset each org's age
 		}
-		this.rand(10);
+		this.rand(10);		// randomize each org
 	}
 
+	/* clearing the Organism Check-in List */
 	this.clearCheckinList = function(){
 		console.log("Clearing CheckIn List");
 		for (var i = 0; i < this.checkin_list.length; i++){
-			this.checkin_list[i] = false;
+			this.checkin_list[i] = false;	// set each in list to false
 		}
-		this.isOrgsReady = false;
+		this.isOrgsReady = false;	// reset Orgs ready flag
 	}
 
+	/* Handler for when an org changes state
+		*/
+
 	this.orgStateChanged = function(orgID){
+		/* check the Org in */
 		this.checkin_list[orgID-1] = true;
 		console.log("Org " + orgID + " checking in");
 		console.log("CheckIn List " + this.checkin_list);
-		/* if there's an org that's still not ready, return */
+
+		/* See if all orgs have checked in */
 		for (var i = 0; i < this.checkin_list.length; i++){
 			if (this.checkin_list[i] == false){
-				return;
+				return;		// an Org still needs to check in
 			}
 		}
-		/* if all orgs are ready
-				clear the checkin list
-				mark ready
-		*/
+		/* All orgs are ready */
 		console.log("ALL ORGS READY");
 		this.orgsReady();
-		/*if (this.running){
-		}*/
-		// this.isReady = true;
-		// this.ready();
 	}
 
 
@@ -225,28 +226,30 @@ function colony(numOrgs){
 		this.setRunning(false);
 	}
 
-	/* if view is ready too, then colony is ready */
 	this.orgsReady = function(){
-		this.isOrgsReady = true;
-		if (this.isViewReady && this.running){
-			this.ready();
+		this.isOrgsReady = true;	// set orgs ready flag
+		if (this.isViewReady && this.running){ 	// If view and orgs are ready
+			this.ready();						// trigger ready function
 		}
 	}
 
-	/* if orgs are ready too, then colony is ready */
 	this.viewReady = function(){
-		this.isViewReady = true;
-		if (this.isOrgsReady && this.running){
-			this.ready();
+		this.isViewReady = true;	// set view ready flag
+		if (this.isOrgsReady && this.running){	// If view and orgs are ready
+			this.ready();						// trigger ready function
 		}
 	}
 
 	this.setRunning = function(flag){
 		console.log("Setting run to " + flag);
-		this.running = flag;
-		this.notifyObservers("RunFlagChange");
+		this.running = flag;	// set run flag
+		this.notifyObservers("RunFlagChange");	// notify Observers
 	}
 
+	/* this.ready
+			called when both view and orgs are ready 
+			
+	*/
 	this.ready = function(){
 		var col = this;
 		console.log("READY ColAge: " + col.age);
