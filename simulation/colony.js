@@ -57,16 +57,6 @@ function colony(numOrgs){
 		}
 	}
 
-	/* Increment the Colony's Age */
-	this.incAge = function(){
-		this.age++;
-		console.log("Colony just turned " + this.age);
-		if (this.age >= this.lifetime){
-			this.pause();
-			this.genDone();
-		}
-	}
-
 	/* Get an organism by it's orgID */
 	this.getOrg = function(orgID){
 		return this.organism_list[orgID-1];
@@ -127,8 +117,14 @@ function colony(numOrgs){
 	/* Run Control Stuff */
 	/* STEPPING & RUNNING METHODS */
 
-	/* 	method for when the simulation should step 
-		all the organisms in the simulation one time */
+	/*	this.step takes an instance of a colony
+	*		because later step() is passed to a
+	*		different function and it needs to
+	*		keep a reference to this colony
+	*	Where is this.step called?
+	*		this.runOneGen	-- From not running
+	*		this.ready		-- From running
+	*/
 	this.step = function(col){
 		// console.log("COLONY STARTING TO STEP");
 		// console.log("                   col: " + col);
@@ -146,7 +142,6 @@ function colony(numOrgs){
 
 		/* step each org */
 		for(var i = 0; i<col.organism_list.length; i++){
-
 			console.log("");
 			console.log("COLONY Age("+col.age+") STEPPING Org " + (i + 1));
 			console.log("------------------- ");
@@ -154,14 +149,27 @@ function colony(numOrgs){
 		}
 
 		/* increment age */
-		col.incAge();
+		col.age++;
+		console.log("Colony just turned " + col.age);
+		/* "Grim Reaper" -- check if the colony members should die */
+		if (col.age >= col.lifetime){
+			col.pause();
+			col.genDone();	// generation done function
+		}
+
 	}
 
-	/* method for when the simulation should continue to run out the simulation*/
+	/* 	method for when the simulation should continue 
+		to run through multiple **generations of organisms
+			** this is not to be confused with states. 
+	*/
 	this.run = function(){
+		/* set the flag for whether the generation should
+			automatically advance when it reaches the end of life. */
 		this.shouldAdvanceGen = true;
-		if (this.age == this.lifetime){
-			this.genDone();
+		/* Grim Reaper */
+		if (this.age == this.lifetime){	// if it's time to die...
+			this.genDone();				// kill them
 			return;
 		}
 		this.runOneGen();
@@ -191,7 +199,8 @@ function colony(numOrgs){
 		}
 	}
 
-
+	/* handles the generation completing
+		in other words when col.age == lifetime */
 	this.genDone = function(){
 		console.log("Gen Done");
 		this.gens++;
@@ -199,9 +208,13 @@ function colony(numOrgs){
 		this.clearCheckinList();
 		this.notifyObservers("GenDone");
 		if(this.shouldAdvanceGen){
-			this.resetCol();
-			this.runOneGen();
+			this.evolve();
 		}
+	}
+
+	this.evolve = function(){
+		this.resetCol();
+		this.runOneGen();
 	}
 
 	/* method for the simulation to pause */
