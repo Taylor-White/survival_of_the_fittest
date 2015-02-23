@@ -30,6 +30,10 @@ function colonyController(orgCtr){
 		} else if (msg.substring(0,11) == "OrgSelected"){
 			var orgID = parseInt(msg.substring(11, msg.length));	
 			this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
+		} else if (msg == "ViewReady"){
+			this.colony.viewReady();
+		} else if (msg == "RunFlagChange"){
+			this.runFlagChange();
 		}
 
 
@@ -53,7 +57,7 @@ function colonyController(orgCtr){
 
 	/* function for when the user chooses to step the simulation */
 	this.userStep = function(){
-		this.colony.step();
+		this.colony.ready();
 	}
 
 	/* function for when the user wants to run the whole simulation out */
@@ -62,7 +66,7 @@ function colonyController(orgCtr){
 	}
 
 	/* function for when the user wants to stop the simulation from stepping */
-	this.UserRunOneGen = function(){
+	this.userRunOneGen = function(){
 		this.colony.runOneGen();
 	}
 
@@ -75,7 +79,18 @@ function colonyController(orgCtr){
 		this.colony.rand(4);
 	}
 
+	/* function for when the user wants to pause the simulation */
+	this.userReset = function(){
+		this.colony.resetCol();
+	}
+
+	this.runFlagChange = function(){
+
+	}
+
 	this.colView.addObserver(this);
+	this.orgCtr.addObserver(this);
+	this.colony.addObserver(this);
 	this.colView.selectOrg(1);
 	this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
 	this.colony.rand(3);

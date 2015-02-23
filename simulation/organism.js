@@ -7,9 +7,10 @@ var DEAD = 0;
 var ALIVE = 1;
 
 /* represents the organism "class" */
-function organism(numCols, numRows){
+function organism(orgID, numCols, numRows){
 	console.log("creating an Organism");
 
+	this.orgID = orgID;
 	this.numCols = numCols;
 	this.numRows = numRows;
 	this.birthArray = [0, 0, 0, 1, 0, 0, 0, 0, 0];
@@ -22,6 +23,7 @@ function organism(numCols, numRows){
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
+
 	this.addObserver = function(observer){
 		this.observers.push(observer);	}
 	this.removeObserver = function(observer){
@@ -35,11 +37,24 @@ function organism(numCols, numRows){
 			this.observers[i].receiveMessage(this, msg);
 		}}
 
+	this.startStep = function(callback){
+
+	}
+
+	this.incAge = function(){
+		this.age++;
+		console.log("	Org " + this.orgID + " just turned " + this.age);
+	}
+
+	this.setOrgID = function(ID){
+		this.orgID = ID;
+	}
+
 	/* function for when the simulation should step the simulation */
 	this.step = function(){
-		this.age++;
+		this.incAge();
 		var nextState = createMatrix(this.numRows, this.numCols, 0);
-		console.log("next: " + nextState);
+		console.log("	stepping org " + this.orgID);
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
 				neighbours = CalcNeighbours(this.state, row, col);
@@ -61,7 +76,7 @@ function organism(numCols, numRows){
 				}
 			}
 		}
-		console.log("next: " + nextState);
+		// console.log("next: " + nextState);
 		this.state = nextState;
 		this.notifyObservers("StateChanged");
 		return;
@@ -114,7 +129,7 @@ function organism(numCols, numRows){
 	}
 
 	this.getMatrix = function(){
-		console.log("Getting Matrix: " + this.state);
+		// console.log("Getting Matrix: " + this.state);
 		return this.state;
 	}
 

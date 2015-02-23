@@ -56,7 +56,11 @@ function colonyView(){
 		});
 
 		$( "#run-one-gen" ).click(function(event){
-			cv.notifyObservers("UserRun");
+			cv.notifyObservers("UserRunOneGen");
+		});
+
+		$( "#pause" ).click(function(event){
+			cv.notifyObservers("UserPause");
 		});
 
 	}

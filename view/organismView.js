@@ -19,10 +19,9 @@ function organismView(){
 	console.log("creating Organism View");
 
 	/* function to update the organism on the canvas */
-	this.update = function(state){
+	this.update = function(callback, context, state){
 		console.log("updating org view canvas");
-		console.log("state[0][0]: " + state[0][0]);
-
+		// console.log("state[0][0]: " + state[0][0]);
 
 		var c = this.canvas;
 		c.fillStyle = COLOR_ALIVE;
@@ -44,8 +43,7 @@ function organismView(){
 				c.closePath();
 			}
 		}
-		/*
-		*/
+		callback(context);
 	}
 
 	/* Register OnClicks */

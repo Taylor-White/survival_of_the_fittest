@@ -9,6 +9,23 @@ function organismController(){
 	console.log("creating Organism Controller");
 	this.orgView = new organismView();
 
+
+	/*	OBSERVABLE METHODS */
+	this.observers = [];
+
+	this.addObserver = function(observer){
+		this.observers.push(observer);	}
+	this.removeObserver = function(observer){
+		var numObs = this.observers.length;
+		for (var i=0; i<numObs; i++){
+			if (this.observers[i] === observer){
+				this.observers.splice(i,1);	}}}
+	this.notifyObservers = function(msg){
+		var numObs = this.observers.length;
+		for (var i=0; i<numObs; i++){
+			this.observers[i].receiveMessage(this, msg);
+		}}
+
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
@@ -40,12 +57,17 @@ function organismController(){
 		}
 		this.org = org;
 		this.org.addObserver(this);
-		this.orgView.update(this.org.getMatrix());
+		this.orgView.update(this.viewReady, this, this.org.getMatrix());
 	}
 
 	/* function for when the organism changes from alive or dead */
 	this.stateChanged = function(){
-		this.orgView.update(this.org.getMatrix());
+		console.log();
+		this.orgView.update(this.viewReady, this, this.org.getMatrix());
+	}
+
+	this.viewReady = function(context){
+		context.notifyObservers("ViewReady");
 	}
 
 
