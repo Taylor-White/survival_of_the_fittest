@@ -9,7 +9,7 @@ function colony(numOrgs){
 
 	/* Colony Properties */
 	this.age = 0;
-	this.lifetime = 20;
+	this.lifetime = 50;
 
 	/* Org stuff */
 	this.numOrgs = numOrgs;
@@ -20,6 +20,7 @@ function colony(numOrgs){
 	this.running = false;
 	this.isOrgsReady = false;
 	this.isViewReady = false;
+	this.shouldAdvanceGen = false;
 	// this.isGenReady = true;
 
 	/*	OBSERVABLE METHODS */
@@ -82,16 +83,19 @@ function colony(numOrgs){
 		console.log("Resetting Colony");
 		this.pause();
 		this.age = 0;
+		this.clearCheckinList();
 		for (org of this.organism_list){
 			org.age = 0;
 		}
-		this.rand(5);
+		this.rand(10);
 	}
 
 	this.clearCheckinList = function(){
+		console.log("Clearing CheckIn List");
 		for (var i = 0; i < this.checkin_list.length; i++){
 			this.checkin_list[i] = false;
 		}
+		this.isOrgsReady = false;
 	}
 
 	this.orgStateChanged = function(orgID){
@@ -110,6 +114,8 @@ function colony(numOrgs){
 		*/
 		console.log("ALL ORGS READY");
 		this.orgsReady();
+		/*if (this.running){
+		}*/
 		// this.isReady = true;
 		// this.ready();
 	}
@@ -125,27 +131,34 @@ function colony(numOrgs){
 		// console.log("                   col: " + col);
 		col.isOrgsReady = false;
 		col.isViewReady = false;
-		col.isReady = false;
+		// col.isReady = false;
 
 		if (col.age >= col.lifetime){
 			/* error code 1: Can't step past lifetime*/
 			return 1;
 		}
 
+		/* Clear the checkin list */
+		col.clearCheckinList();
+
 		/* step each org */
 		for(var i = 0; i<col.organism_list.length; i++){
+
 			console.log("");
-			console.log("COLONY STEPPING Org " + (i + 1));
+			console.log("COLONY Age("+col.age+") STEPPING Org " + (i + 1));
 			console.log("------------------- ");
 			col.organism_list[i].step();
 		}
+
+		/* increment age */
 		col.incAge();
 	}
 
 	/* method for when the simulation should continue to run out the simulation*/
 	this.run = function(){
-		this.running = true;
+		this.setRunning(true);
 		while(this.running){
+			console.log('SNATOHEU');
 			this.runOneGen();
 		}
 	}
@@ -173,11 +186,14 @@ function colony(numOrgs){
 
 
 	this.genDone = function(){
-		this.setRunning(false);
+		this.pause();
+		this.clearCheckinList();
+
 	}
 
 	/* method for the simulation to pause */
 	this.pause = function(){
+		console.log("Pausing");
 		this.isColsReady = false;
 		this.isViewReady = false;
 		this.setRunning(false);
@@ -186,7 +202,7 @@ function colony(numOrgs){
 	/* if view is ready too, then colony is ready */
 	this.orgsReady = function(){
 		this.isOrgsReady = true;
-		if (this.isViewReady){
+		if (this.isViewReady && this.running){
 			this.ready();
 		}
 	}
@@ -194,7 +210,7 @@ function colony(numOrgs){
 	/* if orgs are ready too, then colony is ready */
 	this.viewReady = function(){
 		this.isViewReady = true;
-		if (this.isOrgsReady){
+		if (this.isOrgsReady && this.running){
 			this.ready();
 		}
 	}
@@ -233,13 +249,16 @@ function colony(numOrgs){
 				console.log(" 		colAge: " + col.age);
 				console.log(" 		lifetime: " + col.lifetime);
 				// this.step(this);
+				
 				window.setTimeout(
 					function(that){
 						return function(){
 							// console.log("WHAT IS THAT? " + that.toString());
-							that.step(that);};
-						} (this),
-					this.age * 500);
+							if (that.running){
+								that.step(that);
+							}
+						};
+					}(this), 100);
 /*				if (col.isReady){
 				} else {
 					console.log("  CHECK  ----  ----  ----  col NOT isReady" );
@@ -248,6 +267,7 @@ function colony(numOrgs){
 			}
 		} else {
 			console.log("  CHECK  ----  col NOT running" );
+			return;
 			// this.isReady = true;
 		}
 
@@ -259,6 +279,11 @@ function colony(numOrgs){
 		console.log("# 	isViewReady: " + col.isViewReady);
 		console.log("#    lifetime: " + col.lifetime);
 		console.log("# ---------------------------");
+		console.log("");
+		console.log("");
+		console.log("");
+		console.log("");
+		console.log("");
 	}
 
 

@@ -106,7 +106,7 @@ function organism(orgID, numCols, numRows){
 	}
 
 	this.randomize = function(numLive){
-		console.log("randomizing");
+		console.log("  Org "+this.orgID+" randomizing");
 		this.clearState();
 		for (var row = 0; row < this.numRows; row++) {
 			for (var col = 0; col < this.numCols; col++) {
@@ -160,6 +160,10 @@ function organism(orgID, numCols, numRows){
 		}
 	}
 
+	this.toString = function(){
+		return "An Org | orgID: " + this.orgID + ", age: " + this.age; 
+	}
+
 	this.initState(numRows, numCols, 0);
 }
 
@@ -184,4 +188,5 @@ function copyMatrix(oldMat, newMat){
 			newMat[i,j] = oldMat[i,j];
 		}
 	}
+	
 }

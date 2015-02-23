@@ -57,12 +57,14 @@ function organismController(){
 		}
 		this.org = org;
 		this.org.addObserver(this);
+		this.orgView.updateAge(this.org.age);
 		this.orgView.update(this.viewReady, this, this.org.getMatrix());
 	}
 
 	/* function for when the organism changes from alive or dead */
 	this.stateChanged = function(){
 		console.log();
+		this.orgView.updateAge(this.org.age);
 		this.orgView.update(this.viewReady, this, this.org.getMatrix());
 	}
 

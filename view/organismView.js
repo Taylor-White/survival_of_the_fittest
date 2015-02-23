@@ -43,7 +43,14 @@ function organismView(){
 				c.closePath();
 			}
 		}
+
+
+
 		callback(context);
+	}
+
+	this.updateAge = function(age){
+		$("#age").html("AGE: " + age);
 	}
 
 	/* Register OnClicks */
