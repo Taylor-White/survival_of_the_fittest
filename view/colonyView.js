@@ -63,6 +63,10 @@ function colonyView(){
 			cv.notifyObservers("UserPause");
 		});
 
+		$( "#reset" ).click(function(event){
+			cv.notifyObservers("UserResetCol");
+		});
+
 	}
 	$(document).ready(this.prepAfterLoad(this));
 }

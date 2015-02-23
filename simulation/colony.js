@@ -7,16 +7,20 @@ File owner: Xi
 function colony(numOrgs){
 	console.log("creating Colony");
 
-	this.numOrgs = numOrgs;
+	/* Colony Properties */
 	this.age = 0;
+	this.lifetime = 20;
+
+	/* Org stuff */
+	this.numOrgs = numOrgs;
 	this.organism_list = [];
 	this.checkin_list = [];
-	this.lifetime = 20;
+	
+	/* Run Control Stuff */
 	this.running = false;
 	this.isOrgsReady = false;
 	this.isViewReady = false;
-	this.isGenReady = true;
-
+	// this.isGenReady = true;
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -31,8 +35,7 @@ function colony(numOrgs){
 	this.notifyObservers = function(msg){
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
-			this.observers[i].receiveMessage(this, msg);
-		}}
+			this.observers[i].receiveMessage(this, msg);}}
 
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
@@ -41,78 +44,34 @@ function colony(numOrgs){
 		if (msg == "StateChanged"){
 			this.orgStateChanged(observable.orgID);
 		}
-
-
 	}
+
+	/* Error Handling */
+	this.errToString = function(err){
+		if (err = 0){
+			return "No Errors";
+		} else if (err = 1){
+			return "Can't step past lifetime";
+		}
+	}
+
+	/* Increment the Colony's Age */
 	this.incAge = function(){
 		this.age++;
 		console.log("Colony just turned " + this.age);
-	}
-
-
-	/* STEPPING & RUNNING METHODS */
-
-	/* 	method for when the simulation should step 
-		all the organisms in the simulation one time */
-	this.step = function(col){
-		console.log("COLONY STARTING TO STEP");
-		console.log("                   col: " + col);
-		col.isOrgsReady = false;
-		col.isViewReady = false;
-		col.isReady = false;
-		var i = 0;
-		for(i = 0; i<col.organism_list.length; i++){
-			console.log("");
-			console.log("COLONY STEPPING Org " + (i + 1));
-			console.log("------------------- ");
-			col.organism_list[i].step();
-		}
-		col.incAge();
-	}
-
-	/* method for when the simulation should continue to run out the simulation*/
-	this.run = function(){
-		this.running = true;
-		while(this.running){
-			this.runOneGen();
+		if (this.age >= this.lifetime){
+			this.pause();
 		}
 	}
 
-	/* method for when the simulation should
-	continue stepping untill the organisms have reached lifetime */
-	this.runOneGen = function(){
-		if (!this.running){			// if not running
-			this.setRunning(true);	// set to running
-			/* Clear Checkin List */
-			for (var i = 0; i < this.checkin_list.length; i++){
-				this.checkin_list[i] = false;
-			}
-			/* if lifetime reached, set running false */
-			if (this.age >= this.lifetime){
-				col.genDone();
-			} else {	// lifetime not reached
-				this.isReady = false;
-				this.step(this);
-			}
-		}
-	}
-
-	this.genDone = function(){
-		this.setRunning(false);
-
-	}
-
-	/* method for the simulation to pause */
-	this.pause = function(){
-		this.setRunning(false);
-	}
-
-
-
+	/* Get an organism by it's orgID */
 	this.getOrg = function(orgID){
 		return this.organism_list[orgID-1];
 	}
 
+	/* Colony Control Stuff*/
+
+	/* Randomize each Org */
 	this.rand = function(numLive){
 		for (org of this.organism_list){
 			org.randomize(numLive);
@@ -120,38 +79,18 @@ function colony(numOrgs){
 	}
 
 	this.resetCol = function(){
-		this.setRunning(false);
+		console.log("Resetting Colony");
+		this.pause();
 		this.age = 0;
-		this.rand(3);
+		for (org of this.organism_list){
+			org.age = 0;
+		}
+		this.rand(5);
 	}
 
-	this.setRunning = function(flag){
-		console.log("Setting run to " + flag);
-		this.running = flag;
-		this.notifyObservers("RunFlagChange");
-	}
-
-	this.ready = function(){
-		var col = this;
-		console.log("READY ColAge: " + col.age);
-		if (col.running){
-			if (col.age >= col.lifetime){
-				col.isGenReady = false;
-				col.pause();
-				return;
-			} else if (col.isReady){
-				console.log("SETTING STEP TIMEOUT");
-				console.log(" 		colAge: " + col.age);
-				console.log(" 		lifetime: " + col.lifetime);
-				window.setTimeout(function(that){
-					return function(){
-						console.log("WHAT IS THAT? " + that);
-						that.step(that);
-					};
-				}(this), 3000);
-			}
-		} else {
-			this.isReady = true;
+	this.clearCheckinList = function(){
+		for (var i = 0; i < this.checkin_list.length; i++){
+			this.checkin_list[i] = false;
 		}
 	}
 
@@ -175,6 +114,75 @@ function colony(numOrgs){
 		// this.ready();
 	}
 
+
+	/* Run Control Stuff */
+	/* STEPPING & RUNNING METHODS */
+
+	/* 	method for when the simulation should step 
+		all the organisms in the simulation one time */
+	this.step = function(col){
+		// console.log("COLONY STARTING TO STEP");
+		// console.log("                   col: " + col);
+		col.isOrgsReady = false;
+		col.isViewReady = false;
+		col.isReady = false;
+
+		if (col.age >= col.lifetime){
+			/* error code 1: Can't step past lifetime*/
+			return 1;
+		}
+
+		/* step each org */
+		for(var i = 0; i<col.organism_list.length; i++){
+			console.log("");
+			console.log("COLONY STEPPING Org " + (i + 1));
+			console.log("------------------- ");
+			col.organism_list[i].step();
+		}
+		col.incAge();
+	}
+
+	/* method for when the simulation should continue to run out the simulation*/
+	this.run = function(){
+		this.running = true;
+		while(this.running){
+			this.runOneGen();
+		}
+	}
+
+	/* method for when the simulation should
+	continue stepping untill the organisms have reached lifetime */
+	this.runOneGen = function(){
+		if (!this.running){			// if not running
+			if (this.age >= this.lifetime){
+				/* error code 1: Can't step past lifetime*/
+				return 1;
+			}
+			this.setRunning(true);	// set to running
+			/* Clear Checkin List */
+			this.clearCheckinList();
+			/* if lifetime reached, set running false */
+			if (this.age >= this.lifetime){
+				this.genDone();
+			} else {	// lifetime not reached
+				this.isReady = false;
+				this.step(this);
+			}
+		}
+	}
+
+
+	this.genDone = function(){
+		this.setRunning(false);
+	}
+
+	/* method for the simulation to pause */
+	this.pause = function(){
+		this.isColsReady = false;
+		this.isViewReady = false;
+		this.setRunning(false);
+	}
+
 	/* if view is ready too, then colony is ready */
 	this.orgsReady = function(){
 		this.isOrgsReady = true;
@@ -189,6 +197,73 @@ function colony(numOrgs){
 		if (this.isOrgsReady){
 			this.ready();
 		}
+	}
+
+	this.setRunning = function(flag){
+		console.log("Setting run to " + flag);
+		this.running = flag;
+		this.notifyObservers("RunFlagChange");
+	}
+
+	this.ready = function(){
+		var col = this;
+		console.log("READY ColAge: " + col.age);
+		console.log("# BEFORE----------------------");
+		console.log("# 	    running: " + col.running);
+		// console.log("#   isGenReady: " + col.isGenReady);
+		// console.log("# 	   isReady: " + col.isReady);
+		console.log("# 	isOrgsReady: " + col.isOrgsReady);
+		console.log("# 	isViewReady: " + col.isViewReady);
+		console.log("#     lifetime: " + col.lifetime);
+		console.log("# ---------------------------");
+
+		if (col.running){
+			console.log("  CHECK  ----  col running");
+			console.log("  CHECK  ----  " );
+			console.log("  CHECK  ----  " );
+			if (col.age >= col.lifetime){
+				console.log("  CHECK  ----  ----  col too OLD");
+				// col.isGenReady = false;
+				col.pause();
+				return;
+			} else {
+				console.log("  CHECK  ----  ----  col YOUNG enough" );
+				console.log("  CHECK  ----  ----  ----  col isReady" );
+				console.log("SETTING STEP TIMEOUT");
+				console.log(" 		colAge: " + col.age);
+				console.log(" 		lifetime: " + col.lifetime);
+				// this.step(this);
+				window.setTimeout(
+					function(that){
+						return function(){
+							// console.log("WHAT IS THAT? " + that.toString());
+							that.step(that);};
+						} (this),
+					this.age * 500);
+/*				if (col.isReady){
+				} else {
+					console.log("  CHECK  ----  ----  ----  col NOT isReady" );
+					
+				}*/
+			}
+		} else {
+			console.log("  CHECK  ----  col NOT running" );
+			// this.isReady = true;
+		}
+
+		console.log("# AFTER----------------------");
+		console.log("# 	   running: " + col.running);
+		// console.log("#  isGenReady: " + col.isGenReady);
+		// console.log("# 	   isReady: " + col.isReady);
+		console.log("# 	isOrgsReady: " + col.isOrgsReady);
+		console.log("# 	isViewReady: " + col.isViewReady);
+		console.log("#    lifetime: " + col.lifetime);
+		console.log("# ---------------------------");
+	}
+
+
+	this.toString = function(){
+		return "The Colony | Age: " + this.age; 
 	}
 
 	/* SETUP */

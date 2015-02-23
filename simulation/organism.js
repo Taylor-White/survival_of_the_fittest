@@ -42,8 +42,12 @@ function organism(orgID, numCols, numRows){
 	}
 
 	this.incAge = function(){
-		this.age++;
-		console.log("	Org " + this.orgID + " just turned " + this.age);
+		this.setAge(this.age + 1);
+	}
+
+	this.setAge = function(a){
+		console.log("Org " + orgID + " age " + this.age + " -> " + a);
+		this.age = a;
 	}
 
 	this.setOrgID = function(ID){
@@ -125,7 +129,7 @@ function organism(orgID, numCols, numRows){
 				this.state[row][col] = 0;
 			}
 		}
-		this.notifyObservers("StateChanged");
+		// this.notifyObservers("StateChanged");
 	}
 
 	this.getMatrix = function(){
@@ -139,8 +143,9 @@ function organism(orgID, numCols, numRows){
 	}
 
 	/* function to clear the organism */
-	this.clearOrginism = function(){
-
+	this.resetOrg = function(){
+		this.clearState();
+		this.setAge(0);
 	}
 
 	/* Creates and returns a matrix filled with a passed in value. Usually 0 */
