@@ -59,7 +59,9 @@ function organismController(){
 		this.org.addObserver(this);
 		this.orgView.updateAge(this.org.age);
 		this.orgStats.updateBorn(this.org.birthCount);	
-		this.orgStats.updateDied(this.org.deathCount);		
+		this.orgStats.updateDied(this.org.deathCount);
+		this.orgStats.updateExplored(this.org.exploredCount);
+		
 		this.orgView.update(this.viewReady, this, this.org.getMatrix());
 	}
 
@@ -69,6 +71,7 @@ function organismController(){
 		this.orgView.updateAge(this.org.age);
 		this.orgStats.updateBorn(this.org.birthCount);
 		this.orgStats.updateDied(this.org.deathCount);
+		this.orgStats.updateExplored(this.org.exploredCount);
 		this.orgView.update(this.viewReady, this, this.org.getMatrix());
 	}
 

@@ -5,6 +5,7 @@ File owner:
 
 var DEAD = 0;
 var ALIVE = 1;
+var EXPLORED = 2;
 
 /* represents the organism "class" */
 function organism(orgID, numCols, numRows){
@@ -20,6 +21,7 @@ function organism(orgID, numCols, numRows){
 	this.birthCount = 0;
 	this.susCount = 0;
 	this.deathCount = 0;
+	this.exploredCount = 0;
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -62,7 +64,10 @@ function organism(orgID, numCols, numRows){
 		console.log("Org " + orgID + " death " + this.deathCount + " -> " + d);
 		this.deathCount = d;
 	}		
-	
+	this.setsetExploredCount = function(e){
+		console.log("Org " + orgID + " explored " + this.exploredCount + " -> " + e);
+		this.exploredCount = e;
+	}		
 
 	this.setOrgID = function(ID){
 		this.orgID = ID;
@@ -83,14 +88,19 @@ function organism(orgID, numCols, numRows){
 						nextState[row][col] = ALIVE;
 					} else {
 						this.deathCount++;
-						nextState[row][col] = DEAD;
+						nextState[row][col] = EXPLORED;
 					}
 				} else if (this.birthArray[neighbours] == 1) {
+					if(this.state[row][col] != EXPLORED){
+						this.exploredCount++;
+					}
 					this.birthCount++;
 					nextState[row][col] = ALIVE;
-				} else {
+				} else if (this.state[row][col] == EXPLORED){
+					nextState[row][col] = EXPLORED;
+				} else{
 					nextState[row][col] = DEAD;
-				}
+				}	
 			}
 		}
 		// console.log("next: " + nextState);
@@ -108,7 +118,7 @@ function organism(orgID, numCols, numRows){
     		    for (var w = -1; w <= 1; w++) {
 				  if((r+h >= ROWS) || (c+w >= COLUMNS) || (r+h < 0) || (c+w < 0)){
 				  }	else{
-					  if (s[r+h][c+w] !== DEAD) {
+					  if (s[r+h][c+w] == ALIVE) {
 						total++;
 					  }
 				  } 
@@ -159,6 +169,10 @@ function organism(orgID, numCols, numRows){
 	this.resetOrg = function(){
 		this.clearState();
 		this.setAge(0);
+		this.setBirthCount(0);
+		this.setDeathCount(0);
+		this.setSusCount(0);
+		this.setExploredCount(0);
 	}
 
 	/* Creates and returns a matrix filled with a passed in value. Usually 0 */
