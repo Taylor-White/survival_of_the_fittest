@@ -50,77 +50,21 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="settings">
       <p>Insert Settings here!</p>
+      <p>Births  </p>
+      <p>Sustain </p>
 
-      
-      <body>
-      <p>B#/S# </p>
-      <form name="B#/S#">
-      <hr size=1 noshade>
-      <table border="1" CellSpacing="15" CellPadding="15">
-      <tr>
-        <TD align="right">Birth Values</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="birth"  VALUE="1" onClick="">1</TD>     
-      </tr>
-      <tr>
-        <TD><div align="right">Sustain Values</div></TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="0" onClick="">0</TD>
-        <TD><INPUT TYPE="Checkbox" NAME="sust"  VALUE="1" onClick="">1</TD>   
-      </table>
-      <br><br>
-      <p> Submit the Birth Values: </p>
-      <input type="button" onclick="birthInput()" value="Submit">
-      <button type="reset">Erase</button>
-      <input type="text" id="resultB" size="10">
+      <form action="index.html" method="POST">
 
-      <br><br>
-      <p> Submit the Sustain Values: </p>
-      <input type="button" onclick="sustInput()" value="Submit">
-      <button type="reset">Erase</button>
-      <input type="text" id="resultS" size="10">
-      <br><br><br>
-
+      <input type="text" name="birthvals"> 
+      <input type="text" name="sustvals"> 
+      <br>
+      <input type="submit" value="submit">
+      <input type="reset" value="erase">
       </form>
-      </body>
 
 
-      </div>
+
+
     <div role="tabpanel" class="tab-pane" id="saved">
       <p>Saved seeds go here?</p>
     </div>
