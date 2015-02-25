@@ -89,7 +89,7 @@ function handleClick(e) {
 
   function sustInput() 
   {
-	    var sust = document.forms[0];
+	    var sust = document.forms[1];
 	    var txt = "";
 	    var i;
 	    for (i = 0; i < sust.length; i++) 

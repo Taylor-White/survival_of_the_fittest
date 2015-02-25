@@ -56,12 +56,11 @@
 
       
       <body>
-      <p>B#/S# </p>
-      <form name="B#/S#">
+      <p>B#/S#</p>
       <hr size=1 noshade>
       <table>
       <tr>
-        <TD align="left" class="settings-table">Birth Values<br>
+        <TD align="left" class="settings-table"><b>Birth Values</b><br>
         <form>
         <input TYPE="radio" NAME="birth0"  VALUE="0" onClick="">0
         <input TYPE="radio" NAME="birth0"  VALUE="1" onClick="">1<br>
@@ -83,14 +82,16 @@
         <input TYPE="radio" NAME="birth8"  VALUE="1" onClick="">1<br>
         </td><td class="settings-table">
       <div align="center">
-      <p> Submit the Birth Values:<br>
+      <p>Birth Values:<br>
       <input type="text" id="resultB" size="20">
       </p>
       <input type="button" onclick="birthInput()" value="Submit">
-      <button type="reset">Erase</button>
-      </div></td></tr>
+      <input type="reset">
+      </div></td></tr></form>
+
+      <form>
       <tr>
-        <TD><div align="left" class="settings-table">Sustain Values<br>
+        <TD><div align="left" class="settings-table"><b>Sustain Values</b><br>
         <input TYPE="radio" NAME="sust0"  VALUE="0" onClick="">0
         <input TYPE="radio" NAME="sust0"  VALUE="1" onClick="">1<br>
         <input TYPE="radio" NAME="sust1"  VALUE="0" onClick="">0
@@ -112,18 +113,21 @@
       </div></TD>
       <td  class="settings-table">
       <div align="center">
-      <p> Submit the Sustain Values:<br>
+      <p>Sustain Values:<br>
       <input type="text" id="resultS" size="20">
       </p>
       <input type="button" onclick="sustInput()" value="Submit">
-      <button type="reset">Erase</button>
-      </div></td></tr>
+      <input type="reset">
+      </div></td></tr></form>
       
       </table>
       <br><br>
 
       </form>
       </body>
+
+
+
 
 
       </div>
