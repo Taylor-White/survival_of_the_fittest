@@ -1,6 +1,6 @@
 /*
 View: canvas
-File owner:
+File owner: Taylor White
 */
 
 var CANVAS_WIDTH = 600; //Width of Canvas
@@ -10,7 +10,8 @@ var ROWS = 50; //Number of cells in a row
 var COLUMNS = 50; //Number of cells in a column
 
 var COLOR_DEAD = "white"; //Color of dead cells, (0 on the matrix)
-var COLOR_ALIVE = "black"; //Color of dead cells, (1 on the matrix)
+var COLOR_ALIVE = "#3A619E"; //Color of alive cells, (1 on the matrix)
+var COLOR_EXPLORED = "#ccefc8"; //Color of explored cells, (2 on the matrix)
 
 var CELL_WIDTH = 10; //Pixel width of cell
 var CELL_HEIGHT = 10; //Pixel height of cell
@@ -26,7 +27,7 @@ function organismView(){
 		var c = this.canvas;
 		c.fillStyle = COLOR_ALIVE;
 		c.lineWidth = 1;
-		c.strokeStyle = COLOR_ALIVE;
+		c.strokeStyle = "#eee";
 		for (var row = 0; row < ROWS; row++) {
 			for (var column = 0; column < COLUMNS; column++) {
 				c.beginPath();
@@ -34,7 +35,9 @@ function organismView(){
 				var y = row * CELL_HEIGHT;
 				if(state[row][column] == 1){
 					c.fillStyle = COLOR_ALIVE;
-				} else{
+				} else if(state[row][column] == 2){
+					c.fillStyle = COLOR_EXPLORED;
+				}else{
 					c.fillStyle = COLOR_DEAD;
 				}
 				c.rect(x, y, CELL_WIDTH, CELL_HEIGHT);
