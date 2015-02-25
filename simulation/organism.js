@@ -38,7 +38,8 @@ function organism(orgID, numCols, numRows){
 		}}
 
 	this.startStep = function(callback){
-
+		// dont remember why this is here
+		// I'll leave it to see if I remember
 	}
 
 	this.incAge = function(){

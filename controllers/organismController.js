@@ -9,6 +9,9 @@ function organismController(){
 	console.log("creating Organism Controller");
 	this.orgView = new organismView();
 
+	/* Speed control stuff */
+	this.frameCount = 0;
+	this.secondsRunning = 0;
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -70,9 +73,30 @@ function organismController(){
 
 	this.viewReady = function(context){
 		context.notifyObservers("ViewReady");
+		this.frameCount++;
+	}
+	this.runStateChange = function(bool){
+		if (bool){
+			window.setInterval(/*this.tick*/,1000);
+		} else {
+
+		}
 	}
 
 
 
+
+	this.updateFPS = function(){
+		var fps = this.frameCount / this.secondsRunning;
+		console.log("Updating FPS: " + fps);
+		this.fps = fps;
+		 $("#fps").html("FPS: " + fps);
+	}
+
+	this.tick = function(oc){
+		return function(){
+			oc.secondsRunning++;
+		}
+	};
 
 }
