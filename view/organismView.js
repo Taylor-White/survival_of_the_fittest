@@ -1,6 +1,6 @@
 /*
 View: canvas
-File owner:
+File owner: Taylor White
 */
 
 var CANVAS_WIDTH = 600; //Width of Canvas

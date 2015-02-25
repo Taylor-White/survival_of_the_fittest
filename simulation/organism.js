@@ -50,6 +50,20 @@ function organism(orgID, numCols, numRows){
 		this.age = a;
 	}
 
+	this.setBirthCount = function(b){
+		console.log("Org " + orgID + " birth " + this.birthCount + " -> " + b);
+		this.birthCount = b;
+	}	
+	this.setSusCount = function(s){
+		console.log("Org " + orgID + " sustain " + this.susCount + " -> " + s);
+		this.susCount = s;
+	}	
+	this.setsetDeathCount = function(d){
+		console.log("Org " + orgID + " death " + this.deathCount + " -> " + d);
+		this.deathCount = d;
+	}		
+	
+
 	this.setOrgID = function(ID){
 		this.orgID = ID;
 	}
@@ -75,7 +89,6 @@ function organism(orgID, numCols, numRows){
 					this.birthCount++;
 					nextState[row][col] = ALIVE;
 				} else {
-					this.deathCount++;
 					nextState[row][col] = DEAD;
 				}
 			}

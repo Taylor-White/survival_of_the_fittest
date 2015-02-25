@@ -8,7 +8,7 @@ File owner: Jared
 function organismController(){
 	console.log("creating Organism Controller");
 	this.orgView = new organismView();
-
+	this.orgStats = new organismStats();
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -58,6 +58,8 @@ function organismController(){
 		this.org = org;
 		this.org.addObserver(this);
 		this.orgView.updateAge(this.org.age);
+		this.orgStats.updateBorn(this.org.birthCount);	
+		this.orgStats.updateDied(this.org.deathCount);		
 		this.orgView.update(this.viewReady, this, this.org.getMatrix());
 	}
 
@@ -65,6 +67,8 @@ function organismController(){
 	this.stateChanged = function(){
 		console.log();
 		this.orgView.updateAge(this.org.age);
+		this.orgStats.updateBorn(this.org.birthCount);
+		this.orgStats.updateDied(this.org.deathCount);
 		this.orgView.update(this.viewReady, this, this.org.getMatrix());
 	}
 
