@@ -32,8 +32,8 @@ function colonyController(orgCtr){
 			this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
 		} else if (msg == "ViewReady"){
 			this.colony.viewReady();
-		} else if (msg == "RunFlagChange"){
-			this.runFlagChange();
+		} else if (msg == "RunFlagChanged"){
+			this.runFlagChanged();
 		} else if (msg == "GenDone"){
 			this.genDone(observable.gens);
 		}
@@ -93,8 +93,8 @@ function colonyController(orgCtr){
 		this.colony.resetCol();
 	}
 
-	this.runFlagChange = function(){
-
+	this.runFlagChanged = function(){
+		this.orgCtr.runFlagChanged(this.colony.running);
 	}
 	this.genDone = function(gens){
 		this.colView.updateGenCount(gens);

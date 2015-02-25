@@ -12,6 +12,7 @@ function organismController(){
 	/* Speed control stuff */
 	this.frameCount = 0;
 	this.secondsRunning = 0;
+	this.winIntervalID = 0;
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -35,6 +36,10 @@ function organismController(){
 		console.log("orgCtrl received " + msg);
 		if(msg == "StateChanged"){
 			this.stateChanged();
+		} else if (msg == "ChangeRunTrue"){
+			this.runFlagChanged(true);
+		} else if (msg == "ChangeRunFalse"){
+			this.runFlagChanged(false);
 		}
 	}
 
@@ -75,11 +80,11 @@ function organismController(){
 		context.notifyObservers("ViewReady");
 		this.frameCount++;
 	}
-	this.runStateChange = function(bool){
+	this.runFlagChanged = function(bool){
 		if (bool){
-			window.setInterval(/*this.tick*/,1000);
+			this.winIntervalID = window.setInterval(this.tick(this),1000);
 		} else {
-
+			window.clearInterval(this.winIntervalID);
 		}
 	}
 
@@ -93,10 +98,14 @@ function organismController(){
 		 $("#fps").html("FPS: " + fps);
 	}
 
+	/* when called, tick needs a reference to organismController passed with 
+		Returns: a function with the appropriate context so that it can be passed around as a var
+	*/
 	this.tick = function(oc){
 		return function(){
+			console.log("INC SEC");
 			oc.secondsRunning++;
 		}
-	};
+	}
 
 }
