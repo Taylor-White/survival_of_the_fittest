@@ -2,6 +2,8 @@
 	border: 6px solid red;
 }
 .settings-table {
-	width: 150px;
+	width: 225px;
 	padding: 15px 15px 15px 15px;
+	vertical-align: text-top;
+	margin-top: 0px;
 }
