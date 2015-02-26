@@ -52,12 +52,15 @@ function organismView(){
 	this.updateAge = function(age){
 		$("#age").html("AGE: " + age);
 	}
+	this.updateFPS = function(fps){
+		$("#fps").html("FPS: " + fps);
+	}
 	
 	/* Register OnClicks */
 
 	this.prepAfterLoad = function(ov){
 		ov.canvas = $("canvas")[0].getContext("2d");
-
+		$("#fps").html	("FPS: " + 0);
 	}
 	$(document).ready(this.prepAfterLoad(this));
 

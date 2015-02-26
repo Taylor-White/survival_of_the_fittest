@@ -11,7 +11,8 @@ function organismController(){
 
 	/* Speed control stuff */
 	this.frameCount = 0;
-	this.secondsRunning = 0;
+	this.timeRunning = 0;
+	this.timeStart = 0;
 	this.winIntervalID = 0;
 
 	/*	OBSERVABLE METHODS */
@@ -83,28 +84,32 @@ function organismController(){
 	this.runFlagChanged = function(bool){
 		if (bool){
 			this.winIntervalID = window.setInterval(this.tick(this),1000);
+			// this.updateFPS();
 		} else {
 			window.clearInterval(this.winIntervalID);
 		}
 	}
 
-
+/* WORKING ON THIS */
 
 
 	this.updateFPS = function(){
-		var fps = this.frameCount / this.secondsRunning;
+		var fps = this.frameCount / this.timeRunning;
+		this.frameCount = 0;
 		console.log("Updating FPS: " + fps);
-		this.fps = fps;
-		 $("#fps").html("FPS: " + fps);
+		// this.fps = fps;
+		 this.orgView.updateFPS(fps);
 	}
 
 	/* when called, tick needs a reference to organismController passed with 
 		Returns: a function with the appropriate context so that it can be passed around as a var
 	*/
 	this.tick = function(oc){
+		/* FINISH THIS */
 		return function(){
 			console.log("INC SEC");
-			oc.secondsRunning++;
+			oc.frameCount++;
+			oc.updateFPS();
 		}
 	}
 
