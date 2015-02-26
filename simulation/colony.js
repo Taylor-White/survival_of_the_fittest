@@ -243,7 +243,7 @@ function colony(numOrgs){
 	this.setRunning = function(flag){
 		console.log("Setting run to " + flag);
 		this.running = flag;	// set run flag
-		this.notifyObservers("RunFlagChange");	// notify Observers
+		this.notifyObservers("RunFlagChanged");	// notify Observers
 	}
 
 	/* this.ready
