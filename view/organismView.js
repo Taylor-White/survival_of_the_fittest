@@ -22,7 +22,7 @@ function organismView(){
 	this.fps = 0; // avg # updates per second
 
 	/* function to update the organism on the canvas */
-	this.update = function(callback, context, state){
+	this.update = function(state){
 		console.log("updating org view canvas");
 		// console.log("state[0][0]: " + state[0][0]);
 
@@ -46,7 +46,7 @@ function organismView(){
 				c.closePath();
 			}
 		}
-		callback(context);
+		// callback(context);
 	}
 
 	this.updateAge = function(age){
