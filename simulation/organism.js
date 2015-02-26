@@ -14,8 +14,38 @@ function organism(orgID, numCols, numRows){
 	this.orgID = orgID;
 	this.numCols = numCols;
 	this.numRows = numRows;
+
 	this.birthArray = [0, 0, 0, 1, 0, 0, 0, 0, 0];
+	//check result value if it exits, replace that var with this value
+    
+	// THIS LINE IS NOT WORKING
+	var birthResult = birthInput(); 
+    //var birthResult = jQuery.makeArray(birthInput());
+
+
+    console.log('birthresult');
+    console.log(typeof birthResult);
+
+    if(birthResult != undefined && birthResult.length == 9)
+    {
+    	console.log('PASSED BIRTHRESULT TEST')
+    	this.birthArray = birthResult;
+    }
+    console.log('birthArray');
+    console.log(this.birthArray);
+
 	this.sustainArray = [0, 0, 1, 1, 0, 0, 0, 0, 0]
+	//check result value if it exits, replace that var with this value
+	
+	// THIS LINE IS NOT WORKING
+	var sustResult = sustInput();
+	if(sustResult != undefined && sustResult.length == 9)
+	{
+		console.log('PASSED SUSTRESULT TEST')
+		this.sustainArray = sustResult;
+	}
+	console.log('sustainArray');
+	console.log(this.sustainArray);
 
 	this.age = 0;
 	this.birthCount = 0;
@@ -216,4 +246,40 @@ function copyMatrix(oldMat, newMat){
 		}
 	}
 	
+}
+
+function birthInput() 
+{
+    var birth = document.forms[0];
+    var arr = [];
+    var i;
+    for (i = 0; i < birth.length; i++) 
+    {
+        if (birth[i].checked) 
+        {
+            arr.push(parseInt(birth[i].value));
+        }
+    }
+    document.getElementById("resultB").value = arr;
+
+    //console.log('arr');
+    //console.log(arr);
+    return arr;
+}
+
+function sustInput() 
+{
+    var sust = document.forms[1];
+    var arr = [];
+    var i;
+    for (i = 0; i < sust.length; i++) 
+    {
+        if (sust[i].checked) 
+        {
+            arr.push(parseInt(sust[i].value));
+        }
+    }
+   	document.getElementById("resultS").value = arr;
+    //console.log(arr);
+    return arr;
 }
