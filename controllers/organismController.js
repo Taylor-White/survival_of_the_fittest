@@ -9,6 +9,8 @@ function organismController(){
 	console.log("creating Organism Controller");
 	this.orgView = new organismView();
 
+	this.orgStats = new organismStats();
+
 	/* Speed control stuff */
 	this.frameCount = 0;
 	this.timeRunning = 0;
@@ -69,16 +71,13 @@ function organismController(){
 		}
 		this.org = org;
 		this.org.addObserver(this);
-<<<<<<< HEAD
+
 		this.orgView.updateAge(this.org.age);
 		this.orgStats.updateBorn(this.org.birthCount);	
 		this.orgStats.updateDied(this.org.deathCount);
 		this.orgStats.updateExplored(this.org.exploredCount);
 		
-		this.orgView.update(this.viewReady, this, this.org.getMatrix());
-=======
 		this.updateOrgView();
->>>>>>> v0fix
 	}
 
 	/* function for when the organism changes from alive or dead */
@@ -88,14 +87,12 @@ function organismController(){
 
 	this.updateOrgView = function(){
 		this.orgView.updateAge(this.org.age);
-<<<<<<< HEAD
+
 		this.orgStats.updateBorn(this.org.birthCount);
 		this.orgStats.updateDied(this.org.deathCount);
 		this.orgStats.updateExplored(this.org.exploredCount);
-		this.orgView.update(this.viewReady, this, this.org.getMatrix());
-=======
+
 		this.orgView.update(this.org.getMatrix());
->>>>>>> v0fix
 	}
 	/*
 
