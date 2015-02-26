@@ -78,32 +78,3 @@ function handleClick(e) {
 } 
 */
 
-  function birthInput() 
-  {
-	    var birth = document.forms[0];
-	    var txt = "";
-	    var i;
-	    for (i = 0; i < birth.length; i++) 
-	    {
-	        if (birth[i].checked) 
-	        {
-	            txt = txt + birth[i].value + " ";
-	        }
-	    }
-	    document.getElementById("resultB").value = txt;
-  }
-
-  function sustInput() 
-  {
-	    var sust = document.forms[1];
-	    var txt = "";
-	    var i;
-	    for (i = 0; i < sust.length; i++) 
-	    {
-	        if (sust[i].checked) 
-	        {
-	            txt = txt + sust[i].value + " ";
-	        }
-	    }
-	    document.getElementById("resultS").value = txt;
-  }
