@@ -8,8 +8,12 @@ File owner: Jared
 function organismController(){
 	console.log("creating Organism Controller");
 	this.orgView = new organismView();
-	this.orgStats = new organismStats();
 
+	/* Speed control stuff */
+	this.frameCount = 0;
+	this.timeRunning = 0;
+	this.timeStart = 0;
+	
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 
@@ -30,19 +34,27 @@ function organismController(){
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
 		console.log("orgCtrl received " + msg);
-		if(msg == "StateChanged"){
+		if(msg == "UpdateOrgView"){
+			this.updateOrgView();
+		} else if (msg == "StateChanged"){
 			this.stateChanged();
+		} else if (msg == "ChangeRunTrue"){
+			this.runFlagChanged(true);
+		} else if (msg == "ChangeRunFalse"){
+			this.runFlagChanged(false);
 		}
 	}
 
 	/* function for when user chooses random */
 	this.userRandState = function(){
 		this.org.randomize();
+		this.updateOrgView();
 	}
 
 	/* function for when the user clicks on the canvas, records the coordinates */
 	this.userToggleCell = function(x, y){
 		this.org.toggleCell(x,y);
+		this.updateOrgView();
 	}
 
 	/* function for when the user wants to clear the canvas */
@@ -57,29 +69,75 @@ function organismController(){
 		}
 		this.org = org;
 		this.org.addObserver(this);
+<<<<<<< HEAD
 		this.orgView.updateAge(this.org.age);
 		this.orgStats.updateBorn(this.org.birthCount);	
 		this.orgStats.updateDied(this.org.deathCount);
 		this.orgStats.updateExplored(this.org.exploredCount);
 		
 		this.orgView.update(this.viewReady, this, this.org.getMatrix());
+=======
+		this.updateOrgView();
+>>>>>>> v0fix
 	}
 
 	/* function for when the organism changes from alive or dead */
 	this.stateChanged = function(){
-		console.log();
+		this.updateOrgView();		
+	}
+
+	this.updateOrgView = function(){
 		this.orgView.updateAge(this.org.age);
+<<<<<<< HEAD
 		this.orgStats.updateBorn(this.org.birthCount);
 		this.orgStats.updateDied(this.org.deathCount);
 		this.orgStats.updateExplored(this.org.exploredCount);
 		this.orgView.update(this.viewReady, this, this.org.getMatrix());
+=======
+		this.orgView.update(this.org.getMatrix());
+>>>>>>> v0fix
 	}
+	/*
 
 	this.viewReady = function(context){
-		context.notifyObservers("ViewReady");
+		// context.notifyObservers("ViewReady");
+
+		// context.frameCount++;
+	}
+	this.runFlagChanged = function(bool){
+		if (bool){
+			this.winIntervalID = window.setInterval(this.tick(this),1000);
+			// this.updateFPS();
+		} else {
+			window.clearInterval(this.winIntervalID);
+		}
+	}
+*/
+/* WORKING ON THIS */
+
+
+	/* 
+	this.updateFPS = function(){
+		var fps = this.frameCount / this.timeRunning;
+		this.frameCount = 0;
+		console.log("Updating FPS: " + fps);
+		// this.fps = fps;
+		 this.orgView.updateFPS(fps);
 	}
 
+	when called, tick needs a reference to organismController passed with 
+		Returns: a function with the appropriate context so that it can be passed around as a var
+	this.tick = function(oc){
+		return function(){
+			console.log("INC SEC");
+			oc.frameCount++;
+			// alert("Frame Count: " + oc.frameCount);
+			oc.updateFPS();
+			// oc.orgView.viewReady();
 
-
+			oc.orgView.update(oc.viewReady, oc, oc.org.getMatrix());
+		}
+	}
+	*/
 
 }

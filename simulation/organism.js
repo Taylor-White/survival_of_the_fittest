@@ -40,7 +40,8 @@ function organism(orgID, numCols, numRows){
 		}}
 
 	this.startStep = function(callback){
-
+		// dont remember why this is here
+		// I'll leave it to see if I remember
 	}
 
 	this.incAge = function(){
@@ -48,7 +49,7 @@ function organism(orgID, numCols, numRows){
 	}
 
 	this.setAge = function(a){
-		console.log("Org " + orgID + " age " + this.age + " -> " + a);
+		// console.log("Org " + orgID + " age " + this.age + " -> " + a);
 		this.age = a;
 	}
 
@@ -77,7 +78,7 @@ function organism(orgID, numCols, numRows){
 	this.step = function(){
 		this.incAge();
 		var nextState = createMatrix(this.numRows, this.numCols, 0);
-		console.log("	stepping org " + this.orgID);
+		// console.log("	stepping org " + this.orgID);
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
 				neighbours = CalcNeighbours(this.state, row, col);
