@@ -136,7 +136,7 @@ function organism(orgID, numCols, numRows){
 		}
 		// console.log("next: " + nextState);
 		this.state = nextState;
-		this.notifyObservers("StateChanged");
+		// this.notifyObservers("StateChanged");
 		return;
 
 		function CalcNeighbours(s, r, c){
@@ -159,22 +159,25 @@ function organism(orgID, numCols, numRows){
 		}
 	}
 
-	this.randomize = function(numLive){
+	this.randomize = function(w, h, x, y, d){
 		console.log("  Org "+this.orgID+" randomizing");
 		this.clearState();
-		for (var row = 0; row < this.numRows; row++) {
-			for (var col = 0; col < this.numCols; col++) {
-				var i = Math.floor(Math.random() * numLive);
+		for (var row = y; row < y+h; row++) {
+			for (var col = x; col < x+w; col++) {
+				var i = Math.floor(Math.random() * (100/d));
 				if(i == 0)
 					this.state[row][col] = 1; 
 			}
 		}
-		this.notifyObservers("StateChanged");
+		// this.notifyObservers("StateChanged");
 	}
 
 	this.toggleCell = function(row, col){
-		state[row][col] = !state[row][col];
-		this.notiyfObservers("StateChanged");
+		this.state[row][col] = !this.state[row][col];
+		// this.notiyfObservers("StateChanged");
+	}
+	this.getCellValue = function(row, col){
+		return this.state[row][col];
 	}
 
 	this.clearState = function(){
@@ -218,6 +221,13 @@ function organism(orgID, numCols, numRows){
 		}
 	}
 
+	this.setState = function(mat){
+		copyMatrix(this.state, mat);
+	}
+	this.getState = function(){
+		return this.state;
+	}
+
 	this.toString = function(){
 		return "An Org | orgID: " + this.orgID + ", age: " + this.age; 
 	}
@@ -238,15 +248,15 @@ function createMatrix(m, n, initial){
 	return mat;
 }
 
+
 function copyMatrix(oldMat, newMat){
 	var rows = oldMat.length;
 	var cols = oldMat[0].length;
 	for (var i=0; i<rows; i++ ){
 		for (var j=0; j<cols; j++){
-			newMat[i,j] = oldMat[i,j];
+			oldMat[i,j] = newMat[i,j] ;
 		}
 	}
-	
 }
 
 function birthInput() 

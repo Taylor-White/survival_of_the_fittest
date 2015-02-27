@@ -3,7 +3,7 @@ Displays stats for the simulation
 File owner: Taylor White
 *****************/
 
-function organismStats(){
+function organismStatsView(){
 	console.log("creating Organism Stats View");
 	
 	this.updateBorn = function(born){

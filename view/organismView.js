@@ -59,11 +59,26 @@ function organismView(){
 		$("#fps").html("FPS: " + fps);
 	}
 	
-	/* Register OnClicks */
 
+	/* Register OnClicks */
+	/*	Loads the things that refer to actual html. 
+		Params:
+			ov: Organism View (this one) 
+		Returns: void
+	*/	
 	this.prepAfterLoad = function(ov){
 		ov.canvas = $("canvas")[0].getContext("2d");
 		$("#fps").html	("FPS: " + 0);
+
+/* 		USE THE ID'S OF BIRTH & SUSTAIN VALUES ex. $("Birth1")
+				ADD AN ONCLICK HANDLER
+					PASS AN ANONYMOUS FUNCTION TO NOTIFY ORGVIEWS OBSERVERS
+
+		$( "#Birth1" ).click(function(event){	// Birth1 is the id in index.html
+			ov.notifyObservers("Birth1");		// make this a toggle so you don't have to specify a value
+												//	 you can just say Birth1 instead of Birth1On or something
+		});
+*/
 	}
 	$(document).ready(this.prepAfterLoad(this));
 

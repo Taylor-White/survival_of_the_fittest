@@ -21,6 +21,7 @@ function colonyController(orgCtr){
 	this.colony = new colony(10);
 	this.selectedOrgID = 0;
 
+
 	this.runState = PAUSED;
 	this.genState = MID;
 
@@ -115,7 +116,8 @@ function colonyController(orgCtr){
 	}
 
 	this.userRand = function(){
-		this.colony.rand(5);
+		/* user settings should already be updated */
+		this.colony.randSame();
 	}
 
 	/* function for when the user wants to pause the simulation */
@@ -144,6 +146,7 @@ function colonyController(orgCtr){
 	this.tick = function(cc){
 		console.log(" -- TICK -- ");
 		cc.colony.step();
+		cc.orgCtr.updateOrgView();
 	}
 
 	this.initialize = function(){
@@ -153,7 +156,7 @@ function colonyController(orgCtr){
 		this.colView.selectOrg(1);
 		this.colView.updateGenCount(this.colony.gens);
 		this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
-		this.colony.rand(10);
+		this.colony.randSame();
 		this.orgCtr.updateOrgView();
 	}
 

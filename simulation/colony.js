@@ -16,6 +16,13 @@ function colony(numOrgs){
 	this.numOrgs = numOrgs;
 	this.organism_list = [];
 	this.checkin_list = [];
+
+	/* Randomize Values */
+	this.randWidth = 5;
+	this.randHeight = 5;
+	this.randX = 25;
+	this.randY = 25;
+	this.randDensity = 35;
 	
 	/* Run Control Stuff */
 	this.running = false;
@@ -42,7 +49,7 @@ function colony(numOrgs){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
-		console.log("colonyController received "+ msg + " from " + observable);
+		console.log("colony received "+ msg + " from " + observable);
 		if (msg == "StateChanged"){
 			// this.orgStateChanged(observable.orgID);
 		}
@@ -62,12 +69,21 @@ function colony(numOrgs){
 		return this.organism_list[orgID-1];
 	}
 
-	/* Colony Control Stuff*/
+	this.randSame = function(){
+		console.log("Entered randSame");
+		var randResult, col, row;
+		this.organism_list[0].randomize(
+								this.randWidth,
+								this.randHeight,
+								this.randX,
+								this.randY,
+								this.randDensity );
 
-	/* Randomize each Org */
-	this.rand = function(numLive){
-		for (org of this.organism_list){
-			org.randomize(numLive);
+		this.organism_list[0].notifyObservers("StateChanged");
+		for (var i = 1; i < this.organism_list.length; i++){
+			var org = this.organism_list[i];
+			org.setState(this.organism_list[0].getState());
+			org.notifyObservers("StateChanged");
 		}
 	}
 
@@ -79,7 +95,7 @@ function colony(numOrgs){
 		for (org of this.organism_list){
 			org.age = 0;	// reset each org's age
 		}
-		this.rand(10);		// randomize each org
+		this.randSame();		// randomize each org
 	}
 
 	this.resetColony = function(){

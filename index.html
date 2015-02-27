@@ -112,6 +112,9 @@
       <p>Sustain Values:<br>
       <input type="text" id="resultS" size="20">
       </p>
+      <!-- NOTE
+        don't use onclick, 
+        use jquery's ".click" in the views -->
       <input type="button" onclick="sustInput()" value="Submit">
       <input type="reset">
       </div></form></td>
@@ -137,7 +140,7 @@
      <div class="btn-group colony-group">
        <button type="button" id="mo1" class="btn btn-default mini-org">1</button>
        <button type="button" id="mo2" class="btn btn-default mini-org">2</button>
-       <button type="button" id="mo3" class="btn btn-default mini-org">33</button>
+       <button type="button" id="mo3" class="btn btn-default mini-org">3</button>
        <button type="button" id="mo4" class="btn btn-default mini-org">4</button>
        <button type="button" id="mo5" class="btn btn-default mini-org">5</button>
        <button type="button" id="mo6" class="btn btn-default mini-org">6</button>
@@ -165,7 +168,7 @@
     
   </div>
     
-	<script src="view/organismStats.js"></script>
+	<script src="view/organismStatsView.js"></script>
     <script src="simulation/organism.js"></script>
     <script src="simulation/colony.js"></script>
     <script src="view/colonyView.js"></script>
@@ -173,7 +176,7 @@
     <script src="controllers/organismController.js"></script>
     <script src="controllers/colonyController.js"></script>
     <script src="main.js"></script>
-    <script src="view/save.js"></script>
-    <script src="view/settings.js"></script>
+    <script src="view/saveView.js"></script>
+    <script src="view/settingsView.js"></script>
   </body>
 </html>
