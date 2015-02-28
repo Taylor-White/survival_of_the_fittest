@@ -24,6 +24,9 @@ function colony(numOrgs){
 	this.randY = 25;
 	this.randDensity = 35;
 	
+	/* Stats */
+	this.stats = new stats(numOrgs);
+
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 	this.addObserver = function(observer){
@@ -65,18 +68,25 @@ function colony(numOrgs){
 	this.randSame = function(){
 		console.log("Entered randSame");
 		var randResult, col, row;
+		
 		this.organism_list[0].randomize(
 								this.randWidth,
 								this.randHeight,
 								this.randX,
 								this.randY,
 								this.randDensity );
-
 		this.organism_list[0].notifyObservers("StateChanged");
+
 		for (var i = 1; i < this.organism_list.length; i++){
 			var org = this.organism_list[i];
 			org.setState(this.organism_list[0].getState());
+
+			org.toggleCell(
+				getRandInt(this.randX -1, this.randX + this.randWidth +1),
+				getRandInt(this.randY -1, this.randY + this.randHeight +1) );
+
 			org.notifyObservers("StateChanged");
+
 		}
 	}
 
@@ -85,10 +95,12 @@ function colony(numOrgs){
 	this.resetEachOrg = function(){
 		console.log("Resetting Colony");
 		this.age = 0;	// reset age counter
+		this.randSame();		// randomize each org
 		for (org of this.organism_list){
 			org.age = 0;	// reset each org's age
+
 		}
-		this.randSame();		// randomize each org
+
 	}
 
 	this.resetColony = function(){
@@ -143,13 +155,23 @@ function colony(numOrgs){
 		for (var i=0; i<numOrgs; i++){
 			var org = new organism(i+1,50,50);
 			org.addObserver(this);
+			org.setStats(this.stats);
 			this.organism_list.push( org );
 			// org.addObserver(this);
 		}
 	}
 
+	this.init = function(){
+		this.initOrgs();
+		   alert(this.organism_list[0].getMatrix() == this.organism_list[1].getMatrix());
+	}
+
 	/* SETUP */
-	this.initOrgs();
+	this.init();
+}
+
+function getRandInt(min, max) {
+	return Math.floor(Math.random() * (max - min)) + min;
 }
 
 

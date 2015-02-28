@@ -11,9 +11,12 @@ var EXPLORED = 2;
 function organism(orgID, numCols, numRows){
 	console.log("creating an Organism");
 
+	this.stats;
 	this.orgID = orgID;
 	this.numCols = numCols;
 	this.numRows = numRows;
+
+	this.rle = "";
 
 	this.birthArray = [0, 0, 0, 1, 0, 0, 0, 0, 0];
 	//check result value if it exits, replace that var with this value
@@ -48,10 +51,10 @@ function organism(orgID, numCols, numRows){
 	console.log(this.sustainArray);
 
 	this.age = 0;
-	this.birthCount = 0;
-	this.susCount = 0;
-	this.deathCount = 0;
-	this.exploredCount = 0;
+	// this.birthCount = 0;
+	// this.susCount = 0;
+	// this.deathCount = 0;
+	// this.exploredCount = 0;
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -86,22 +89,26 @@ function organism(orgID, numCols, numRows){
 	this.setBirthCount = function(b){
 		console.log("Org " + orgID + " birth " + this.birthCount + " -> " + b);
 		this.birthCount = b;
-	}	
+	}
 	this.setSusCount = function(s){
 		console.log("Org " + orgID + " sustain " + this.susCount + " -> " + s);
 		this.susCount = s;
-	}	
+	}
 	this.setsetDeathCount = function(d){
 		console.log("Org " + orgID + " death " + this.deathCount + " -> " + d);
 		this.deathCount = d;
-	}		
+	}	
 	this.setsetExploredCount = function(e){
 		console.log("Org " + orgID + " explored " + this.exploredCount + " -> " + e);
 		this.exploredCount = e;
-	}		
+	}
 
 	this.setOrgID = function(ID){
 		this.orgID = ID;
+	}
+
+	this.setStats = function(stats){
+		this.stats = stats;
 	}
 
 	/* function for when the simulation should step the simulation */
@@ -110,23 +117,27 @@ function organism(orgID, numCols, numRows){
 		this.incAge();
 		var nextState = createMatrix(this.numRows, this.numCols, 0);
 		// console.log("	stepping org " + this.orgID);
+		var birthsCount = 0;
+		var deathsCount = 0;
+		var sustainsCount = 0;
+		var exploredCount = 0;
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
 				neighbours = CalcNeighbours(this.state, row, col);
 				// console.log("neighbours " + row + ", " + col + ": " + neighbours);
 				if(this.state[row][col] == ALIVE){
 					if(this.sustainArray[neighbours] == 1){
-						this.susCount++;
+						sustainsCount++;
 						nextState[row][col] = ALIVE;
 					} else {
-						this.deathCount++;
+						deathsCount++;
 						nextState[row][col] = EXPLORED;
 					}
 				} else if (this.birthArray[neighbours] == 1) {
 					if(this.state[row][col] != EXPLORED){
-						this.exploredCount++;
+						exploredCount++;
 					}
-					this.birthCount++;
+					birthsCount++;
 					nextState[row][col] = ALIVE;
 				} else if (this.state[row][col] == EXPLORED){
 					nextState[row][col] = EXPLORED;
@@ -135,6 +146,8 @@ function organism(orgID, numCols, numRows){
 				}	
 			}
 		}
+		this.stats.updateOrgStats(	this.orgID, birthsCount,
+									deathsCount, exploredCount );
 		// console.log("next: " + nextState);
 		this.state = nextState;
 		// this.notifyObservers("StateChanged");
@@ -176,8 +189,19 @@ function organism(orgID, numCols, numRows){
 	}
 
 	this.toggleCell = function(row, col){
-		this.state[row][col] = !this.state[row][col];
-		// this.notiyfObservers("StateChanged");
+		console.log("Org " + this.orgID + " toggling cell: " + row + ", " + col);
+		console.log("    currently: " + this.state[row][col]);
+		// alert(row + " " + col);
+
+		if (this.state[row][col] == ALIVE) {
+			this.state[row][col] = DEAD;
+		} else {
+			this.state[row][col] = ALIVE;
+		}
+		console.log("    after: " + this.state[row][col]);
+		// alert(this.state);
+		// this.state[row][col] = (this.state[row][col] == ALIVE) ? 0:1;
+		this.notifyObservers("StateChanged");
 	}
 	this.getCellValue = function(row, col){
 		return this.state[row][col];
@@ -193,13 +217,8 @@ function organism(orgID, numCols, numRows){
 	}
 
 	this.getMatrix = function(){
-		// console.log("Getting Matrix: " + this.state);
+		 // console.log("Getting Matrix: " + this.state);
 		return this.state;
-	}
-
-	/* function for the coordinates of the organism */
-	this.toggleCell = function(x,y){
-
 	}
 
 	/* function to clear the organism */
@@ -235,6 +254,7 @@ function organism(orgID, numCols, numRows){
 		return "An Org | orgID: " + this.orgID + ", age: " + this.age; 
 	}
 
+	/* WORK-IN-PROGRESS -- LOW PRIORITY */
 	this.patternCtr = function(){
 		var glider = [
 			[9,0,0,0,0],
@@ -256,6 +276,7 @@ function organism(orgID, numCols, numRows){
 		];
 	}
 
+	/* WORK-IN-PROGRESS -- LOW PRIORITY */
 	this.compareBack = function(row, col){
 		/* may need better than js arrays for this
 			also may need methods to query neighbors
@@ -284,7 +305,7 @@ function copyMatrix(oldMat, newMat){
 	var cols = oldMat[0].length;
 	for (var i=0; i<rows; i++ ){
 		for (var j=0; j<cols; j++){
-			oldMat[i,j] = newMat[i,j] ;
+			oldMat[i][j] = newMat[i][j] ;
 		}
 	}
 }

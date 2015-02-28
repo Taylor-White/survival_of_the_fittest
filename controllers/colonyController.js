@@ -11,12 +11,13 @@ var RUN_ONE_GEN = 2;
 var MID = 0;
 var END = 1;
 
-function colonyController(orgCtr){
+function colonyController(orgCtr, statsCtr){
 	console.log("creating Colony Controller");
 
 	this.winIntervalID = 0;
 
 	this.orgCtr = orgCtr;
+	this.statsCtr = statsCtr;
 	this.colView = new colonyView();
 	this.colony = new colony(10);
 	this.selectedOrgID = 0;
@@ -79,7 +80,7 @@ function colonyController(orgCtr){
 	this.userRun = function(){
 		this.setRunState(RUN_CONT);
 	}
-	
+
 	/* function for when the user wants to stop the simulation from stepping */
 	this.userRunOneGen = function(){
 		this.setRunState(RUN_ONE_GEN);
@@ -147,17 +148,20 @@ function colonyController(orgCtr){
 		console.log(" -- TICK -- ");
 		cc.colony.step();
 		cc.orgCtr.updateOrgView();
+		cc.statsCtr.updateOrgStatsView();
 	}
 
 	this.initialize = function(){
 		this.colView.addObserver(this);
 		this.orgCtr.addObserver(this);
 		this.colony.addObserver(this);
+		this.statsCtr.setStats(this.colony.stats);
 		this.colView.selectOrg(1);
 		this.colView.updateGenCount(this.colony.gens);
 		this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
 		this.colony.randSame();
 		this.orgCtr.updateOrgView();
+		this.statsCtr.updateOrgStatsView();
 	}
 
 	this.initialize();
