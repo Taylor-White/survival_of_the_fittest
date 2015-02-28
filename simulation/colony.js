@@ -68,7 +68,7 @@ function colony(numOrgs){
 	this.randSame = function(){
 		console.log("Entered randSame");
 		var randResult, col, row;
-		
+
 		this.organism_list[0].randomize(
 								this.randWidth,
 								this.randHeight,
@@ -163,7 +163,8 @@ function colony(numOrgs){
 
 	this.init = function(){
 		this.initOrgs();
-		   alert(this.organism_list[0].getMatrix() == this.organism_list[1].getMatrix());
+
+		   // alert(this.organism_list[0].getMatrix() == this.organism_list[1].getMatrix());
 	}
 
 	/* SETUP */

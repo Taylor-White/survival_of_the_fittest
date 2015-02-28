@@ -147,21 +147,23 @@ function colonyController(orgCtr, statsCtr){
 	this.tick = function(cc){
 		console.log(" -- TICK -- ");
 		cc.colony.step();
-		cc.orgCtr.updateOrgView();
 		cc.statsCtr.updateOrgStatsView();
+		cc.statsCtr.updateColStatsView();
+		cc.orgCtr.updateOrgView();
 	}
 
 	this.initialize = function(){
 		this.colView.addObserver(this);
 		this.orgCtr.addObserver(this);
 		this.colony.addObserver(this);
-		this.statsCtr.setStats(this.colony.stats);
 		this.colView.selectOrg(1);
 		this.colView.updateGenCount(this.colony.gens);
 		this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
 		this.colony.randSame();
-		this.orgCtr.updateOrgView();
+		this.statsCtr.setStats(this.colony.stats);
 		this.statsCtr.updateOrgStatsView();
+		this.statsCtr.updateColStatsView();
+		this.orgCtr.updateOrgView();
 	}
 
 	this.initialize();

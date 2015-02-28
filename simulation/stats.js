@@ -22,9 +22,12 @@ function stats(numOrgs){
 
 	this.updateColStats = function(){
 		/* extrapolate from orgStats */
-
+		this.colStats.calcStats();
 	}
 
+	this.getColStats = function(){
+		return this.colStats;
+	}
 	this.getOrgStats = function(orgID){
 		return this.orgStatsArray[orgID - 1];
 	}
@@ -32,11 +35,22 @@ function stats(numOrgs){
 	this.getOrgStatsArray = function(){
 		return this.orgStatsArray;
 	}
+	this.clearStats = function(){
+		this.colStats.clearStats();
+		/* add clear for each org */
+	}
+
+	this.toString = function(){
+		return "The Stats Model ";
+	}
+
+
 
 	/* Constructor */
 	for (var i = 0; i < numOrgs; i++){
 		this.orgStatsArray.push(new orgStats(i + 1));
 	}
+	this.colStats = new colStats(this.orgStatsArray);
 }
 
 /* Colony Stats Object */
@@ -48,8 +62,8 @@ function colStats(orgStatsArray){
 	this.avgBirths = 0;
 	this.avgDeaths = 0;
 	this.mostBirths = 0;
-	this.mostBirthsOrgID;
 	this.fewestDeaths = 0;
+	this.mostBirthsOrgID;
 	this.fewestDeathsOrgID;
 
 	this.calcStats = function(){
@@ -68,25 +82,39 @@ function colStats(orgStatsArray){
 				this.fewestDeaths = deaths;
 				this.fewestDeathsOrgID = os.getOrgID();
 			}
-
 		}
 
-		this.avgBirths(sumBirths/orgStatsArray.length);
-		this.avgDeaths(sumDeaths/orgStatsArray.length);
+		this.totalBirths += sumBirths;
+		this.totalDeaths += sumDeaths;
+		this.setAvgBirths((sumBirths) / (orgStatsArray.length));
+		this.setAvgDeaths(sumDeaths/orgStatsArray.length);
+	}
+	this.clearStats = function(){
+		this.totalBirths = 0;
+		this.totalDeaths = 0;
+		this.avgBirths = 0;
+		this.avgDeaths = 0;
+		this.mostBirths = 0;
+		this.fewestDeaths = 0;
 	}
 	this.getAvgDeaths = function(){
-		return avgDeaths;
+		return this.avgDeaths;
 	}
 	this.getAvgBirths = function(){
-		return avgBirths;
+		return this.avgBirths;
+	}
+	this.getTotalDeaths = function(){
+		return this.totalDeaths;
+	}
+	this.getTotalBirths = function(){
+		return this.totalBirths;
 	}
 	this.getMostBirthsOrgID = function(){
-		return mostBirthsOrgID;
+		return this.mostBirthsOrgID;
 	}
 	this.getFewestDeathsOrgID = function(){
-		return fewestDeathsOrgID;
+		return this.fewestDeathsOrgID;
 	}
-
 	this.setAvgDeaths = function(avgDeaths){
 		this.avgDeaths = avgDeaths;
 	}
@@ -99,17 +127,11 @@ function colStats(orgStatsArray){
 	this.setFewestDeathsOrgID = function(fewestDeathsOrgID){
 		this.fewestDeathsOrgID = fewestDeathsOrgID;
 	}
-
-
-	this.calcMostBirths = function(){
-		var mb = 0;
-		for (var i = 0; i < this.orgStatsArray.length; i++) {
-
-		}
-		return mb;
+	this.setTotalDeaths = function(totalDeaths){
+		this.totalDeaths = totalDeaths;
 	}
-	this.calcFewestDeaths = function(){
-		
+	this.setTotalBirths = function(totalBirths){
+		this.totalBirths = totalBirths;
 	}
 }
 
@@ -180,6 +202,18 @@ function orgStats(orgID){
 	this.addToExplored = function(x){
 		console.log("Adding " + x + " to Explored")
 		this.explored += x;
+	}
+
+	this.clearStats = function(){
+		this.births = 0;
+		this.deaths = 0;
+		this.explored = 0;
+		this.accel = 0;
+		this.steady = 0;		
+	}
+
+	this.toString = function(){
+		return "The Org Stats Model";
 	}
 
 }

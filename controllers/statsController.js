@@ -33,21 +33,23 @@ function statsController(){
 	}
 
 	/* DECLARATIONS */
-	this.stats;
 	this.statsView = new statsView();
 
 	/* INTERFACE */
 
-	/*  */
-	this.updateColStatsView = function(){
+	this.setStats = function(stats){
+		this.stats = stats;
+	}
 
+	this.clearStats = function(){
+		this.stats.clearStats();
 	}
 
 	this.updateOrgStatsView = function(){
 		console.log(" --- Updating Org Stats View --- ");
-		console.log(" catch | " + this.stats);
+		console.log(" catch | " + this.stats.toString());
 		for (var i = 0; i < this.stats.numOrgs; i++) {
-			console.log("     " + i + " | ");
+			console.log("     " + i + " | " + this.stats);
 			var os = this.stats.getOrgStats(i+1);
 			var sv = this.statsView;
 			sv.updateBirths(this.stats.getOrgStats(i+1).getBirths(), i+1);
@@ -55,11 +57,22 @@ function statsController(){
 			sv.updateExplored(os.getExplored(), i+1);
 			// sv.updateAccel(os.getAccel());
 			// sv.updateSteady(os.getSteady());
-		};
+		}
 	}
 
-	this.setStats = function(stats){
-		this.stats = stats;
+	/*  */
+	this.updateColStatsView = function(){
+		var sv = this.statsView;
+		var s = this.stats;
+		
+		this.stats.colStats.calcStats();
+		sv.updateAvgBirths(this.stats.colStats.getAvgBirths());
+		sv.updateAvgDeaths(this.stats.colStats.getAvgDeaths());
+		sv.updateTotalBirths(this.stats.colStats.getTotalBirths());
+		sv.updateTotalDeaths(this.stats.colStats.getTotalDeaths());
 	}
 
+	this.toString = function(){
+		return "The Stats Controller";
+	}
 }

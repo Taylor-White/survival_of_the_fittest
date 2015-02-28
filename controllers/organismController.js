@@ -83,7 +83,7 @@ function organismController(){
 
 	/* function for when the organism changes from alive or dead */
 	this.stateChanged = function(){
-		this.updateOrgView();		
+		this.updateOrgView();	
 	}
 
 	this.updateOrgView = function(){
