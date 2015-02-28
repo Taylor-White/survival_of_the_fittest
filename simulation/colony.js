@@ -24,13 +24,6 @@ function colony(numOrgs){
 	this.randY = 25;
 	this.randDensity = 35;
 	
-	/* Run Control Stuff */
-	this.running = false;
-	this.isOrgsReady = false;
-	this.isViewReady = false;
-	this.shouldAdvanceGen = true;
-	// this.isGenReady = true;
-
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 	this.addObserver = function(observer){

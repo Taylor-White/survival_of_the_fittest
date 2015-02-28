@@ -106,6 +106,7 @@ function organism(orgID, numCols, numRows){
 
 	/* function for when the simulation should step the simulation */
 	this.step = function(){
+
 		this.incAge();
 		var nextState = createMatrix(this.numRows, this.numCols, 0);
 		// console.log("	stepping org " + this.orgID);
@@ -165,8 +166,10 @@ function organism(orgID, numCols, numRows){
 		for (var row = y; row < y+h; row++) {
 			for (var col = x; col < x+w; col++) {
 				var i = Math.floor(Math.random() * (100/d));
-				if(i == 0)
+				if(i == 0){
 					this.state[row][col] = 1; 
+					// this.birthCount ++;
+				}
 			}
 		}
 		// this.notifyObservers("StateChanged");
@@ -230,6 +233,33 @@ function organism(orgID, numCols, numRows){
 
 	this.toString = function(){
 		return "An Org | orgID: " + this.orgID + ", age: " + this.age; 
+	}
+
+	this.patternCtr = function(){
+		var glider = [
+			[9,0,0,0,0],
+			[0,0,1,0,0],
+			[0,1,1,0,0],
+			[0,1,0,1,0],
+			[0,0,0,0,0]
+		];
+		var square = [
+			[0,0,0,0],
+			[0,1,1,0],
+			[0,1,1,0],
+			[0,0,0,0]
+		];
+		var cross = [
+			[0,0,0,0,0],
+			[0,1,1,1,0],
+			[0,0,0,0,0],
+		];
+	}
+
+	this.compareBack = function(row, col){
+		/* may need better than js arrays for this
+			also may need methods to query neighbors
+				so we can handle out-of-bounds there, too  */
 	}
 
 	this.initState(numRows, numCols, 0);

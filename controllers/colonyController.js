@@ -79,11 +79,29 @@ function colonyController(orgCtr){
 	this.userRun = function(){
 		this.setRunState(RUN_CONT);
 	}
-
+	
 	/* function for when the user wants to stop the simulation from stepping */
 	this.userRunOneGen = function(){
 		this.setRunState(RUN_ONE_GEN);
 	}
+
+	/* function for when the user wants to pause the simulation */
+	this.userPause = function(){
+		this.setRunState(PAUSED);
+		// this.colony.pause();
+	}
+
+	this.userRand = function(){
+		/* user settings should already be updated */
+		this.colony.randSame();
+	}
+
+	/* function for when the user wants to pause the simulation */
+	this.userResetCol = function(){
+		this.setRunState(PAUSED);
+		this.colony.resetColony();
+	}
+
 
 	this.setRunState = function(newRunState){
 		console.log("Setting Run State: " + newRunState);
@@ -106,24 +124,6 @@ function colonyController(orgCtr){
 			}
 		}
 		this.runState = newRunState;
-	}
-
-
-	/* function for when the user wants to pause the simulation */
-	this.userPause = function(){
-		this.setRunState(PAUSED);
-		// this.colony.pause();
-	}
-
-	this.userRand = function(){
-		/* user settings should already be updated */
-		this.colony.randSame();
-	}
-
-	/* function for when the user wants to pause the simulation */
-	this.userResetCol = function(){
-		this.setRunState(PAUSED);
-		this.colony.resetColony();
 	}
 
 	this.runFlagChanged = function(){
