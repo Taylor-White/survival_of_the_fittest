@@ -101,6 +101,8 @@ function colonyController(orgCtr, statsCtr){
 	this.userResetCol = function(){
 		this.setRunState(PAUSED);
 		this.colony.resetColony();
+		this.statsCtr.updateColStatsView();
+		this.statsCtr.updateOrgStatsView();
 	}
 
 

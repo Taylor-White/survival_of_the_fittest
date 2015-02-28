@@ -70,6 +70,10 @@ function statsController(){
 		sv.updateAvgDeaths(this.stats.colStats.getAvgDeaths());
 		sv.updateTotalBirths(this.stats.colStats.getTotalBirths());
 		sv.updateTotalDeaths(this.stats.colStats.getTotalDeaths());
+		sv.updateMostBirths(this.stats.colStats.getMostBirths());
+		sv.updateFewestDeaths(this.stats.colStats.getFewestDeaths());
+		sv.updateMostBirthsOrgID(this.stats.colStats.getMostBirthsOrgID());
+		sv.updateFewestDeathsOrgID(this.stats.colStats.getFewestDeathsOrgID());
 	}
 
 	this.toString = function(){

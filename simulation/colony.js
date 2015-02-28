@@ -100,7 +100,7 @@ function colony(numOrgs){
 			org.age = 0;	// reset each org's age
 
 		}
-
+		this.stats.clearStats();
 	}
 
 	this.resetColony = function(){
@@ -165,6 +165,14 @@ function colony(numOrgs){
 		this.initOrgs();
 
 		   // alert(this.organism_list[0].getMatrix() == this.organism_list[1].getMatrix());
+	}
+
+
+	this.changeBirthArray = function(orgID, neighbs, bool){
+		this.organism_list[orgID-1].changeBirthArray(neighbs,bool);
+	}
+	this.changeDeathArray = function(orgID, neighbs, bool){
+		this.organism_list[orgID-1].changeDeathArray(neighbs,bool);
 	}
 
 	/* SETUP */
