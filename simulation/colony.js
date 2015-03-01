@@ -10,7 +10,7 @@ function colony(numOrgs){
 	/* Colony Properties */
 	this.age = 0;
 	this.gens = 0;
-	this.lifetime = 50;
+	// this.lifetime = 50;
 
 	/* Org stuff */
 	this.numOrgs = numOrgs;
@@ -115,7 +115,7 @@ function colony(numOrgs){
 		// console.log("COLONY STARTING TO STEP");
 		// console.log("                   col: " + col);
 
-		if (this.age >= this.lifetime){
+		if (this.age >= this.settings.getLifetime()){
 			/* error code 1: Can't step past lifetime*/
 			return 1;
 		}
@@ -132,7 +132,7 @@ function colony(numOrgs){
 		this.age++;
 		console.log("colony just turned " + this.age);
 		/* "Grim Reaper" -- check if the thisony members should die */
-		if (this.age >= this.lifetime){
+		if (this.age >= this.settings.getLifetime()){
 			this.genDone();	// generation done function
 		}
 	}

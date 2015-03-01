@@ -64,8 +64,6 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		}
 	}
 
-
-
 	/* USER ACTIONS */
 	/* function for when user chooses an organism */
 	this.userSelectOrg = function(orgID){
@@ -91,7 +89,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.setRunState(RUN_CONT);
 	}
 
-	/* function for when the user wants to stop the simulation from stepping */
+	/* function for when the user wants to stop the simulation from stepping 
+		when the generation is done */
 	this.userRunOneGen = function(){
 		this.setRunState(RUN_ONE_GEN);
 	}
@@ -102,6 +101,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		// this.colony.pause();
 	}
 
+	/* function for when the user wants to randomize all orgs */
 	this.userRand = function(){
 		/* user settings should already be updated */
 		this.colony.randSame();
@@ -139,10 +139,12 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.runState = newRunState;
 	}
 
-	this.runFlagChanged = function(){
-		this.orgCtr.runFlagChanged(this.colony.running);
 
+	this.runFlagChanged = function() {
+		this.orgCtr.runFlagChanged(this.colony.running);
 	}
+
+
 	this.genDone = function(gens){
 		this.genState = END;
 		this.colView.updateGenCount(gens);

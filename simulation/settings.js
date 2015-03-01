@@ -5,6 +5,7 @@ function settings(){
 	this.birthArray = [0, 0, 0, 1, 0, 0, 0, 0, 0];
 	this.sustainArray = [0, 0, 1, 1, 0, 0, 0, 0, 0];
 	this.speed = 25;
+	this.lifetime = 50;
 
 	/* Setters */
 	this.setBirthArray = function(barray){
@@ -22,6 +23,10 @@ function settings(){
 	this.setSpeed = function(speed){
 		console.log("Setting speed to " + speed);
 		this.speed = speed;
+	}
+	this.setLifetime = function(lifetime){
+		console.log("Setting lifetime to " + lifetime);
+		this.lifetime = lifetime;
 	}
 
 	/* Toggles */
@@ -49,6 +54,9 @@ function settings(){
 	}
 	this.getSpeed = function(){
 		return this.speed;
+	}
+	this.getLifetime = function(){
+		return this.lifetime;
 	}
 
 
