@@ -31,17 +31,23 @@ function settingsController(){
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
 		console.log("SettCtr received "+ msg + " from " + observable);
-		if (msg.substring(0,15) == "userToggleBirth"){
+		// alert("SettCtr received "+ msg + " from " + observable);
+		if (msg.substring(0,15) == "UserToggleBirth"){
 			var x = parseInt(msg.substring(15,msg.length));
 			this.settings.toggleBirthArrayVal(x);
 			this.updateSettingsView();
 			// this.orgStateChanged(observable.orgID);
-		} else if (msg.substring(0,17) == "userToggleSustain"){
+		} else if (msg.substring(0,17) == "UserToggleSustain"){
 			var x = parseInt(msg.substring(17,msg.length));
 			this.settings.toggleSustainArrayVal(x);
 			this.updateSettingsView();
 			// this.orgStateChanged(observable.orgID);
-		}
+		} else if (msg.substring(0,9) == "UserSpeed"){
+			var x = parseInt(msg.substring(9,msg.length));
+			this.settings.setSpeed(x);
+			this.updateSettingsView();
+			// this.orgStateChanged(observable.orgID);
+		} 
 	}
 
 	/* INTERFACE */

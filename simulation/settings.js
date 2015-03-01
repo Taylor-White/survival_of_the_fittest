@@ -4,7 +4,7 @@ Stores information about the variables for the simulation
 function settings(){
 	this.birthArray = [0, 0, 0, 1, 0, 0, 0, 0, 0];
 	this.sustainArray = [0, 0, 1, 1, 0, 0, 0, 0, 0];
-	this.speed = 100;
+	this.speed = 25;
 
 	/* Setters */
 	this.setBirthArray = function(barray){
@@ -20,17 +20,18 @@ function settings(){
 		this.sustainArray[neighbs] = val;
 	}
 	this.setSpeed = function(speed){
+		console.log("Setting speed to " + speed);
 		this.speed = speed;
 	}
 
 	/* Toggles */
 	this.toggleBirthArrayVal = function(neighbs){
 		this.birthArray[neighbs] = this.birthArray[neighbs] == 1? 0:1;
-		alert("User toggled Birth " + neighbs);
+		// alert("User toggled Birth " + neighbs);
 	}
 	this.toggleSustainArrayVal = function(neighbs){
 		this.sustainArray[neighbs] = this.sustainArray[neighbs] == 1? 0:1;
-		alert("User toggled Sustain " + neighbs);
+		// alert("User toggled Sustain " + neighbs);
 	}
 
 	/* Getters */

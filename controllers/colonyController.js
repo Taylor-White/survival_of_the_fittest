@@ -25,6 +25,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.selectedOrgID = 0;
 
 	this.settView = new settingsView();
+	this.settView.addObserver(this);
 	this.settings = this.colony.getSettings();
 
 
@@ -56,6 +57,10 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.runFlagChanged();
 		} else if (msg == "GenDone"){
 			this.genDone(observable.gens);
+		} else if (msg.substring(0,9) == "UserSpeed"){
+			var rs = this.runState;
+			this.setRunState(PAUSED);
+			this.setRunState(rs);
 		}
 	}
 

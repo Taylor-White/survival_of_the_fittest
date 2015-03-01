@@ -39,21 +39,33 @@ function settingsView(){
 	}
 
 	this.prepAfterLoad = function(sv){
+		/* Loop through checkboxes */
 		for (var i = 0; i < 9; i++){
 			var cb = $( "#life-settings #birth #" + i).children(":checkbox");
 			cb.change(function(sv,i){
 				return function(){
-					sv.notifyObservers("userToggleBirth" + i);
+					sv.notifyObservers("UserToggleBirth" + i);
 				}
 			}(sv,i));
 
 			cb = $( "#life-settings #sustain #" + i).children(":checkbox");
 			cb.change(function(sv,i){
 				return function(){
-					sv.notifyObservers("userToggleSustain" + i);
+					sv.notifyObservers("UserToggleSustain" + i);
 				}
 			}(sv,i));
 		}
+
+		$("#slow").change(function(){
+			sv.notifyObservers("UserSpeed4");
+		});
+		$("#medium").change(function(){
+			sv.notifyObservers("UserSpeed20");
+		});
+		$("#fast").change(function(){
+			sv.notifyObservers("UserSpeed100");
+		});
+
 	}
 
 	$(document).ready(this.prepAfterLoad(this));
