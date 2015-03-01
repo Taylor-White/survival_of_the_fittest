@@ -74,6 +74,8 @@ function colStats(orgStatsArray){
 		var sumDeaths = 0;
 		this.fewestDeaths = orgStatsArray[0].getDeaths();
 		this.fewestDeathsOrgID = 1;
+		this.mostBirths = orgStatsArray[0].getBirths();
+		this.mostBirthsOrgID = 1;
 		for (os of orgStatsArray){
 			sumBirths += os.getBirths();
 			sumDeaths += os.getDeaths();

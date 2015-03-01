@@ -12,14 +12,15 @@ function organism(orgID, numCols, numRows){
 	console.log("creating an Organism");
 
 	this.stats;
+	this.settings;
 	this.orgID = orgID;
 	this.numCols = numCols;
 	this.numRows = numRows;
 
 	this.rle = "";
 
-	this.birthArray = [0, 0, 0, 1, 0, 0, 0, 0, 0];
-	this.sustainArray = [0, 0, 1, 1, 0, 0, 0, 0, 0]
+	// this.birthArray = [0, 0, 0, 1, 0, 0, 0, 0, 0];
+	// this.sustainArray = [0, 0, 1, 1, 0, 0, 0, 0, 0]
 	//check result value if it exits, replace that var with this value
 
 	this.age = 0;
@@ -82,6 +83,9 @@ function organism(orgID, numCols, numRows){
 	this.setStats = function(stats){
 		this.stats = stats;
 	}
+	this.setSettings = function(settings){
+		this.settings = settings;
+	}
 
 	/* function for when the simulation should step the simulation */
 	this.step = function(){
@@ -93,19 +97,23 @@ function organism(orgID, numCols, numRows){
 		var deathsCount = 0;
 		var sustainsCount = 0;
 		var exploredCount = 0;
+
+		var birthArray = this.settings.getBirthArray();
+		var susArray = this.settings.getSustainArray();
+
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
 				neighbours = CalcNeighbours(this.state, row, col);
 				// console.log("neighbours " + row + ", " + col + ": " + neighbours);
 				if(this.state[row][col] == ALIVE){
-					if(this.sustainArray[neighbours] == 1){
+					if(susArray[neighbours] == 1){
 						sustainsCount++;
 						nextState[row][col] = ALIVE;
 					} else {
 						deathsCount++;
 						nextState[row][col] = EXPLORED;
 					}
-				} else if (this.birthArray[neighbours] == 1) {
+				} else if (birthArray[neighbours] == 1) {
 					if(this.state[row][col] != EXPLORED){
 						exploredCount++;
 					}
@@ -222,10 +230,10 @@ function organism(orgID, numCols, numRows){
 		return this.state;
 	}
 	this.changeBirthArray = function(neighbs, bool){
-		this.birthArray[neighbs] = bool;
+		this.settings.setBirthArrayVal(neighbs, bool);
 	}
-	this.changeDeathArray = function(neighbs, bool){
-		this.deathArray[neighbs] = bool;
+	this.changeSustainArray = function(neighbs, bool){
+		this.settings.setSustianArrayVal(neighbs, bool);
 	}
 
 	this.toString = function(){

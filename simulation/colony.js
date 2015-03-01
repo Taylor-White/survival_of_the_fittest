@@ -27,6 +27,9 @@ function colony(numOrgs){
 	/* Stats */
 	this.stats = new stats(numOrgs);
 
+	/* Settings */
+	this.settings = new settings();
+
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 	this.addObserver = function(observer){
@@ -156,7 +159,9 @@ function colony(numOrgs){
 			var org = new organism(i+1,50,50);
 			org.addObserver(this);
 			org.setStats(this.stats);
+			org.setSettings(this.settings);
 			this.organism_list.push( org );
+
 			// org.addObserver(this);
 		}
 	}
@@ -173,6 +178,10 @@ function colony(numOrgs){
 	}
 	this.changeDeathArray = function(orgID, neighbs, bool){
 		this.organism_list[orgID-1].changeDeathArray(neighbs,bool);
+	}
+
+	this.getSettings = function(){
+		return this.settings;
 	}
 
 	/* SETUP */

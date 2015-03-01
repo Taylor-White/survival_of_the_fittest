@@ -11,16 +11,21 @@ var RUN_ONE_GEN = 2;
 var MID = 0;
 var END = 1;
 
-function colonyController(orgCtr, statsCtr){
+function colonyController(orgCtr, statsCtr, settCtr){
 	console.log("creating Colony Controller");
 
 	this.winIntervalID = 0;
 
 	this.orgCtr = orgCtr;
 	this.statsCtr = statsCtr;
+	this.settCtr = settCtr;
 	this.colView = new colonyView();
 	this.colony = new colony(10);
+
 	this.selectedOrgID = 0;
+
+	this.settView = new settingsView();
+	this.settings = this.colony.getSettings();
 
 
 	this.runState = PAUSED;
@@ -118,7 +123,7 @@ function colonyController(orgCtr, statsCtr){
 				this.winIntervalID = window.setInterval(
 					function(that){
 						return function(){that.tick(that);}
-					}(this), 100);
+					}(this), 1000/this.settings.getSpeed());
 			}
 		} else if (this.runState == RUN_CONT || this.runState == RUN_ONE_GEN){
 		/* STOPPING */
@@ -165,6 +170,8 @@ function colonyController(orgCtr, statsCtr){
 		this.statsCtr.setStats(this.colony.stats);
 		this.statsCtr.updateOrgStatsView();
 		this.statsCtr.updateColStatsView();
+		this.settCtr.setSettings(this.colony.settings);
+		// this.settCtr.updateSettingsView();
 		this.orgCtr.updateOrgView();
 	}
 
