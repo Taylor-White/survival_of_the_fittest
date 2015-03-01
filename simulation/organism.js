@@ -174,7 +174,7 @@ function organism(orgID, numCols, numRows){
 		}
 	}
 
-	this.randomize = function(w, h, x, y, d){
+	this.randomize = function(){
 		console.log("  Org "+this.orgID+" randomizing");
 		this.clearState();
 		var y = this.spawnCenterY-Math.floor((this.spawnHeight/2)+1);
@@ -182,7 +182,7 @@ function organism(orgID, numCols, numRows){
 		for (var row = y; row < y+this.spawnHeight; row++) {
 			for (var col = x; col < x+this.spawnWidth; col++) {
 				var i = Math.floor(Math.random() * (100/this.spawnDensity));
-				if(i == 0)
+				if(i == 0 && row>=0 && row<this.numRows && col>=0 && col<this.numCols  )
 					this.state[row][col] = 1; 
 			}
 		}
