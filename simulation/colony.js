@@ -183,7 +183,22 @@ function colony(numOrgs){
 	this.getSettings = function(){
 		return this.settings;
 	}
-
+	this.setSpawnWidth = function(w){
+		this.randWidth = w;
+	}
+	this.setSpawnHeight = function(h){
+		this.randHeight = h;
+	}	
+	this.setSpawnDensity = function(d){
+		this.randDensity = d;
+	}		
+	this.setSpawnCenterX = function(cx){
+		this.randX = cx;
+	}	
+	this.setSpawnCenterY = function(cy){
+		this.randY = cy;
+	}	
+	
 	/* SETUP */
 	this.init();
 }

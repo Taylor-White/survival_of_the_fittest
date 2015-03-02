@@ -75,7 +75,7 @@ function organism(orgID, numCols, numRows){
 		console.log("Org " + orgID + " explored " + this.exploredCount + " -> " + e);
 		this.exploredCount = e;
 	}
-	this.setSpawnWidth = function(w){
+	/*this.setSpawnWidth = function(w){
 		this.spawnWidth = w;
 	}
 	this.setSpawnHeight = function(h){
@@ -89,7 +89,7 @@ function organism(orgID, numCols, numRows){
 	}	
 	this.setSpawnCenterY = function(cy){
 		this.spawnCenterY = cy;
-	}			
+	}		*/	
 
 	this.setOrgID = function(ID){
 		this.orgID = ID;
@@ -111,13 +111,7 @@ function organism(orgID, numCols, numRows){
 		var birthsCount = 0;
 		var deathsCount = 0;
 		var sustainsCount = 0;
-		var exploredCount = 0;
-
-		this.spawnWidth = 5;
-		this.spawnHeight = 5;
-		this.spawnDensity = 50;
-		this.spawnCenterX = 2;
-		this.spawnCenterY = 2;			
+		var exploredCount = 0;		
 		
 		var birthArray = this.settings.getBirthArray();
 		var susArray = this.settings.getSustainArray();
@@ -174,16 +168,18 @@ function organism(orgID, numCols, numRows){
 		}
 	}
 
-	this.randomize = function(){
+	this.randomize = function(w, h, x, y, d){
 		console.log("  Org "+this.orgID+" randomizing");
 		this.clearState();
-		var y = this.spawnCenterY-Math.floor((this.spawnHeight/2)+1);
-		var x = this.spawnCenterX-Math.floor((this.spawnWidth/2)+1);		
-		for (var row = y; row < y+this.spawnHeight; row++) {
-			for (var col = x; col < x+this.spawnWidth; col++) {
-				var i = Math.floor(Math.random() * (100/this.spawnDensity));
+		//this.exploredCount = 0;
+		var y = y-Math.floor((h/2)+1);
+		var x = x-Math.floor((w/2)+1);		
+		for (var row = y; row < y+h; row++) {
+			for (var col = x; col < x+w; col++) {
+				var i = Math.floor(Math.random() * (100/d));
 				if(i == 0 && row>=0 && row<this.numRows && col>=0 && col<this.numCols  )
 					this.state[row][col] = 1; 
+					//this.exploredCount++;
 			}
 		}
 		// this.notifyObservers("StateChanged");

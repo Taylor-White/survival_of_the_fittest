@@ -51,21 +51,21 @@ function organismController(){
 		this.org.randomize();
 		this.updateOrgView();
 	}
-	this.setSpawnWidth = function(w){
-		this.org.setSpawnWidth(w);
+	/*this.setSpawnWidth = function(w){
+		this.colony.setSpawnWidth(w);
 	}
 	this.setSpawnHeight = function(h){
-		this.org.setSpawnHeight(h);
+		this.colony.setSpawnHeight(h);
 	}
 	this.setSpawnDensity = function(d){
-		this.org.setSpawnDensity(d);
+		this.colony.setSpawnDensity(d);
 	}	
 	this.setSpawnCenterX = function(cx){
-		this.org.setSpawnCenterX(cx);
+		this.colony.setSpawnCenterX(cx);
 	}	
 	this.setSpawnCenterY = function(cy){
-		this.org.setSpawnCenterY(cy);
-	}	
+		this.colony.setSpawnCenterY(cy);
+	}	*/
 
 	/* function for when the user clicks on the canvas, records the coordinates */
 	this.userToggleCell = function(x, y){
