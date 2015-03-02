@@ -75,21 +75,7 @@ function organism(orgID, numCols, numRows){
 		console.log("Org " + orgID + " explored " + this.exploredCount + " -> " + e);
 		this.exploredCount = e;
 	}
-	/*this.setSpawnWidth = function(w){
-		this.spawnWidth = w;
-	}
-	this.setSpawnHeight = function(h){
-		this.spawnHeight = h;
-	}	
-	this.setSpawnDensity = function(d){
-		this.spawnDensity = d;
-	}		
-	this.setSpawnCenterX = function(cx){
-		this.spawnCenterX = cx;
-	}	
-	this.setSpawnCenterY = function(cy){
-		this.spawnCenterY = cy;
-	}		*/	
+
 
 	this.setOrgID = function(ID){
 		this.orgID = ID;
