@@ -64,23 +64,23 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		}else if (msg.substring(0,10) == "spawnWidth"){
 			var sWidth = parseInt(msg.substring(10, msg.length));
 			console.log("spawnWidth: " + sWidth)
-			this.colony.setSpawnWidth(sWidth);
+			this.settings.setSpawnWidth(sWidth);
 		} else if (msg.substring(0,11) == "spawnHeight"){
 			var sHeight = parseInt(msg.substring(11, msg.length));
 			console.log("spawnHeight: " + sHeight)
-			this.colony.setSpawnHeight(sHeight);
+			this.settings.setSpawnHeight(sHeight);
 		} else if (msg.substring(0,12) == "spawnDensity"){
 			var sDensity = parseInt(msg.substring(12, msg.length));
 			console.log("spawnDensity: " + sDensity)
-			this.colony.setSpawnDensity(sDensity);
+			this.settings.setSpawnDensity(sDensity);
 		} else if (msg.substring(0,12) == "spawnCenterX"){
 			var sCenterX = parseInt(msg.substring(12, msg.length));
 			console.log("spawnCenterX: " + sCenterX)
-			this.colony.setSpawnCenterX(sCenterX);
+			this.settings.setSpawnCenterX(sCenterX);
 		} else if (msg.substring(0,12) == "spawnCenterY"){
 			var sCenterY = parseInt(msg.substring(12, msg.length));
 			console.log("spawnCenterY: " + sCenterY)
-			this.colony.setSpawnCenterY(sCenterY);
+			this.settings.setSpawnCenterY(sCenterY);
 		}
 	}
 

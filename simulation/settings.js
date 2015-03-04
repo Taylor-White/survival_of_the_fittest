@@ -6,7 +6,15 @@ function settings(){
 	this.sustainArray = [0, 0, 1, 1, 0, 0, 0, 0, 0];
 	this.speed = 25;
 	this.lifetime = 50;
+	
+	this.spawnWidth = 5;
+	this.spawnHeight = 5;
+	this.spawnDensity = 35;
+	this.spawnCenterX = 25;
+	this.spawnCenterY = 25;
 
+	
+	
 	/* Setters */
 	this.setBirthArray = function(barray){
 		this.birthArray = barray;
@@ -28,6 +36,22 @@ function settings(){
 		console.log("Setting lifetime to " + lifetime);
 		this.lifetime = lifetime;
 	}
+	
+	this.setSpawnWidth = function(w){
+		this.spawnWidth = w;
+	}
+	this.setSpawnHeight = function(h){
+		this.spawnHeight = h;
+	}	
+	this.setSpawnDensity = function(d){
+		this.spawnDensity = d;
+	}		
+	this.setSpawnCenterX = function(cx){
+		this.spawnCenterX = cx;
+	}	
+	this.setSpawnCenterY = function(cy){
+		this.spawnCenterY = cy;
+	}	
 
 	/* Toggles */
 	this.toggleBirthArrayVal = function(neighbs){
@@ -59,5 +83,20 @@ function settings(){
 		return this.lifetime;
 	}
 
+	this.getSpawnWidth = function(){
+		return this.spawnWidth;
+	}
+	this.getSpawnHeight = function(){
+		return this.spawnHeight;
+	}	
+	this.getSpawnDensity = function(){
+		return this.spawnDensity;
+	}		
+	this.getSpawnCenterX = function(){
+		return this.spawnCenterX;
+	}	
+	this.getSpawnCenterY = function(){
+		return this.spawnCenterY;
+	}	
 
 }
