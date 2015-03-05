@@ -96,13 +96,14 @@ this.randSame = function(){
 
 		for (var i = 0; i < this.organism_list.length; i++){
 			var org = this.organism_list[i];
+
 			alert(this.stats.getOrgStats(i+1));
 			this.stats.getOrgStats(i+1).setExplored(exploredCounter);
 			org.setState(tempState);
-			
-			org.toggleCell( 
-				getRandInt(this.settings.getSpawnCenterX() -1, this.settings.getSpawnCenterX() + this.settings.getSpawnWidth() +1),
-				getRandInt(this.settings.getSpawnCenterY() -1, this.settings.getSpawnCenterY() + this.settings.getSpawnHeight() +1) );
+
+			var randY = getRandInt(Math.floor(y -h/2 -1), Math.floor(y + h/2 +1)); 
+			var randX = getRandInt(Math.floor(x -w/2  -1), Math.floor(x + w/2  +1));
+			org.toggleCell(randY, randX);
 
 			org.notifyObservers("StateChanged");
 
@@ -132,7 +133,7 @@ this.randSame = function(){
 		// console.log("                   col: " + col);
 
 		if (this.age >= this.settings.getLifetime()){
-			/* error code 1: Can't step past lifetime*/
+			/* error code 1: Can't step past lifetime */
 			return 1;
 		}
 
@@ -184,7 +185,6 @@ this.randSame = function(){
 
 	this.init = function(){
 		this.initOrgs();
-
 		   // alert(this.organism_list[0].getMatrix() == this.organism_list[1].getMatrix());
 	}
 
@@ -199,7 +199,6 @@ this.randSame = function(){
 	this.getSettings = function(){
 		return this.settings;
 	}
-	
 	
 	/* SETUP */
 	this.init();

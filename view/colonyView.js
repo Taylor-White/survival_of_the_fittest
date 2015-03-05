@@ -88,5 +88,6 @@ function colonyView(){
 			cv.notifyObservers("UserResetCol");
 		});
 	}
+	
 	$(document).ready(this.prepAfterLoad(this));
 }
