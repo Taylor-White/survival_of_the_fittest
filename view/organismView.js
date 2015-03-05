@@ -19,9 +19,6 @@ var CELL_HEIGHT = 10; //Pixel height of cell
 function organismView(){
 	console.log("creating Organism View");
 
-	this.fts = 0; // # updates this second (actual)
-	this.fps = 0; // avg # updates per second
-
 	/* function to update the organism on the canvas */
 	this.update = function(state){
 		console.log("updating org view canvas");
@@ -55,10 +52,6 @@ function organismView(){
 	this.updateAge = function(age){
 		$("#age").html("AGE: " + age);
 	}
-	this.updateFPS = function(fps){
-		$("#fps").html("FPS: " + fps);
-	}
-	
 
 	/* Register OnClicks */
 	/*	Loads the things that refer to actual html. 
@@ -68,17 +61,6 @@ function organismView(){
 	*/	
 	this.prepAfterLoad = function(ov){
 		ov.canvas = $("canvas")[0].getContext("2d");
-		$("#fps").html	("FPS: " + 0);
-
-/* 		USE THE ID'S OF BIRTH & SUSTAIN VALUES ex. $("Birth1")
-				ADD AN ONCLICK HANDLER
-					PASS AN ANONYMOUS FUNCTION TO NOTIFY ORGVIEWS OBSERVERS
-
-		$( "#Birth1" ).click(function(event){	// Birth1 is the id in index.html
-			ov.notifyObservers("Birth1");		// make this a toggle so you don't have to specify a value
-												//	 you can just say Birth1 instead of Birth1On or something
-		});
-*/
 	}
 	$(document).ready(this.prepAfterLoad(this));
 
@@ -92,4 +74,3 @@ function handleClick(e) {
                10, 10);
 } 
 */
-
