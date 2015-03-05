@@ -72,21 +72,27 @@ function colony(numOrgs){
 		console.log("Entered randSame");
 		var randResult, col, row;
 
+		var spawnWidth = this.settings.getSpawnWidth();
+		var spawnHeight = this.settings.getSpawnHeight();
+		var spawnCenterX = this.settings.getSpawnCenterX();
+		var spawnCenterY = this.settings.getSpawnCenterY();
+		var spawnDensity = this.settings.getSpawnDensity();
+
 		this.organism_list[0].randomize(
-								this.settings.getSpawnWidth(),
-								this.settings.getSpawnHeight(),
-								this.settings.getSpawnCenterX(),
-								this.settings.getSpawnCenterY(),
-								this.settings.getSpawnDensity() );
+								spawnWidth,
+								spawnHeight,
+								spawnCenterX,
+								spawnCenterY,
+								spawnDensity );
 		this.organism_list[0].notifyObservers("StateChanged");
 
 		for (var i = 1; i < this.organism_list.length; i++){
 			var org = this.organism_list[i];
 			org.setState(this.organism_list[0].getState());
 
-			org.toggleCell( //Fix this
-				getRandInt(this.settings.getSpawnCenterX() -1, this.settings.getSpawnCenterX() + this.settings.getSpawnWidth() +1),
-				getRandInt(this.settings.getSpawnCenterY() -1, this.settings.getSpawnCenterY() + this.settings.getSpawnHeight() +1) );
+			var randY = getRandInt(Math.floor(spawnCenterY -spawnHeight/2 -1), Math.floor(spawnCenterY + spawnHeight/2 +1)); 
+			var randX = getRandInt(Math.floor(spawnCenterX -spawnWidth/2  -1), Math.floor(spawnCenterX + spawnWidth/2  +1));
+			org.toggleCell(randY, randX);
 
 			org.notifyObservers("StateChanged");
 
@@ -168,7 +174,6 @@ function colony(numOrgs){
 
 	this.init = function(){
 		this.initOrgs();
-
 		   // alert(this.organism_list[0].getMatrix() == this.organism_list[1].getMatrix());
 	}
 
@@ -183,7 +188,6 @@ function colony(numOrgs){
 	this.getSettings = function(){
 		return this.settings;
 	}
-	
 	
 	/* SETUP */
 	this.init();

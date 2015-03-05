@@ -173,10 +173,15 @@ function organism(orgID, numCols, numRows){
 	}
 
 	this.toggleCell = function(row, col){
-		console.log("Org " + this.orgID + " toggling cell: " + row + ", " + col);
-		console.log("    currently: " + this.state[row][col]);
 		// alert(row + " " + col);
 
+		/* if out of bounds, return early and don't toggle */
+		if(!(row>=0 && row<this.numRows && col>=0 && col<this.numCols  )){
+			return;
+		}
+
+		console.log("Org " + this.orgID + " toggling cell: " + row + ", " + col);
+		console.log("    currently: " + this.state[row][col]);
 		if (this.state[row][col] == ALIVE) {
 			this.state[row][col] = DEAD;
 		} else {
