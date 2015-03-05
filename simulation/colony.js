@@ -116,7 +116,7 @@ function colony(numOrgs){
 		// console.log("                   col: " + col);
 
 		if (this.age >= this.settings.getLifetime()){
-			/* error code 1: Can't step past lifetime*/
+			/* error code 1: Can't step past lifetime */
 			return 1;
 		}
 
