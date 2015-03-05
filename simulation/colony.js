@@ -56,39 +56,36 @@ function colony(numOrgs){
 		return this.organism_list[orgID-1];
 	}
 
-this.randSame = function(){
-	console.log("Entered randSame");
-	var randResult, col, row;
-	
-	var tempState = createMatrix(50,50,0);
-	var exploredCounter = 0;
-	console.log("  Org randomizing");
-	
-	var w = this.settings.getSpawnWidth();
-	var h = this.settings.getSpawnHeight();
-	var x = this.settings.getSpawnCenterX();
-	var y = this.settings.getSpawnCenterY();
-	var d = this.settings.getSpawnDensity();
-	
-	//this.stats.clearStats();
-	y = y-Math.floor((h/2)+1);
-	x = x-Math.floor((w/2)+1);		
-	for (var row = y; row < y+h; row++) {
-		for (var col = x; col < x+w; col++) {
-			var i = Math.floor(Math.random() * (100/d));
-			if(i == 0 && row>=0 && row<50 && col>=0 && col<50  ){
-				tempState[row][col] = 1; 
-				exploredCounter++;
-				//this.stats.getOrgStats(this.orgID).addToExplored(1);
-			}	
-		}
-	}
-	// this.notifyObservers("StateChanged");
+	this.randSame = function(){
+		console.log("Entered randSame");
+		var randResult, col, row;
 		
-
+		var tempState = createMatrix(50,50,0);
+		var exploredCounter = 0;
+		console.log("  Org randomizing");
+		
+		var w = this.settings.getSpawnWidth();
+		var h = this.settings.getSpawnHeight();
+		var x = this.settings.getSpawnCenterX();
+		var y = this.settings.getSpawnCenterY();
+		var d = this.settings.getSpawnDensity();
+		
+		//Creates random state based on user settings
+		y = y-Math.floor((h/2)+1);
+		x = x-Math.floor((w/2)+1);		
+		for (var row = y; row < y+h; row++) {
+			for (var col = x; col < x+w; col++) {
+				var i = Math.floor(Math.random() * (100/d));
+				if(i == 0 && row>=0 && row<50 && col>=0 && col<50  ){
+					tempState[row][col] = 1; 
+					exploredCounter++;
+				}	
+			}
+		}
 
 		this.organism_list[0].notifyObservers("StateChanged");
-
+		
+		//Loops through each organism and applies the state to it
 		for (var i = 0; i < this.organism_list.length; i++){
 			var org = this.organism_list[i];
 
