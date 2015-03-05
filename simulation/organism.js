@@ -155,6 +155,7 @@ function organism(orgID, numCols, numRows){
 	}
 
 	this.randomize = function(w, h, x, y, d){
+		console.log("swagg " + d)
 		console.log("  Org "+this.orgID+" randomizing");
 		this.clearState();
 		//this.exploredCount = 0;
@@ -245,8 +246,8 @@ function organism(orgID, numCols, numRows){
 
 	/* WORK-IN-PROGRESS -- LOW PRIORITY */
 	this.patternCtr = function(){
-		var glider = [
-			[9,0,0,0,0],
+		var glider = [ 
+			[9,0,0,0,0], //Why is there a "9" in row 0, col 0? Typo?
 			[0,0,1,0,0],
 			[0,1,1,0,0],
 			[0,1,0,1,0],
