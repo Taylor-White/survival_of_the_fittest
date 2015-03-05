@@ -19,15 +19,7 @@ function organism(orgID, numCols, numRows){
 
 	this.rle = "";
 
-	// this.birthArray = [0, 0, 0, 1, 0, 0, 0, 0, 0];
-	// this.sustainArray = [0, 0, 1, 1, 0, 0, 0, 0, 0]
-	//check result value if it exits, replace that var with this value
-
 	this.age = 0;
-	// this.birthCount = 0;
-	// this.susCount = 0;
-	// this.deathCount = 0;
-	// this.exploredCount = 0;
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -60,19 +52,19 @@ function organism(orgID, numCols, numRows){
 	}
 
 	this.setBirthCount = function(b){
-		console.log("Org " + orgID + " birth " + this.birthCount + " -> " + b);
+		//console.log("Org " + orgID + " birth " + this.birthCount + " -> " + b);
 		this.birthCount = b;
 	}
 	this.setSusCount = function(s){
-		console.log("Org " + orgID + " sustain " + this.susCount + " -> " + s);
+		//console.log("Org " + orgID + " sustain " + this.susCount + " -> " + s);
 		this.susCount = s;
 	}
 	this.setsetDeathCount = function(d){
-		console.log("Org " + orgID + " death " + this.deathCount + " -> " + d);
+		//console.log("Org " + orgID + " death " + this.deathCount + " -> " + d);
 		this.deathCount = d;
 	}	
 	this.setsetExploredCount = function(e){
-		console.log("Org " + orgID + " explored " + this.exploredCount + " -> " + e);
+		//console.log("Org " + orgID + " explored " + this.exploredCount + " -> " + e);
 		this.exploredCount = e;
 	}
 
@@ -154,23 +146,7 @@ function organism(orgID, numCols, numRows){
 		}
 	}
 
-	this.randomize = function(w, h, x, y, d){
-		console.log("swagg " + d)
-		console.log("  Org "+this.orgID+" randomizing");
-		this.clearState();
-		//this.exploredCount = 0;
-		var y = y-Math.floor((h/2)+1);
-		var x = x-Math.floor((w/2)+1);		
-		for (var row = y; row < y+h; row++) {
-			for (var col = x; col < x+w; col++) {
-				var i = Math.floor(Math.random() * (100/d));
-				if(i == 0 && row>=0 && row<this.numRows && col>=0 && col<this.numCols  )
-					this.state[row][col] = 1; 
-					//this.exploredCount++;
-			}
-		}
-		// this.notifyObservers("StateChanged");
-	}
+
 
 	this.toggleCell = function(row, col){
 		console.log("Org " + this.orgID + " toggling cell: " + row + ", " + col);
@@ -181,6 +157,7 @@ function organism(orgID, numCols, numRows){
 			this.state[row][col] = DEAD;
 		} else {
 			this.state[row][col] = ALIVE;
+			this.stats.getOrgStats(this.orgID).addToExplored(1);
 		}
 		console.log("    after: " + this.state[row][col]);
 		// alert(this.state);
@@ -299,3 +276,4 @@ function copyMatrix(oldMat, newMat){
 		}
 	}
 }
+

@@ -125,6 +125,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.userRand = function(){
 		/* user settings should already be updated */
 		this.colony.randSame();
+		this.statsCtr.updateColStatsView();
+		this.statsCtr.updateOrgStatsView();		
 	}
 
 	/* function for when the user wants to pause the simulation */
@@ -190,13 +192,13 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.colView.addObserver(this);
 		this.orgCtr.addObserver(this);
 		this.colony.addObserver(this);
-		this.colView.selectOrg(1);
-		this.colView.updateGenCount(this.colony.gens);
 		this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
-		this.colony.randSame();
 		this.statsCtr.setStats(this.colony.stats);
+		this.colony.randSame();	
 		this.statsCtr.updateOrgStatsView();
-		this.statsCtr.updateColStatsView();
+		this.statsCtr.updateColStatsView();		
+		this.colView.selectOrg(1);
+		this.colView.updateGenCount(this.colony.gens);		
 		this.settCtr.setSettings(this.colony.settings);
 		// this.settCtr.updateSettingsView();
 		this.orgCtr.updateOrgView();
