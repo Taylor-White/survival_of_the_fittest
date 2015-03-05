@@ -3,8 +3,8 @@ View: canvas
 File owner: Taylor White
 */
 
-var CANVAS_WIDTH = 600; //Width of Canvas
-var CANVAS_HEIGHT = 600; //Height of Canvas
+var CANVAS_WIDTH = 500; //Width of Canvas
+var CANVAS_HEIGHT = 500; //Height of Canvas
 
 var ROWS = 50; //Number of cells in a row
 var COLUMNS = 50; //Number of cells in a column
