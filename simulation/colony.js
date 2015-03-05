@@ -11,13 +11,6 @@ function colony(numOrgs){
 	this.numOrgs = numOrgs;
 	this.organism_list = [];
 	this.checkin_list = [];
-
-	/* Randomize Values */
-	//this.randWidth = 5;
-	//this.randHeight = 5;
-	//this.randX = 25;
-	//this.randY = 25;
-	//this.randDensity = 35;
 	
 	/* Stats */
 	this.stats = new stats(numOrgs);
@@ -63,30 +56,48 @@ function colony(numOrgs){
 		return this.organism_list[orgID-1];
 	}
 
-	this.randSame = function(){
-		console.log("Entered randSame");
-		var randResult, col, row;
+this.randSame = function(){
+	console.log("Entered randSame");
+	var randResult, col, row;
+	
+	var tempState = createMatrix(50,50,0);
+	var exploredCounter = 0;
+	console.log("  Org randomizing");
+	
+	var w = this.settings.getSpawnWidth();
+	var h = this.settings.getSpawnHeight();
+	var x = this.settings.getSpawnCenterX();
+	var y = this.settings.getSpawnCenterY();
+	var d = this.settings.getSpawnDensity();
+	
+	//this.stats.clearStats();
+	y = y-Math.floor((h/2)+1);
+	x = x-Math.floor((w/2)+1);		
+	for (var row = y; row < y+h; row++) {
+		for (var col = x; col < x+w; col++) {
+			var i = Math.floor(Math.random() * (100/d));
+			if(i == 0 && row>=0 && row<50 && col>=0 && col<50  ){
+				tempState[row][col] = 1; 
+				exploredCounter++;
+				//this.stats.getOrgStats(this.orgID).addToExplored(1);
+			}	
+		}
+	}
+	// this.notifyObservers("StateChanged");
+		
 
-		var spawnWidth = this.settings.getSpawnWidth();
-		var spawnHeight = this.settings.getSpawnHeight();
-		var spawnCenterX = this.settings.getSpawnCenterX();
-		var spawnCenterY = this.settings.getSpawnCenterY();
-		var spawnDensity = this.settings.getSpawnDensity();
 
-		this.organism_list[0].randomize(
-								spawnWidth,
-								spawnHeight,
-								spawnCenterX,
-								spawnCenterY,
-								spawnDensity );
 		this.organism_list[0].notifyObservers("StateChanged");
 
-		for (var i = 1; i < this.organism_list.length; i++){
+		for (var i = 0; i < this.organism_list.length; i++){
 			var org = this.organism_list[i];
-			org.setState(this.organism_list[0].getState());
 
-			var randY = getRandInt(Math.floor(spawnCenterY -spawnHeight/2 -1), Math.floor(spawnCenterY + spawnHeight/2 +1)); 
-			var randX = getRandInt(Math.floor(spawnCenterX -spawnWidth/2  -1), Math.floor(spawnCenterX + spawnWidth/2  +1));
+			alert(this.stats.getOrgStats(i+1));
+			this.stats.getOrgStats(i+1).setExplored(exploredCounter);
+			org.setState(tempState);
+
+			var randY = getRandInt(Math.floor(y -h/2 -1), Math.floor(y + h/2 +1)); 
+			var randX = getRandInt(Math.floor(x -w/2  -1), Math.floor(x + w/2  +1));
 			org.toggleCell(randY, randX);
 
 			org.notifyObservers("StateChanged");
