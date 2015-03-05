@@ -96,8 +96,8 @@ this.randSame = function(){
 			this.stats.getOrgStats(i+1).setExplored(exploredCounter);
 			org.setState(tempState);
 
-			var randY = getRandInt(Math.floor(y -h/2 -1), Math.floor(y + h/2 +1)); 
-			var randX = getRandInt(Math.floor(x -w/2  -1), Math.floor(x + w/2  +1));
+			var randY = getRandInt(y, y+h); 
+			var randX = getRandInt(x, x+w);
 			org.toggleCell(randY, randX);
 
 			org.notifyObservers("StateChanged");

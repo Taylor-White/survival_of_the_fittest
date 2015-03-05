@@ -160,6 +160,7 @@ function organism(orgID, numCols, numRows){
 		console.log("    currently: " + this.state[row][col]);
 		if (this.state[row][col] == ALIVE) {
 			this.state[row][col] = DEAD;
+			this.stats.getOrgStats(this.orgID).addToExplored(-1);			
 		} else {
 			this.state[row][col] = ALIVE;
 			this.stats.getOrgStats(this.orgID).addToExplored(1);
