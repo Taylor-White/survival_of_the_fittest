@@ -198,7 +198,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.statsCtr.updateOrgStatsView();
 		this.statsCtr.updateColStatsView();		
 		this.colView.selectOrg(1);
-		this.colView.updateGenCount(this.colony.gens);		
+		// this.colView.updateGenCount(this.stats.getColStats().getGens());	
 		this.settCtr.setSettings(this.colony.settings);
 		// this.settCtr.updateSettingsView();
 		this.orgCtr.updateOrgView();

@@ -55,6 +55,7 @@ function statsController(){
 			sv.updateBirths(this.stats.getOrgStats(i+1).getBirths(), i+1);
 			sv.updateDeaths(os.getDeaths(), i+1);
 			sv.updateExplored(os.getExplored(), i+1);
+			sv.updateGenCount(this.stats.getColStats().getGens());
 			// sv.updateAccel(os.getAccel());
 			// sv.updateSteady(os.getSteady());
 		}
