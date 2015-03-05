@@ -18,6 +18,9 @@ function statsView(){
 		console.log("Stats View updating explored: " + explored);
 		$("#org-stats #" + orgID + " .explored").html(explored);
 	}
+	this.updateGenCount = function(gens){
+		$("#gens").html("Generation: " + gens);
+	}
 
 
 	this.updateAvgBirths = function(avgBirths){

@@ -59,6 +59,10 @@ function stats(numOrgs){
 /* Colony Stats Object */
 function colStats(orgStatsArray){
 	console.log("Creating colStats");
+
+	this.age = 0;
+	this.gens = 0;
+
 	this.orgStatsArray = orgStatsArray;
 	this.totalBirths = 0;
 	this.totalDeaths = 0;
@@ -104,6 +108,14 @@ function colStats(orgStatsArray){
 		this.mostBirths = 0;
 		this.fewestDeaths = 0;
 	}
+
+	/* Getters */
+	this.getAge = function(){
+		return this.age;
+	}
+	this.getGens = function(){
+		return this.gens;
+	}
 	this.getAvgDeaths = function(){
 		return this.avgDeaths;
 	}
@@ -128,6 +140,14 @@ function colStats(orgStatsArray){
 	this.getFewestDeaths = function(){
 		return this.fewestDeaths;
 	}
+
+	/* Setters */
+	this.setAge = function(age){
+		this.age = age;
+	}
+	this.setGens = function(gens){
+		this.gens = gens;
+	}
 	this.setAvgDeaths = function(avgDeaths){
 		this.avgDeaths = avgDeaths;
 	}
@@ -151,6 +171,14 @@ function colStats(orgStatsArray){
 	}
 	this.setTotalBirths = function(totalBirths){
 		this.totalBirths = totalBirths;
+	}
+
+	/* Incrementers */
+	this.incAge = function(){
+		this.age++;
+	}
+	this.incGens = function(){
+		this.gens++;
 	}
 }
 

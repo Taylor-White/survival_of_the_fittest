@@ -7,11 +7,6 @@ File owner: Xi
 function colony(numOrgs){
 	console.log("creating Colony");
 
-	/* Colony Properties */
-	this.age = 0;
-	this.gens = 0;
-	// this.lifetime = 50;
-
 	/* Org stuff */
 	this.numOrgs = numOrgs;
 	this.organism_list = [];
@@ -103,10 +98,12 @@ function colony(numOrgs){
 		currently randomizes */
 	this.resetEachOrg = function(){
 		console.log("Resetting Colony");
-		this.age = 0;	// reset age counter
+		// this.age = 0;
+		this.stats.getColStats().setAge(0); // reset age counter
 		this.randSame();		// randomize each org
 		for (org of this.organism_list){
-			org.age = 0;	// reset each org's age
+			this.stats.getOrgStats(org.getOrgID()).setAge(0); // reset each org's age
+			// org.age = 0;	
 
 		}
 		this.stats.clearStats();
@@ -114,14 +111,14 @@ function colony(numOrgs){
 
 	this.resetColony = function(){
 		this.resetEachOrg();
-		this.gens = 0;
+		this.stats.getColStats().setGens(0);
 	}
 
 	this.step = function(){
 		// console.log("COLONY STARTING TO STEP");
 		// console.log("                   col: " + col);
 
-		if (this.age >= this.settings.getLifetime()){
+		if (this.stats.getColStats().getAge() >= this.settings.getLifetime()){
 			/* error code 1: Can't step past lifetime */
 			return 1;
 		}
@@ -135,10 +132,11 @@ function colony(numOrgs){
 		}
 
 		/* increment age */
-		this.age++;
-		console.log("colony just turned " + this.age);
+		// this.age++;
+		this.stats.getColStats().incAge();
+		console.log("colony just turned " + this.stats.getColStats().getAge());
 		/* "Grim Reaper" -- check if the thisony members should die */
-		if (this.age >= this.settings.getLifetime()){
+		if (this.stats.getColStats().getAge() >= this.settings.getLifetime()){
 			this.genDone();	// generation done function
 		}
 	}
@@ -146,7 +144,7 @@ function colony(numOrgs){
 	/* handles the generation completing */
 	this.genDone = function(){
 		console.log("Gen Done");
-		this.gens++;
+		this.stats.getColStats().incGens();
 		this.notifyObservers("GenDone");
 	}
 
@@ -156,7 +154,7 @@ function colony(numOrgs){
 	}
 
 	this.toString = function(){
-		return "The Colony | Age: " + this.age; 
+		return "The Colony | Age: " + this.stats.getColStats().getAge(); 
 	}
 
 	this.initOrgs = function(){
@@ -173,6 +171,8 @@ function colony(numOrgs){
 	}
 
 	this.init = function(){
+		this.stats.getColStats().setAge(0);
+		this.stats.getColStats().setGens(0);
 		this.initOrgs();
 		   // alert(this.organism_list[0].getMatrix() == this.organism_list[1].getMatrix());
 	}
