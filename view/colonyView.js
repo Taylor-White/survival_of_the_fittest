@@ -35,9 +35,6 @@ function colonyView(){
 
 		this.notifyObservers("OrgSelected" + orgID);
 	}
-	this.updateGenCount = function(gens){
-		$("#gens").html("Generation: " + gens);
-	}
 	this.prepAfterLoad = function(cv){
 		$( ".mini-org" ).click(function(event){
 			orgID = this.id.substring(2, this.id.length);
