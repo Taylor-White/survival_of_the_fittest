@@ -335,6 +335,13 @@
    </div>
    <div role="tabpanel" class="tab-pane" id="saved">
    <p>Saved seeds go here?</p>
+   <p id="importDisplayError"></p>
+   <input type="file" id="files" name="files[]" multiple />
+   <p id="importError"></p>
+      <pre id="fileDisplayArea"><pre>
+<output id="list"></output>
+
+
    </div>
    </div>
    </div>
@@ -351,6 +358,7 @@
    <script src="view/organismView.js"></script>
    <script src="view/saveView.js"></script>
    <script src="view/settingsView.js"></script>
+   <script src="view/importExportView.js"></script>   
    <script src="controllers/statsController.js"></script>
    <script src="controllers/settingsController.js"></script>
    <script src="controllers/organismController.js"></script>
