@@ -15,13 +15,17 @@ var fileDisplayArea = document.getElementById('fileDisplayArea');
 
 fileInput.addEventListener('change', function(e) {
 	var file = fileInput.files[0];
-	var textType = /text.*/;
+	var fileTypes = ['lif', 'cells'];
 
-	if (file.type.match(textType)) {
+	var extension = file.name.split('.').pop().toLowerCase(),  //file extension from input file
+    validExtension = fileTypes.indexOf(extension) > -1;  //is extension in acceptable types
+
+	if (validExtension) {
 		var reader = new FileReader();
 
 		reader.onload = function(e) {
 			fileDisplayArea.innerText = reader.result;
+			display(reader.result);
 		}
 
 		reader.readAsText(file);	
@@ -29,4 +33,8 @@ fileInput.addEventListener('change', function(e) {
 		fileDisplayArea.innerText = "File not supported!"
 	}
 });
+function display(content){
+			var display = content;
+			console.log(display);
 
+}
