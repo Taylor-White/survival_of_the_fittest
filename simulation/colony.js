@@ -89,7 +89,6 @@ function colony(numOrgs){
 		for (var i = 0; i < this.organism_list.length; i++){
 			var org = this.organism_list[i];
 
-			// alert(this.stats.getOrgStats(i+1));
 			this.stats.getOrgStats(i+1).setExplored(exploredCounter);
 			org.setState(tempState);
 
