@@ -56,12 +56,12 @@ function statsController(){
 			sv.updateDeaths(os.getDeaths(), i+1);
 			sv.updateExplored(os.getExplored(), i+1);
 			sv.updateGenCount(this.stats.getColStats().getGens());
+			sv.updateAge(this.stats.getColStats().getAge());
 			// sv.updateAccel(os.getAccel());
 			// sv.updateSteady(os.getSteady());
 		}
 	}
 
-	/*  */
 	this.updateColStatsView = function(){
 		var sv = this.statsView;
 		var s = this.stats;

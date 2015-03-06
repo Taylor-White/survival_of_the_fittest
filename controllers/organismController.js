@@ -70,16 +70,9 @@ function organismController(){
 		}
 		this.org = org;
 		this.org.addObserver(this);
-
-		this.orgView.updateAge(this.org.age);
-		// this.statsView.updateBorn(this.org.birthCount, org.orgID);	
-		// this.statsView.updateDied(this.org.deathCount, org.orgID);
-		// this.statsView.updateExplored(this.org.exploredCount, org.orgID);
 		
 		this.updateOrgView();
 	}
-
-	// this.updateStats = function()
 
 	/* function for when the organism changes from alive or dead */
 	this.stateChanged = function(){
@@ -87,10 +80,6 @@ function organismController(){
 	}
 
 	this.updateOrgView = function(){
-		this.orgView.updateAge(this.org.age);
-		// this.statsView.updateBorn(this.org.birthCount, this.org.orgID);
-		// this.statsView.updateDied(this.org.deathCount, this.org.orgID);
-		// this.statsView.updateExplored(this.org.exploredCount, this.org.orgID);
 		this.orgView.update(this.org.getMatrix());
 	}
 }

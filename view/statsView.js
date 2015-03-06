@@ -21,6 +21,9 @@ function statsView(){
 	this.updateGenCount = function(gens){
 		$("#gens").html("Generation: " + gens);
 	}
+	this.updateAge = function(age){
+		$("#age").html("Age: " + age);
+	}
 
 
 	this.updateAvgBirths = function(avgBirths){

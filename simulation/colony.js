@@ -89,7 +89,7 @@ function colony(numOrgs){
 		for (var i = 0; i < this.organism_list.length; i++){
 			var org = this.organism_list[i];
 
-			alert(this.stats.getOrgStats(i+1));
+			// alert(this.stats.getOrgStats(i+1));
 			this.stats.getOrgStats(i+1).setExplored(exploredCounter);
 			org.setState(tempState);
 
@@ -102,18 +102,13 @@ function colony(numOrgs){
 		}
 	}
 
-	/* reset earch organism in the colony
+	/* reset each organism in the colony
 		currently randomizes */
 	this.resetEachOrg = function(){
 		console.log("Resetting Colony");
-		// this.age = 0;
 		this.stats.getColStats().setAge(0); // reset age counter
 		this.randSame();		// randomize each org
-		for (org of this.organism_list){
-			// this.stats.getOrgStats(org.getOrgID()).setAge(0); // reset each org's age
-			// org.age = 0;	
-
-		}
+		this.stats.getColStats().setAge(0); // reset colony's age
 		this.stats.clearStats();
 	}
 
@@ -140,7 +135,6 @@ function colony(numOrgs){
 		}
 
 		/* increment age */
-		// this.age++;
 		this.stats.getColStats().incAge();
 		console.log("colony just turned " + this.stats.getColStats().getAge());
 		/* "Grim Reaper" -- check if the thisony members should die */
@@ -156,8 +150,12 @@ function colony(numOrgs){
 		this.notifyObservers("GenDone");
 	}
 
+	this.isGenDone = function(){
+		return this.stats.getColStats().getAge() >= this.settings.getLifetime();
+	}
+
 	this.evolve = function(){
-		this.resetEachOrg();
+		this.resetColony();
 		this.notifyObservers("Evolved");
 	}
 

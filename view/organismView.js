@@ -49,9 +49,9 @@ function organismView(){
 		// callback(context);
 	}
 
-	this.updateAge = function(age){
-		$("#age").html("AGE: " + age);
-	}
+	// this.updateAge = function(age){
+	// 	$("#age").html("AGE: " + age);
+	// }
 
 	/* Register OnClicks */
 	/*	Loads the things that refer to actual html. 
