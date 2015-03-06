@@ -24,12 +24,12 @@ function settingsView(){
 
 	
 	this.setBirthArrayVal = function(neighbs, bool){
-		console.log("Settings View updating birthArray | neighbs: " + neighbs + ": " + bool);
+		// console.log("Settings View updating birthArray | neighbs: " + neighbs + ": " + bool);
 		$("#life-settings #birth  #" + neighbs + " :checkbox").prop("checked", bool);
 		// alert($("#life-settings #birth  #" + neighbs + " :checkbox").is(":checked") );
 	}
 	this.setSustainArrayVal = function(neighbs, bool){
-		console.log("Settings View updating sustainArray | neighbs: " + neighbs + ": " + bool);
+		// console.log("Settings View updating sustainArray | neighbs: " + neighbs + ": " + bool);
 		$("#life-settings #sustain  #" + neighbs + " :checkbox").prop("checked", bool);
 	}
 

@@ -88,54 +88,9 @@ function organismController(){
 
 	this.updateOrgView = function(){
 		this.orgView.updateAge(this.org.age);
-
 		// this.statsView.updateBorn(this.org.birthCount, this.org.orgID);
 		// this.statsView.updateDied(this.org.deathCount, this.org.orgID);
 		// this.statsView.updateExplored(this.org.exploredCount, this.org.orgID);
-
 		this.orgView.update(this.org.getMatrix());
 	}
-	/*
-
-	this.viewReady = function(context){
-		// context.notifyObservers("ViewReady");
-
-		// context.frameCount++;
-	}
-	this.runFlagChanged = function(bool){
-		if (bool){
-			this.winIntervalID = window.setInterval(this.tick(this),1000);
-			// this.updateFPS();
-		} else {
-			window.clearInterval(this.winIntervalID);
-		}
-	}
-*/
-/* WORKING ON THIS */
-
-
-	/* 
-	this.updateFPS = function(){
-		var fps = this.frameCount / this.timeRunning;
-		this.frameCount = 0;
-		console.log("Updating FPS: " + fps);
-		// this.fps = fps;
-		 this.orgView.updateFPS(fps);
-	}
-
-	when called, tick needs a reference to organismController passed with 
-		Returns: a function with the appropriate context so that it can be passed around as a var
-	this.tick = function(oc){
-		return function(){
-			console.log("INC SEC");
-			oc.frameCount++;
-			// alert("Frame Count: " + oc.frameCount);
-			oc.updateFPS();
-			// oc.orgView.viewReady();
-
-			oc.orgView.update(oc.viewReady, oc, oc.org.getMatrix());
-		}
-	}
-	*/
-
 }

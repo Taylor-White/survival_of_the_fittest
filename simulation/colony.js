@@ -110,7 +110,7 @@ function colony(numOrgs){
 		this.stats.getColStats().setAge(0); // reset age counter
 		this.randSame();		// randomize each org
 		for (org of this.organism_list){
-			this.stats.getOrgStats(org.getOrgID()).setAge(0); // reset each org's age
+			// this.stats.getOrgStats(org.getOrgID()).setAge(0); // reset each org's age
 			// org.age = 0;	
 
 		}

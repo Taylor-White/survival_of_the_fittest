@@ -47,9 +47,9 @@ function statsController(){
 
 	this.updateOrgStatsView = function(){
 		console.log(" --- Updating Org Stats View --- ");
-		console.log(" catch | " + this.stats.toString());
+		// console.log(" catch | " + this.stats.toString());
 		for (var i = 0; i < this.stats.numOrgs; i++) {
-			console.log("     " + i + " | " + this.stats);
+			// console.log("     " + i + " | " + this.stats);
 			var os = this.stats.getOrgStats(i+1);
 			var sv = this.statsView;
 			sv.updateBirths(this.stats.getOrgStats(i+1).getBirths(), i+1);

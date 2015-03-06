@@ -238,16 +238,16 @@ function orgStats(orgID){
 
 	/* Adders */
 	this.addToBirths = function(x){
-		console.log("Adding " + x + " to Births")
+		// console.log("Adding " + x + " to Births")
 		this.births += x;
-		console.log("Total " + this.births + " Births")
+		// console.log("Total " + this.births + " Births")
 	}
 	this.addToDeaths = function(x){
-		console.log("Adding " + x + " to Deaths")
+		// console.log("Adding " + x + " to Deaths")
 		this.deaths += x;
 	}
 	this.addToExplored = function(x){
-		console.log("Adding " + x + " to Explored")
+		// console.log("Adding " + x + " to Explored")
 		this.explored += x;
 	}
 

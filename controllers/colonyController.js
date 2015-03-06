@@ -29,7 +29,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.settings = this.colony.getSettings();
 
 
-	this.runState = PAUSED;
+	this.runState = false;
 	this.genState = MID;
 
 	/*	OBSERVER METHODS */
@@ -63,23 +63,23 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.setRunState(rs);
 		}else if (msg.substring(0,10) == "spawnWidth"){
 			var sWidth = parseInt(msg.substring(10, msg.length));
-			console.log("spawnWidth: " + sWidth)
+			// console.log("spawnWidth: " + sWidth)
 			this.settings.setSpawnWidth(sWidth);
 		} else if (msg.substring(0,11) == "spawnHeight"){
 			var sHeight = parseInt(msg.substring(11, msg.length));
-			console.log("spawnHeight: " + sHeight)
+			// console.log("spawnHeight: " + sHeight)
 			this.settings.setSpawnHeight(sHeight);
 		} else if (msg.substring(0,12) == "spawnDensity"){
 			var sDensity = parseInt(msg.substring(12, msg.length));
-			console.log("spawnDensity: " + sDensity)
+			// console.log("spawnDensity: " + sDensity)
 			this.settings.setSpawnDensity(sDensity);
 		} else if (msg.substring(0,12) == "spawnCenterX"){
 			var sCenterX = parseInt(msg.substring(12, msg.length));
-			console.log("spawnCenterX: " + sCenterX)
+			// console.log("spawnCenterX: " + sCenterX)
 			this.settings.setSpawnCenterX(sCenterX);
 		} else if (msg.substring(0,12) == "spawnCenterY"){
 			var sCenterY = parseInt(msg.substring(12, msg.length));
-			console.log("spawnCenterY: " + sCenterY)
+			// console.log("spawnCenterY: " + sCenterY)
 			this.settings.setSpawnCenterY(sCenterY);
 		}
 	}
@@ -169,7 +169,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 
 	this.genDone = function(gens){
 		this.genState = END;
-		this.colView.updateGenCount(gens);
+		// this.colView.updateGenCount(gens);
 		var oldRunState = this.runState;
 		this.setRunState(PAUSED);
 		if (oldRunState == RUN_ONE_GEN){
