@@ -27,8 +27,11 @@ function saveloadView(){
 
 	this.prepAfterLoad = function(sv){
 
-		$( "#reset" ).click(function(event){
-			cv.notifyObservers("UserResetCol");
+		$( "#save" ).click(function(event){
+			sv.notifyObservers("UserSave");
+		})
+		$( "#load" ).click(function(event){
+			sv.notifyObservers("UserLoad");
 		});
 	}
 	

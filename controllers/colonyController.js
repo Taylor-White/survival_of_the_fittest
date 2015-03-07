@@ -43,19 +43,21 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.userRunOneGen();
 		} else if (msg == "UserResetCol"){
 			this.userResetCol();
-		} else if (msg.substring(0,11) == "OrgSelected"){
-			var orgID = parseInt(msg.substring(11, msg.length));
-			this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
-		} else if (msg == "ViewReady"){
-			this.colony.setViewReady(true);
-		} else if (msg == "GenDone"){
-			this.genDone(observable.gens);
+		} else if (msg == "UserSave"){
+			this.userSave();
+		} else if (msg == "UserLoad"){
+			this.userLoad();
 		} else if (msg.substring(0,9) == "UserSpeed"){
 			// must pause and restart in order update speed
 			var rs = this.run;
 			this.setRun(false);
 			this.setRun(rs);
-		}else if (msg.substring(0,10) == "spawnWidth"){
+		} else if (msg.substring(0,11) == "OrgSelected"){
+			var orgID = parseInt(msg.substring(11, msg.length));
+			this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
+		} else if (msg == "GenDone"){
+			this.genDone(observable.gens);
+		} else if (msg.substring(0,10) == "spawnWidth"){
 			var sWidth = parseInt(msg.substring(10, msg.length));
 			// console.log("spawnWidth: " + sWidth)
 			this.settings.setSpawnWidth(sWidth);
@@ -131,6 +133,13 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.statsCtr.updateOrgStatsView();
 	}
 
+	this.userSave = function(){
+		alert(UserSave);
+	}
+	this.userLoad = function(){
+		alert(UserLoad);
+	}
+
 
 	this.setRun = function(newRun){
 		console.log("Setting Run State: " + newRun);
@@ -178,17 +187,26 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	}
 
 	this.initialize = function(){
+		/* Register this as Observer */
 		this.colView.addObserver(this);
 		this.orgCtr.addObserver(this);
 		this.colony.addObserver(this);
-		this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
+
+		/* Give colony a reference to the stats and settings models */
+		/* Ideally these would use the singleton pattern */
 		this.statsCtr.setStats(this.colony.stats);
+		this.settCtr.setSettings(this.colony.settings);
+
+		/* Select org 1 */
+		this.orgCtr.setSelectedOrg(this.colony.getOrg(1));
+		this.colView.selectOrg(1);
+
+		/* Initialize the Colony */
 		this.colony.randSame();	
+		
+		/* Update Views */
 		this.statsCtr.updateOrgStatsView();
 		this.statsCtr.updateColStatsView();		
-		this.colView.selectOrg(1);
-		this.settCtr.setSettings(this.colony.settings);
-		// this.settCtr.updateSettingsView();
 		this.orgCtr.updateOrgView();
 	}
 
