@@ -27,23 +27,18 @@ function importView(){
 			var reader = new FileReader();
 
 			reader.onload = function(e) {
-				fileDisplayArea.innerText = reader.result;
+				
 				display(reader.result);
 
 				newMat = extractMat(reader.result);
-
-
 			}
-
 			reader.readAsText(file);	
 		} else {
 			fileDisplayArea.innerText = "File not supported!"
 		}
 	});
 	function display(content){
-				var display = content;
-				console.log(display);
-
+		fileDisplayArea.innerText = content;
 	}
 
 	function extractMat(result){
@@ -53,14 +48,7 @@ function importView(){
 		var counterX = 0;
 		var counterY = 0;
 	    for(var line = 0; line < lines.length; line++){
-	      //console.log(lines[line]);
-	      /*if(lines[line].charAt(0) != "*" || lines[line].charAt(0) != "O"){
-	      	counterX = 0;
-	      	counterY = 0;
-	      }*/
 	      for(var i = 0; i < lines[line].length; i++){
-
-	      	//console.log(lines[line].charAt(i));
 	      	if(lines[line].charAt(i) == "."){
 	      		counterX++;
 	      	} else if(lines[line].charAt(i) == "*" || lines[line].charAt(i) == "O"){
@@ -68,36 +56,26 @@ function importView(){
 	      		coordinateY[coordinateY.length] = counterY;
 	      		counterX++;
 	      	}
-	      	//if(lines[line])
-
 	      }
 	      if(lines[line].charAt(0) == "*" || lines[line].charAt(0) == "O" || lines[line].charAt(0) == ".")
 	      	counterY++;
 	      counterX = 0;
 
 	    }
-	    //console.log(coordinateX);
-	    //console.log(coordinateY);
-	    s = createMatrix(coordinateX.length,coordinateY.length,0);
+
+	    s = createMatrix(Math.max.apply(Math,coordinateX)+1,Math.max.apply(Math,coordinateY)+1,0);
 	    s = toggleCells(coordinateX, coordinateY, s);
-	    //Display in console
-	    //console.log("Matrix: \n");
+
 		for(var z = 0; z < s.length; z++) {
 		 console.log(s[z]);
 		}
-
 	    return s;
 	}		    
 
-
 	function toggleCells(row, col, m){
 	    for( var j = 0; j<row.length; j++){
-	    	//console.log("x coordinate: " + row[j]);
-	    	//console.log("y coordinate: " + col[j]);
 				m[row[j]][col[j]] = 1;
-
 	    }	
-
 		return m;
 	}
 }	
