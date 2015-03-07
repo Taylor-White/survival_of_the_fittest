@@ -21,7 +21,6 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.settView.addObserver(this);
 	this.settings = this.colony.getSettings();
 
-
 	this.run = false;
 	this.shouldContinue = false;
 
