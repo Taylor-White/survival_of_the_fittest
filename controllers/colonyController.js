@@ -16,6 +16,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.colony = new colony(10);
 
 	this.selectedOrgID = 0;
+	
+	this.importView = new importView();
 
 	this.settView = new settingsView();
 	this.settView.addObserver(this);
