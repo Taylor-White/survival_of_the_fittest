@@ -19,6 +19,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	
 	this.importView = new importView();
 
+	this.saveloadView = new saveloadView();
 	this.settView = new settingsView();
 	this.settView.addObserver(this);
 	this.settings = this.colony.getSettings();
