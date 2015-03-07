@@ -67,7 +67,12 @@ function organism(orgID, numCols, numRows){
 		//console.log("Org " + orgID + " explored " + this.exploredCount + " -> " + e);
 		this.exploredCount = e;
 	}
-
+	this.setSeed = function(seed){
+		this.seed = seed;
+	}
+	this.getSeed = function(){
+		return this.seed;
+	}
 
 	this.setOrgID = function(ID){
 		this.orgID = ID;
@@ -224,7 +229,7 @@ function organism(orgID, numCols, numRows){
 	}
 
 	this.toString = function(){
-		return "An Org | orgID: " + this.orgID + ", age: " + this.age; 
+		return "An Org | orgID: " + this.orgID + ", explored: " + this.stats.getOrgStats(this.orgID).getExplored(); 
 	}
 
 	/* WORK-IN-PROGRESS -- LOW PRIORITY */
@@ -283,3 +288,31 @@ function copyMatrix(oldMat, newMat){
 	}
 }
 
+/* returns number of cells added */
+function toggleCell(state, row, col){
+	// alert(row + " " + col);
+
+	var numRows = state.length;
+	var numCols = state[numRows-1].length;
+	var numCellsTurnedOn = 0;
+
+	/* in bounds, toggle */
+	if(row>=0 && row<numRows && col>=0 && col<numCols){
+		if (state[row][col] == ALIVE) {
+			state[row][col] = DEAD;
+			// this.stats.getOrgStats(this.orgID).addToExplored(-1);			
+			console.log("Turning cell ON:  " + row + ", " + col);
+			numCellsTurnedOn = -1;
+		} else {
+			state[row][col] = ALIVE;
+			// this.stats.getOrgStats(this.orgID).addToExplored(1);
+			console.log("Turning cell OFF: " + row + ", " + col);
+			numCellsTurnedOn = 1;
+		}
+		// console.log("    after: " + state[row][col]);
+	} else { // out of bounds, don't toggle
+		numCellsTurnedOn = 0;
+	}
+
+	return numCellsTurnedOn;
+}

@@ -62,7 +62,7 @@ function colony(numOrgs){
 		
 		var tempState = createMatrix(50,50,0);
 		var exploredCounter = 0;
-		console.log("  Org randomizing");
+		// console.log("  Org randomizing");
 		
 		var w = this.settings.getSpawnWidth();
 		var h = this.settings.getSpawnHeight();
@@ -70,7 +70,8 @@ function colony(numOrgs){
 		var y = this.settings.getSpawnCenterY();
 		var d = this.settings.getSpawnDensity();
 		
-		//Creates random state based on user settings
+		// Creates random state based on user settings
+		//   Keeps track of num explored 
 		y = y-Math.floor((h/2)+1);
 		x = x-Math.floor((w/2)+1);		
 		for (var row = y; row < y+h; row++) {
@@ -83,18 +84,23 @@ function colony(numOrgs){
 			}
 		}
 
-		this.organism_list[0].notifyObservers("StateChanged");
+		// this.organism_list[0].notifyObservers("StateChanged");
 		
 		//Loops through each organism and applies the state to it
 		for (var i = 0; i < this.organism_list.length; i++){
 			var org = this.organism_list[i];
 
-			this.stats.getOrgStats(i+1).setExplored(exploredCounter);
-			org.setState(tempState);
+			var tempStateCopy = createMatrix(50,50,0);
+			copyMatrix(tempStateCopy, tempState);
 
 			var randY = getRandInt(y, y+h); 
 			var randX = getRandInt(x, x+w);
-			org.toggleCell(randY, randX);
+			/* toggleCell returns number turned on (-1, 0, 1) */
+			this.stats.getOrgStats(i+1).setExplored(
+											exploredCounter + 
+											toggleCell(tempStateCopy, randY, randX) );
+			org.setSeed(tempStateCopy);
+			org.setState(tempStateCopy);
 
 			org.notifyObservers("StateChanged");
 
