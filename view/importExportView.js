@@ -111,7 +111,7 @@ function importView(){
 	this.exportFile = function(){
 
 		var data = [["0", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
-		var csvContent = "data:text/plain;charset=utf-8,";
+		/*var csvContent = "data:text/plain;charset=utf-8,";
 		data.forEach(function(infoArray, index){
 
 		   dataString = infoArray.join(",");
@@ -121,10 +121,8 @@ function importView(){
 		var encodedUri = encodeURI(csvContent);
 		window.open(encodedUri);
 		//window.location.href = url;
-		console.log("exporting file");
-
-
-	}	
+		console.log("exporting file");*/
+	}
 	this.toString = function(){
 		return "The import/export View";
 	}

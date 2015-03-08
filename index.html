@@ -7,6 +7,7 @@
       <link rel="stylesheet" href="libraries/bootstrap/css/custom.css">
       <script src="libraries/jquery.js"></script>
       <script src="libraries/bootstrap/js/bootstrap.min.js"></script>
+      <script src="libraries/downloadify/src/downloadify.js"></script>            
       <!-- Latest compiled and minified CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
       <!-- Optional theme -->
@@ -331,6 +332,7 @@
                               <input type="radio" id="fast" autocomplete="off"> Fast
                               </label>
                            </div>
+
    </body>
    </div>
    <div role="tabpanel" class="tab-pane" id="saved">
@@ -347,14 +349,32 @@
    </div>
    <h3>Export:</h3>  
    <button id="export">Export</button>    
+<p id="downloadify">downloadify</p>
 
+   </div>
+   </div>
+   </div>
+   </div>
+   </div>
+   </div>
+   <script>
+      Downloadify.create('downloadify',{
+      filename: function(){
+        return "seed";
+      },
+      data: function(){ 
+        return data;
+      },
+      onCancel: function(){ 
+        alert('You have cancelled the saving of this file.');
+      },
+      onError: function(){ 
+        alert('sucks to suck'); 
+      },
+    });
 
-   </div>
-   </div>
-   </div>
-   </div>
-   </div>
-   </div>
+   </script>
+
    <script src="simulation/saved.js"></script>
 
    <script src="simulation/stats.js"></script>

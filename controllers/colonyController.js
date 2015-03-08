@@ -150,13 +150,11 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.userLoad = function(index){
 		alert(this.saved.getSeed(index));
 	}
-<<<<<<< HEAD
 	this.userExport = function(index){
 		console.log("getting seed: " + this.saved.getSeed(index));
 		//Send seed to importExportView
 		this.importView.exportFile();
 	}
-=======
 	this.userSelectSaved = function(index){
 		console.log("User Selected Saved " + index);
 		this.saveloadView.updateSelectedSavedMatrix(
@@ -164,7 +162,6 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		);
 	}
 
->>>>>>> 80dcee150485be69912e99297994d920a5e66ce3
 
 	this.setRun = function(newRun){
 		console.log("Setting Run State: " + newRun);
