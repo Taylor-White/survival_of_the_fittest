@@ -192,6 +192,12 @@ function organism(orgID, numCols, numRows){
 		 // console.log("Getting Matrix: " + this.state);
 		return this.state;
 	}
+	this.getPrintableMatrix = function(){
+		var printMat = "";
+		for (var row = 0; row < this.numRows; row++){
+			printMat = this.state[row] + "\n";
+		}
+	}
 
 	/* function to clear the organism */
 	this.resetOrg = function(){
@@ -286,6 +292,20 @@ function copyMatrix(oldMat, newMat){
 			oldMat[i][j] = newMat[i][j] ;
 		}
 	}
+}
+
+function makeMatrixPrintable(mat){
+	var numRows = mat.length;
+	// var numCols = mat[0].length;
+	var printMat = "";
+	for (var row = 0; row < numRows; row++){
+		printMat += mat[row] + "\n";
+		
+		// for (var col = 0; col < numCols; col++){
+		// 	printMat = mat[row] + "\n";
+		// }
+	}
+	return printMat;
 }
 
 /* returns number of cells added */
