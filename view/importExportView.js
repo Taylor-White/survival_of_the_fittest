@@ -16,6 +16,34 @@ function importView(){
 	var fileInput = document.getElementById('fileInput');
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
 
+	var loadSelected = 0;
+
+	/*	OBSERVABLE METHODS */
+	this.observers = [];
+	this.addObserver = function(observer){
+		this.observers.push(observer);	}
+	this.removeObserver = function(observer){
+		var numObs = this.observers.length;
+		for (var i=0; i<numObs; i++){
+			if (this.observers[i] === observer){
+				this.observers.splice(i,1);	}}}
+	this.notifyObservers = function(msg){
+		console.log(this + " notifying that " + msg);
+		var numObs = this.observers.length;
+		for (var i=0; i<numObs; i++){
+			this.observers[i].receiveMessage(this, msg);
+		}}
+
+	this.prepAfterLoad = function(iev){
+
+		$( "#export" ).click(function(event){
+			iev.notifyObservers("UserExport" + loadSelected);
+		});
+	}
+
+
+
+
 	fileInput.addEventListener('change', function(e) {
 		var file = fileInput.files[0];
 		var fileTypes = ['lif', 'cells'];
@@ -60,7 +88,6 @@ function importView(){
 	      if(lines[line].charAt(0) == "*" || lines[line].charAt(0) == "O" || lines[line].charAt(0) == ".")
 	      	counterY++;
 	      counterX = 0;
-
 	    }
 
 	    s = createMatrix(Math.max.apply(Math,coordinateX)+1,Math.max.apply(Math,coordinateY)+1,0);
@@ -72,15 +99,33 @@ function importView(){
 	    return s;
 	}		    
 
-	function toggleCells(row, col, m){
+	this.toggleCells = function(row, col, m){
 	    for( var j = 0; j<row.length; j++){
 				m[row[j]][col[j]] = 1;
 	    }	
 		return m;
 	}
 
+	this.exportFile = function(){
+
+		var data = [["0", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
+		var csvContent = "data:text/plain;charset=utf-8,";
+		data.forEach(function(infoArray, index){
+
+		   dataString = infoArray.join(",");
+		   csvContent += index < data.length ? dataString+ "\n" : dataString;
+
+		}); 
+		var encodedUri = encodeURI(csvContent);
+		window.open(encodedUri);
+		//window.location.href = url;
+		console.log("exporting file");
 
 
+	}	
+	this.toString = function(){
+		return "The import/export View";
+	}
 
-
+	$(document).ready(this.prepAfterLoad(this));	
 }	

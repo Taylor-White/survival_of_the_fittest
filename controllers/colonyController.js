@@ -20,11 +20,12 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.selectedOrgID = 0;
 	
 	this.importView = new importView();
-
 	this.saveloadView = new saveloadView();
+
 	this.settView = new settingsView();
 	this.settView.addObserver(this);
 	this.settings = this.colony.getSettings();
+
 
 	this.run = false;
 	this.shouldContinue = false;
@@ -47,6 +48,9 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.userResetCol();
 		} else if (msg == "UserSave"){
 			this.userSave();
+		} else if (msg.substring(0,10) == "UserExport"){
+			var exportIndex = parseInt(msg.substring(8, msg.length));
+			this.userExport(exportIndex);
 		} else if (msg.substring(0,8) == "UserLoad"){
 			var loadIndex = parseInt(msg.substring(8, msg.length));
 			this.userLoad(loadIndex);
@@ -142,7 +146,11 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.userLoad = function(index){
 		alert(this.saved.getSeed(index));
 	}
-
+	this.userExport = function(index){
+		console.log("getting seed: " + this.saved.getSeed(index));
+		//Send seed to importExportView
+		this.importView.exportFile();
+	}
 
 	this.setRun = function(newRun){
 		console.log("Setting Run State: " + newRun);
@@ -195,6 +203,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.colView.addObserver(this);
 		this.orgCtr.addObserver(this);
 		this.colony.addObserver(this);
+		this.importView.addObserver(this);
 
 		/* Give colony a reference to the stats and settings models */
 		/* Ideally these would use the singleton pattern */

@@ -50,6 +50,7 @@ function saveloadView(){
 			}
 		}	
 	}
-	this.updateSavedList(4);
+
+	this.updateSavedList(4); //Remove after testing
 	$(document).ready(this.prepAfterLoad(this));
 }
