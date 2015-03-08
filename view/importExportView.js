@@ -24,15 +24,17 @@ function importView(){
 	    validExtension = fileTypes.indexOf(extension) > -1;  //is extension in acceptable types
 
 		if (validExtension) {
+	    	var newMat;
 			var reader = new FileReader();
 
 			reader.onload = function(e) {
 				
 				display(reader.result);
 
-				newMat = extractMat(reader.result);
+				var newMat = extractMat(reader.result);
+
 			}
-			reader.readAsText(file);	
+			reader.readAsText(file);
 		} else {
 			fileDisplayArea.innerText = "File not supported!";
 		}

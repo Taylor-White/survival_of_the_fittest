@@ -19,6 +19,6 @@ function saved(numOrgs){
 	}
 	/* returns index seed was put in */
 	this.numSeeds = function(){
-		return seeds.length();
-	}	
+		return seeds.length;
+	}
 }

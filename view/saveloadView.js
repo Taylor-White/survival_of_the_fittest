@@ -11,7 +11,7 @@ function saveloadView(){
 
 	/* TEMPORARILY initializing to 0
 			decide best way later */
-	var loadSelected = 0;
+	var selected = 0;
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -29,13 +29,13 @@ function saveloadView(){
 			this.observers[i].receiveMessage(this, msg);
 		}}
 
-	this.prepAfterLoad = function(sv){
+	this.prepAfterLoad = function(slv){
 
 		$( "#save" ).click(function(event){
-			sv.notifyObservers("UserSave");
-		})
+			slv.notifyObservers("UserSave");
+		});
 		$( "#load" ).click(function(event){
-			sv.notifyObservers("UserLoad" + loadSelected);
+			slv.notifyObservers("UserLoad" + selected);
 		});
 	}
 	this.updateSavedList = function(numSaved){
@@ -46,10 +46,28 @@ function saveloadView(){
 		}else{
 			for(var i=0; i<numSaved; i++){
 				//Display saved seeds
-				$( "#savedSeedLinks" ).append("<p>Saved" + [i] + "</p>");
+				$( "#savedSeedLinks" ).append("<p><a href='#' id='"+i+"'>Saved" + [i] + "</a></p>");
+				var savedSeedLink = $( "#savedSeedLinks #" + i);
+
+				savedSeedLink.click(
+					function(slv, i){
+						return function(){
+							slv.notifyObservers("UserSelectSaved" + i);
+						}
+					}(this, i));
 			}
 		}	
 	}
-	this.updateSavedList(4);
+
+	/* takes a printable string version of the matrix */
+	this.updateSelectedSavedMatrix = function(matString){
+		$( "#savedMatrix" ).html(matString);
+	}
+
+	this.toString = function(){
+		return "The Save/Load View";
+	}
+
+	this.updateSavedList(0);
 	$(document).ready(this.prepAfterLoad(this));
 }

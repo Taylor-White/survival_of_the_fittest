@@ -55,6 +55,9 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			var rs = this.run;
 			this.setRun(false);
 			this.setRun(rs);
+		} else if (msg.substring(0,15) == "UserSelectSaved"){
+			var selectSavedIndex = parseInt(msg.substring(15, msg.length));
+			this.userSelectSaved(selectSavedIndex);
 		} else if (msg.substring(0,11) == "OrgSelected"){
 			var orgID = parseInt(msg.substring(11, msg.length));
 			this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
@@ -138,9 +141,16 @@ function colonyController(orgCtr, statsCtr, settCtr){
 
 	this.userSave = function(){
 		this.saved.addSeed(this.orgCtr.getSelectedOrg().getSeed());
+		this.saveloadView.updateSavedList(this.saved.numSeeds());
 	}
 	this.userLoad = function(index){
 		alert(this.saved.getSeed(index));
+	}
+	this.userSelectSaved = function(index){
+		console.log("User Selected Saved " + index);
+		this.saveloadView.updateSelectedSavedMatrix(
+			makeMatrixPrintable(this.saved.getSeed(index))
+		);
 	}
 
 
