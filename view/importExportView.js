@@ -101,19 +101,21 @@ function importView(){
 	    return s;
 	}		    
 
-	this.toggleCells = function(row, col, m){
+	function toggleCells(row, col, m){
 	    for( var j = 0; j<row.length; j++){
 				m[row[j]][col[j]] = 1;
 	    }	
 		return m;
 	}
 
-	this.exportFile = function(){
+	this.exportFile = function(matrix){
 
-		var data = "blarg";//[["0", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
-		
-			data.href = 'data:text/plain;charset=utf-8,' + data;
-    		data.download = 'data.txt';
+		var mat = [["1", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
+		//createMatrix(3,3,2);
+		var output = this.prepareExport(mat);
+
+			output.href = 'data:text/plain;charset=utf-8,' + output;
+    		output.download = 'output.lif';
     		console.log("export should have worked");
 		/*var csvContent = "data:text/plain;charset=utf-8,";
 		data.forEach(function(infoArray, index){
@@ -130,6 +132,26 @@ function importView(){
 	this.toString = function(){
 		return "The import/export View";
 	}
+	this.prepareExport = function(lif){
+		var data = "#Conways game of life save \n";
+		for(var i=0;i < lif.length; i++){
+			for(var j=0;j < lif[i].length;j++){
+				if(lif[i][j] == 1){
+					data = data + "*";
+				} else if(lif[i][j] == 0){
+					data = data + ".";
+				}
+
+
+				
+			}
+				data = data + "\n";
+		}
+		console.log(data);
+		console.log("done");
+		return data;
+	}
+
 
 	$(document).ready(this.prepAfterLoad(this));	
 }	
