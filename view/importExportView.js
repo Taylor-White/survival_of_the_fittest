@@ -110,7 +110,11 @@ function importView(){
 
 	this.exportFile = function(){
 
-		var data = [["0", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
+		var data = "blarg";//[["0", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
+		
+			data.href = 'data:text/plain;charset=utf-8,' + data;
+    		data.download = 'data.txt';
+    		console.log("export should have worked");
 		/*var csvContent = "data:text/plain;charset=utf-8,";
 		data.forEach(function(infoArray, index){
 
