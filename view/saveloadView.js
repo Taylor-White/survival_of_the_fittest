@@ -7,7 +7,7 @@ internal save and load functions
 *****************/
 
 function saveloadView(){
-	console.log("creating Colony View");
+	console.log("creating saveload View");
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -34,6 +34,18 @@ function saveloadView(){
 			sv.notifyObservers("UserLoad");
 		});
 	}
-	
+	this.updateSavedList = function(numSaved){
+		console.log("numsaved: " + numSaved);
+		savedSeedLinks.innerText = " ";
+		if(numSaved == 0){
+			savedSeedLinks.innerText = "No saved seeds";
+		}else{
+			for(var i=0; i<numSaved; i++){
+				//Display saved seeds
+				$( "#savedSeedLinks" ).append("<p>Saved" + [i] + "</p>");
+			}
+		}	
+	}
+	this.updateSavedList(4);
 	$(document).ready(this.prepAfterLoad(this));
 }

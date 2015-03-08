@@ -79,14 +79,7 @@ function importView(){
 		return m;
 	}
 
-	this.updateSaved = function(){
-		//if saved.length = 0, display message:
-		//savedSeedLinks.innerText = "No saved seeds"
 
-		//else{}
-		//loop through saved seeds array and display this for each
-		//savedSeedLinks.innerText = "No saved seeds"
-	}
 
 
 

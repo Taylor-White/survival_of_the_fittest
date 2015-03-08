@@ -15,4 +15,8 @@ function saved(numOrgs){
 	this.getSeed = function(index){
 		return seeds[index];
 	}
+	/* returns index seed was put in */
+	this.numSeeds = function(){
+		return seeds.length();
+	}	
 }
