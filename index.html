@@ -335,70 +335,65 @@
                               <input type="radio" id="fast" autocomplete="off"> Fast
                               </label>
                            </div>
+                     </body>
+               </div>
 
-   </body>
-   </div>
    <div role="tabpanel" class="tab-pane" id="saved">
-   <h3>Saved seeds:</h3>
-   <div id="savedSeedLinks"></div>
-   <div id="savedMatrix"></div>
+      <h3>Saved seeds:</h3>
+         <div id="savedSeedLinks"></div>
+         <div id="savedMatrix"></div>
 
-   <h3>Import:</h3>
-   <p id="importDisplayError"></p>
-   <input type="file" id="fileInput" name="files[]" multiple />
-   <p id="importError"></p>
-   <pre id="fileDisplayArea"><pre>
-   <output id="list"></output>
-   </div>
-<h3>Export:</h3>
-<p id="downloadify">downloadify</p>
-<p>Export button saves text to a new tab for download</p>
-<button id="export">Export</button>
+         <h3>Import:</h3>
+         <p id="importDisplayError"></p>
+         <input type="file" id="fileInput" name="files[]" multiple />
+         <p id="importError"></p>
+         <pre id="fileDisplayArea"></pre>
+         <output id="list"></output>
 
-<textarea cols="7" rows="5" name="data" id="data">
-0,0,1,0
-1,0,1,1
-1,0,0,1
-0,1,0,0
-</textarea>
+         <h3>Export:</h3>
+         <p id="downloadify">downloadify</p>
+         <p>Export button saves text to a new tab for download</p>
+         <button id="export">Export</button>
+         <br><br>
+         <textarea cols="5" rows="9" name="data" id="data">
+         0,0,1,0
+         1,0,1,1
+         1,0,0,1
+         0,1,0,0
+         </textarea>
 
-      <script type="text/javascript">
-         Downloadify.create('downloadify',{
-            filename: function(){
-               return document.getElementById('seed').value;
-            },
-            data: function(){ 
-               return document.getElementById('data').value;
-            },
-            onComplete: function(){ 
-               alert('Your File Has Been Saved!');
-            },
-            onCancel: function(){ 
-               alert('You have cancelled the saving of this file.');
-            },
-            onError: function(){ 
-               alert('You must put something in the File Contents or there will be nothing to save!');
-            },
-            transparent: false,
-            swf: 'libraries/downloadify/media/downloadify.swf',
-            downloadImage: 'libraries/downloadify/images/download.png',
-            width: 175,
-            height: 55,
-            transparent: true,
-            append: false
-         });
-      </script>
+         <script type="text/javascript">
+            Downloadify.create('downloadify',{
+               filename: function(){
+                  return document.getElementById('seed').value;
+               },
+               data: function(){ 
+                  return document.getElementById('data').value;
+               },
+               onComplete: function(){ 
+                  alert('Your File Has Been Saved!');
+               },
+               onCancel: function(){ 
+                  alert('You have cancelled the saving of this file.');
+               },
+               onError: function(){ 
+                  alert('You must put something in the File Contents or there will be nothing to save!');
+               },
+               transparent: false,
+               swf: 'libraries/downloadify/media/downloadify.swf',
+               downloadImage: 'libraries/downloadify/images/download.png',
+               width: 175,
+               height: 55,
+               transparent: true,
+               append: false
+            });
+         </script>
 
-
-   </div>
-   </div>
-   </div>
-   </div>
-   </div>
-   </div>
+      </Downloadify.create('downloadify',{>
+      </div>
+   </body>
 
    <script src="simulation/saved.js"></script>
-
    <script src="simulation/stats.js"></script>
    <script src="simulation/settings.js"></script>
    <script src="simulation/organism.js"></script>
