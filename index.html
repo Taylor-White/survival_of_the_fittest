@@ -7,7 +7,10 @@
       <link rel="stylesheet" href="libraries/bootstrap/css/custom.css">
       <script src="libraries/jquery.js"></script>
       <script src="libraries/bootstrap/js/bootstrap.min.js"></script>
-      <script src="libraries/downloadify/src/downloadify.js"></script>            
+      <script src="libraries/downloadify/src/downloadify.js"></script>     
+      <script type="text/javascript" src="libraries/downloadify/js/swfobject.js"></script>
+      <script type="text/javascript" src="libraries/downloadify/js/downloadify.min.js"></script>
+
       <!-- Latest compiled and minified CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
       <!-- Optional theme -->
@@ -346,10 +349,45 @@
    <p id="importError"></p>
    <pre id="fileDisplayArea"><pre>
    <output id="list"></output>
-   </div>
-   <h3>Export:</h3>  
-   <button id="export">Export</button>    
+
+<h3>Export:</h3>
 <p id="downloadify">downloadify</p>
+<p>Export button saves text to a new tab for download</p>
+<button id="export">Export</button>
+
+<textarea cols="7" rows="5" name="data" id="data">
+0,0,1,0
+1,0,1,1
+1,0,0,1
+0,1,0,0
+</textarea>
+
+      <script type="text/javascript">
+         Downloadify.create('downloadify',{
+            filename: function(){
+               return document.getElementById('seed').value;
+            },
+            data: function(){ 
+               return document.getElementById('data').value;
+            },
+            onComplete: function(){ 
+               alert('Your File Has Been Saved!');
+            },
+            onCancel: function(){ 
+               alert('You have cancelled the saving of this file.');
+            },
+            onError: function(){ 
+               alert('You must put something in the File Contents or there will be nothing to save!');
+            },
+            transparent: false,
+            swf: 'libraries/downloadify/media/downloadify.swf',
+            downloadImage: 'libraries/downloadify/images/download.png',
+            width: 175,
+            height: 55,
+            transparent: true,
+            append: false
+         });
+      </script>
 
    </div>
    </div>
@@ -357,23 +395,7 @@
    </div>
    </div>
    </div>
-   <script>
-      Downloadify.create('downloadify',{
-      filename: function(){
-        return "seed";
-      },
-      data: function(){ 
-        return data;
-      },
-      onCancel: function(){ 
-        alert('You have cancelled the saving of this file.');
-      },
-      onError: function(){ 
-        alert('sucks to suck'); 
-      },
-    });
-
-   </script>
+   </div>
 
    <script src="simulation/saved.js"></script>
 
