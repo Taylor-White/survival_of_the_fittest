@@ -9,6 +9,10 @@ internal save and load functions
 function saveloadView(){
 	console.log("creating Colony View");
 
+	/* TEMPORARILY initializing to 0
+			decide best way later */
+	var loadSelected = 0;
+
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 	this.addObserver = function(observer){
@@ -31,7 +35,7 @@ function saveloadView(){
 			sv.notifyObservers("UserSave");
 		})
 		$( "#load" ).click(function(event){
-			sv.notifyObservers("UserLoad");
+			sv.notifyObservers("UserLoad" + loadSelected);
 		});
 	}
 	

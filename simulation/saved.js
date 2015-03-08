@@ -7,8 +7,10 @@ function saved(numOrgs){
 
 	/* returns index seed was put in */
 	this.addSeed = function(seed){
+		// alert("saving seed \n" + seed);
+		console.log("Saving Seed ");
 		seeds.push(seed);
-		return seeds.length();
+		return seeds.length;
 	}
 	/* should we use a seed id instead of index
 			so we can remove later? */

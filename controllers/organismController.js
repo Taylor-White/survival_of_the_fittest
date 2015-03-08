@@ -73,6 +73,9 @@ function organismController(){
 		
 		this.updateOrgView();
 	}
+	this.getSelectedOrg = function(){
+		return this.org;
+	}
 
 	/* function for when the organism changes from alive or dead */
 	this.stateChanged = function(){

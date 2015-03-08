@@ -15,6 +15,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.colView = new colonyView();
 	this.colony = new colony(10);
 
+	this.saved = new saved(10);	
+
 	this.selectedOrgID = 0;
 	
 	this.importView = new importView();
@@ -45,8 +47,9 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.userResetCol();
 		} else if (msg == "UserSave"){
 			this.userSave();
-		} else if (msg == "UserLoad"){
-			this.userLoad();
+		} else if (msg.substring(0,8) == "UserLoad"){
+			var loadIndex = parseInt(msg.substring(8, msg.length));
+			this.userLoad(loadIndex);
 		} else if (msg.substring(0,9) == "UserSpeed"){
 			// must pause and restart in order update speed
 			var rs = this.run;
@@ -134,10 +137,10 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	}
 
 	this.userSave = function(){
-		alert(UserSave);
+		this.saved.addSeed(this.orgCtr.getSelectedOrg().getSeed());
 	}
-	this.userLoad = function(){
-		alert(UserLoad);
+	this.userLoad = function(index){
+		alert(this.saved.getSeed(index));
 	}
 
 
@@ -188,6 +191,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 
 	this.initialize = function(){
 		/* Register this as Observer */
+		this.saveloadView.addObserver(this);
 		this.colView.addObserver(this);
 		this.orgCtr.addObserver(this);
 		this.colony.addObserver(this);
