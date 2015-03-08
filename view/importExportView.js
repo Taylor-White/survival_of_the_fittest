@@ -5,7 +5,7 @@ Deals with importing and exporting
 // Check for the various File API support.
 if (window.File && window.FileReader && window.FileList && window.Blob) {
   // Great success! All the File APIs are supported.
-  document.getElementById('importDisplayError').innerHTML = 'Import supported.';
+  document.getElementById('importDisplayError').innerHTML = "Import: supports 'lif' and 'cells' filetypes.";
 } else {
   document.getElementById('importDisplayError').innerHTML = 'Importing and Exporting are not fully supported in this browser.';
 }
@@ -34,7 +34,7 @@ function importView(){
 			}
 			reader.readAsText(file);	
 		} else {
-			fileDisplayArea.innerText = "File not supported!"
+			fileDisplayArea.innerText = "File not supported!";
 		}
 	});
 	function display(content){
@@ -78,4 +78,16 @@ function importView(){
 	    }	
 		return m;
 	}
+
+	this.updateSaved = function(){
+		//if saved.length = 0, display message:
+		//savedSeedLinks.innerText = "No saved seeds"
+
+		//else{}
+		//loop through saved seeds array and display this for each
+		//savedSeedLinks.innerText = "No saved seeds"
+	}
+
+
+
 }	

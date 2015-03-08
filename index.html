@@ -56,7 +56,7 @@
                   <ul class="nav nav-tabs" role="tablist">
                      <li role="presentation" class="active"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
                      <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-                     <li role="presentation"><a href="#saved" aria-controls="saved" role="tab" data-toggle="tab">Saved</a></li>
+                     <li role="presentation"><a href="#saved" aria-controls="saved" role="tab" data-toggle="tab">Saved Seeds</a></li>
                   </ul>
                   <!-- Tab panes -->
                   <div class="tab-content">
@@ -334,12 +334,16 @@
    </body>
    </div>
    <div role="tabpanel" class="tab-pane" id="saved">
-   <p>Saved seeds go here?</p>
+   <h3>Saved seeds:</h3>
+   <div id="savedSeedLinks"></div>
+
+   <h3>Import:</h3>
    <p id="importDisplayError"></p>
    <input type="file" id="fileInput" name="files[]" multiple />
    <p id="importError"></p>
-      <pre id="fileDisplayArea"><pre>
-<output id="list"></output>
+   <pre id="fileDisplayArea"><pre>
+   <output id="list"></output>
+   </div>
 
 
    </div>
@@ -349,6 +353,7 @@
    </div>
    </div>
    <script src="simulation/saved.js"></script>
+
    <script src="simulation/stats.js"></script>
    <script src="simulation/settings.js"></script>
    <script src="simulation/organism.js"></script>
