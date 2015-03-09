@@ -115,7 +115,7 @@ function importView(){
 		var output = this.prepareExport(mat);
 		Downloadify.create('downloadify',{
 	       filename: function(){
-	          return document.getElementById('seed').value;
+	          return 'seed.lif';
 	       },
 	       data: function(){ 
 	          return output;
