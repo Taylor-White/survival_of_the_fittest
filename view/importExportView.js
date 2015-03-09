@@ -113,7 +113,7 @@ function importView(){
 		var mat = [["1", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
 		//createMatrix(3,3,2);
 		var output = this.prepareExport(mat);
-
+		document.getElementById('data').innerHTML = output;
 			output.href = 'data:text/plain;charset=utf-8,' + output;
     		output.download = 'output.lif';
     		console.log("export should have worked");
