@@ -5,7 +5,7 @@ Deals with importing and exporting
 // Check for the various File API support.
 if (window.File && window.FileReader && window.FileList && window.Blob) {
   // Great success! All the File APIs are supported.
-  document.getElementById('importDisplayError').innerHTML = "Import: supports 'lif' and 'cells' filetypes.";
+  document.getElementById('importDisplayError').innerHTML = "Import: supports 'life 1.05' and 'cells' filetypes.";
 } else {
   document.getElementById('importDisplayError').innerHTML = 'Importing and Exporting are not fully supported in this browser.';
 }
