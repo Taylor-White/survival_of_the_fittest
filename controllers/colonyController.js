@@ -21,7 +21,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 
 	this.selectedOrgID = 0;
 	
-	this.importView = new importView();
+	this.ieView = new importExportView();
 	this.saveloadView = new saveloadView();
 
 	this.settView = new settingsView();
@@ -160,7 +160,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.userExport = function(index){
 		// console.log("getting seed: " + this.saved.getSeed(index));
 		//Send seed to importExportView
-		this.importView.exportFile();
+		this.ieView.exportFile();
 	};
 	this.userSelectSaved = function(index){
 		// console.log("User Selected Saved " + index);
@@ -168,7 +168,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.saveloadView.updateSelectedSavedMatrix(
 			makeMatrixPrintable(this.saved.getSeed(index))
 		);
-		this.importExportView.prepExport(this.saved.getSeed(index));
+		this.ieView.prepExport(this.saved.getSeed(index));
 	};
 
 	this.setRun = function(newRun){
@@ -222,7 +222,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.colView.addObserver(this);
 		this.orgCtr.addObserver(this);
 		this.colony.addObserver(this);
-		this.importView.addObserver(this);
+		this.ieView.addObserver(this);
 
 		/* Give colony a reference to the stats and settings models */
 		/* Ideally these would use the singleton pattern */

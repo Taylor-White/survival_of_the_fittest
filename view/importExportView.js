@@ -10,14 +10,14 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 	document.getElementById('importDisplayError').innerHTML = 'Importing and Exporting are not fully supported in this browser.';
 }
 
-function importView() {
+function importExportView() {
 
 	var fileInput = document.getElementById('fileInput');
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
 
 	var loadSelected = 0;
 
-	var exportString = "";
+	var exportString = "nothing";
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -39,8 +39,8 @@ function importView() {
 			this.observers[i].receiveMessage(this, msg);
 		}
 	};
+	this.updateDlify = function(){
 
-	this.prepAfterLoad = function(iev) {
 
 		/* FROM EXTERNAL LIBRARY DOWNLOADIFY */
 		/* 	uses Flash, so it can't call other js functions
@@ -66,10 +66,15 @@ function importView() {
 			swf: 'libraries/downloadify/media/downloadify.swf',
 			downloadImage: 'libraries/downloadify/images/download.png',
 			width: 175,
-			height: 35,
+			height: 30,
 			transparent: true,
 			append: false
 		});
+	};
+
+	this.prepAfterLoad = function(iev) {
+
+		this.updateDlify();
 
 		/* Define onclick functions */
 		$("#export").click(function(event) {
@@ -89,6 +94,8 @@ function importView() {
 			["0", "1", "0", "0"]
 		];
 		exportString = this.convertToLif(matrix);
+		this.updateDlify();
+		alert(exportString);
 	};
 
 
