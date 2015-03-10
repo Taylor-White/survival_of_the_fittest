@@ -153,7 +153,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.saveloadView.updateSavedList(this.saved.numSeeds());
 	}
 	this.userLoad = function(index){
-		alert(this.saved.getSeed(index));
+
+		alert(this.saved.getSeed(index).length);
 	}
 	this.userExport = function(index){
 		console.log("getting seed: " + this.saved.getSeed(index));

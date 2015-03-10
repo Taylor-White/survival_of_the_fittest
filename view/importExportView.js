@@ -152,7 +152,7 @@ function importView(){
        filename: function(){
           return 'seed.lif';
        },
-       data: function(){ 
+       data: function(){
           return this.exportFile();
        },
        onComplete: function(){ 
