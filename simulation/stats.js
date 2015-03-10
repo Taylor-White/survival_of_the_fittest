@@ -189,9 +189,6 @@ function orgStats(orgID){
 	this.births = 0;
 	this.deaths = 0;
 	this.explored = 0;
-	this.accel = 0;
-	this.steady = 0;
-
 	this.toString = function(){
 		return "OrgStats: " + this.orgID;
 	}
@@ -209,12 +206,6 @@ function orgStats(orgID){
 	this.setExplored = function(explored){
 		this.explored = explored;
 	}
-	this.setAccel = function(accel){
-		this.accel = accel;
-	}
-	this.setSteady = function(steady){
-		this.steady = steady;
-	}
 
 	/* Getters */
 	this.getOrgID = function(){
@@ -228,12 +219,6 @@ function orgStats(orgID){
 	}
 	this.getExplored = function(){
 		return this.explored;
-	}
-	this.getAccel = function(){
-		return this.accel;
-	}
-	this.getSteady = function(){
-		return this.steady;
 	}
 
 	/* Adders */
@@ -255,8 +240,6 @@ function orgStats(orgID){
 		this.births = 0;
 		this.deaths = 0;
 		this.explored = 0;
-		this.accel = 0;
-		this.steady = 0;		
 	}
 
 	this.toString = function(){

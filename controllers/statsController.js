@@ -57,8 +57,6 @@ function statsController(){
 			sv.updateExplored(os.getExplored(), i+1);
 			sv.updateGenCount(this.stats.getColStats().getGens());
 			sv.updateAge(this.stats.getColStats().getAge());
-			// sv.updateAccel(os.getAccel());
-			// sv.updateSteady(os.getSteady());
 		}
 	}
 

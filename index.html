@@ -46,10 +46,8 @@
                      <button type="button" id="run" class="btn btn-default">Run</button>
                      <button type="button" id="step" class="btn btn-default">Step</button>
                      <button type="button" id="pause" class="btn btn-default">Pause</button>
-                     <button type="button" id="run-one-gen" class="btn btn-default">Run 1 Lifetime</button>
+                     <button type="button" id="run-one-gen" class="btn btn-default">Run 1 Lifetime</button><br>
                      <button type="button" id="reset" class="btn btn-default">Reset Run</button>
-                     <button type="button" id="save" class="btn btn-default">Save Seed</button>
-                     <button type="button" id="load" class="btn btn-default">Load Seed</button>
                      <button type="button" id="rand" class="btn btn-default">Random Seed </button> 
                   </div>
                </div>
@@ -65,7 +63,6 @@
                   <!-- Tab panes -->
                   <div class="tab-content">
                      <div role="tabpanel" class="tab-pane active" id="stats">
-                        <p>Colony stats go here!</p>
                         <div id="gens" class="row"></div>
                         <div id="age" class="row"></div>
                         <table id="colony-stats" class="table table-striped table-bordered table-condensed">
@@ -118,10 +115,6 @@
                               <!-- dead -->
                               <td>Explored</td>
                               <!-- explored -->
-                              <td>Accel</td>
-                              <!-- acceleration -->
-                              <td>Steady</td>
-                              <!-- steadiness -->
                            </thead>
                            <tr id="1">
                               <td class="org-title">Org 1</td>
@@ -131,10 +124,6 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                            <tr id="2">
                               <td class="org-title">Org 2</td>
@@ -144,10 +133,6 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                            <tr id="3">
                               <td class="org-title">Org 3</td>
@@ -157,10 +142,6 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                            <tr id="4">
                               <td class="org-title">Org 4</td>
@@ -170,10 +151,6 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                            <tr id="5">
                               <td class="org-title">Org 5</td>
@@ -183,10 +160,6 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                            <tr id="6">
                               <td class="org-title">Org 6</td>
@@ -196,10 +169,6 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                            <tr id="7">
                               <td class="org-title">Org 7</td>
@@ -209,10 +178,6 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                            <tr id="8">
                               <td class="org-title">Org 8</td>
@@ -222,10 +187,6 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                            <tr id="9">
                               <td class="org-title">Org 9</td>
@@ -235,10 +196,6 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                            <tr id="10">
                               <td class="org-title">Org 10</td>
@@ -248,20 +205,13 @@
                               <!-- dead -->
                               <td class="explored"></td>
                               <!-- explored -->
-                              <td class="accel"></td>
-                              <!-- acceleration -->
-                              <td class="steady"></td>
-                              <!-- steadiness -->
                            </tr>
                         </table>
                         <p id="born" class="row"></p>
                         <p id="died" class="row"></p>
                         <p id="explored" class="row"></p>
-                        <p>.......</p>
-                        <p>.......</p>
                      </div>
                      <div role="tabpanel" class="tab-pane" id="settings">
-                        <p>Insert Settings here!</p>
                         <fieldset>
                            <legend>Spawn Settings</legend>
                            Width: <br />
@@ -342,7 +292,8 @@
       <h3>Saved seeds:</h3>
          <div id="savedSeedLinks"></div>
          <div id="savedMatrix"></div>
-
+         <button type="button" id="save" class="btn btn-default">Save Seed</button>
+         <button type="button" id="load" class="btn btn-default">Load Seed</button>
          <h3>Import:</h3>
          <p id="importDisplayError"></p>
          <input type="file" id="fileInput" name="files[]" multiple />
@@ -352,7 +303,6 @@
          <h3>Export:</h3>
          <p id="downloadify">downloadify</p>
          <p>Export button saves text to a new tab for download</p>
-         <button id="export">Export</button>
          <br><br>
 
 
