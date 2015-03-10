@@ -60,7 +60,7 @@ function settingsView(){
 			sv.notifyObservers("UserSpeed4");
 		});
 		$("#medium").change(function(){
-			sv.notifyObservers("UserSpeed20");
+			sv.notifyObservers("UserSpeed8");
 		});
 		$("#fast").change(function(){
 			sv.notifyObservers("UserSpeed100");
