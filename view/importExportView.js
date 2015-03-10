@@ -75,7 +75,7 @@ function importView() {
 		$("#export").click(function(event) {
 			iev.notifyObservers("UserExport" + loadSelected);
 		});
-		$("#downloadify").click(function(event) {
+		$("#downloadify").mousedown(function(event) {
 			alert("ours");
 		});
 	};
