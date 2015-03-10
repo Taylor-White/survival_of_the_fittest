@@ -35,54 +35,65 @@ function importView(){
 
 	this.prepAfterLoad = function(iev){
 
-	Downloadify.create('downloadify',{
-       filename: function(){
-          return 'seed.lif';
-       },
-       data: function(){ 
-       	  //console.log(this.exportFile())
-          //return this.exportFile();
-          return "hello Taylor";
-       },
-       onComplete: function(){ 
-          console.log('Your File Has Been Saved!');
-       },
-       onCancel: function(){ 
-          alert('You have cancelled the saving of this file.');
-       },
-       onError: function(){ 
-          alert('You must put something in the File Contents or there will be nothing to save!');
-       },
-       // transparent: false,
-       swf: 'libraries/downloadify/media/downloadify.swf',
-       downloadImage: 'libraries/downloadify/images/download.png',
-       width: 175,
-       height: 55,
-       transparent: true,
-       append: false
-    });
+		/* FROM EXTERNAL LIBRARY DOWNLOADIFY */
+		/* 	uses Flash, so it can't call other js functions
+				for security reasons */
+		Downloadify.create('downloadify',{
+	       filename: function(){
+	          return 'seed.lif';
+	       },
+	       data: function(){ 
+	       	  //console.log(this.exportFile())
+	          //return this.exportFile();
+	          alert(this.exportFile());
+	          return "hello Taylor";
+	       },
+	       onComplete: function(){ 
+	          console.log('Your File Has Been Saved!');
+	       },
+	       onCancel: function(){ 
+	          alert('You have cancelled the saving of this file.');
+	       },
+	       onError: function(){ 
+	          alert('You must put something in the File Contents or there will be nothing to save!');
+	       },
+	       // transparent: false,
+	       swf: 'libraries/downloadify/media/downloadify.swf',
+	       downloadImage: 'libraries/downloadify/images/download.png',
+	       width: 175,
+	       height: 55,
+	       transparent: true,
+	       append: false
+	    });
 
+		/* Define onclick functions */
 		$( "#export" ).click(function(event){
 			iev.notifyObservers("UserExport" + loadSelected);
 		});
 	};
 
+	/* Helper function for testing */
 	this.exportFile = function(){
-		   console.log("1 fuck me");
-		var mat = [["1", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
-		    console.log("2 fuck me");
-		var output = this.prepareExport(mat);
-		    console.log("3 fuck me");
+		var mat = [	["1", "0", "1", "0"],
+					["1", "0", "1", "1"],
+					["1", "0", "0", "1"],
+					["0", "1", "0", "0"]];
+		var output = this.convertToLif(mat);
 		return output;
 	};
 
-	this.prepareExport = function(lif){
+
+
+	/* converts matrix to .lif 1.05 format */
+	/* returns a string */
+	this.convertToLif = function(mat){
 		var data = "#Conways game of life save \n";
-		for(var i=0;i < lif.length; i++){
-			for(var j=0;j < lif[i].length;j++){
-				if(lif[i][j] == 1){
+		/*  */
+		for(var i=0;i < mat.length; i++){
+			for(var j=0;j < mat[i].length;j++){
+				if(mat[i][j] == 1){
 					data = data + "*";
-				} else if(lif[i][j] === 0){
+				} else if(mat[i][j] === 0){
 					data = data + ".";
 				}
 				
@@ -98,8 +109,10 @@ function importView(){
 		var file = fileInput.files[0];
 		var fileTypes = ['lif', 'cells'];
 
-		var extension = file.name.split('.').pop().toLowerCase(),  //file extension from input file
-	    validExtension = fileTypes.indexOf(extension) > -1;  //is extension in acceptable types
+		/* file extension from input file */
+		var extension = file.name.split('.').pop().toLowerCase();
+	    /* is extension in acceptable types? */
+	    validExtension = fileTypes.indexOf(extension) > -1;  
 
 		if (validExtension) {
 	    	var newMat;
