@@ -10,7 +10,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   document.getElementById('importDisplayError').innerHTML = 'Importing and Exporting are not fully supported in this browser.';
 }
 
-
 function importView(){
 
 	var fileInput = document.getElementById('fileInput');
@@ -105,26 +104,10 @@ function importView(){
 		return m;
 	}
 
-	this.exportFile = function(matrix){
-
+	this.exportFile = function(){
 		var mat = [["1", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
-		//createMatrix(3,3,2);
 		var output = this.prepareExport(mat);
 
-			//output.href = 'data:text/plain;charset=utf-8,' + output;
-    		output.download = 'output.lif';
-    		//console.log("export should have worked");*/
-		/*var csvContent = "data:text/plain;charset=utf-8,";
-		data.forEach(function(infoArray, index){
-
-		   dataString = infoArray.join(",");
-		   csvContent += index < data.length ? dataString+ "\n" : dataString;
-
-		}); 
-		var encodedUri = encodeURI(csvContent);
-		window.open(encodedUri);
-		//window.location.href = url;
-		console.log("exporting file");*/
 		return output;
 	}
 	this.toString = function(){
@@ -153,7 +136,9 @@ function importView(){
           return 'seed.lif';
        },
        data: function(){ 
-          return this.exportFile();
+       	  //console.log(this.exportFile())
+          //return this.exportFile();
+          return "hello Taylor";
        },
        onComplete: function(){ 
           console.log('Your File Has Been Saved!');
