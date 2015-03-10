@@ -87,7 +87,12 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			var sCenterY = parseInt(msg.substring(12, msg.length));
 			// console.log("spawnCenterY: " + sCenterY)
 			this.settings.setSpawnCenterY(sCenterY);
+		} else if (msg.substring(0,8) == "lifetime"){
+			var sLifetime = parseInt(msg.substring(8, msg.length));
+			 console.log("Lifetime: " + sLifetime)
+			this.settings.setLifetime(sLifetime);
 		}
+
 	}
 
 	/* USER ACTIONS */
