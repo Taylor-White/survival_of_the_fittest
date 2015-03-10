@@ -61,6 +61,10 @@ function colonyView(){
 			console.log("spawn centerY: " + $('#spawnCenterY').val());
 			cv.notifyObservers("spawnCenterY" + $('#spawnCenterY').val());
 		});	
+		$( "#lifetime" ).change(function(event){
+			console.log("lifetime: " + $('#spawnCenterX').val());
+			cv.notifyObservers("lifetime" + $('#lifetime').val());
+		});
 		$( "#rand" ).click(function(event){
 			cv.notifyObservers("UserRand");
 		});

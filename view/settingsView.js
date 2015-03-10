@@ -55,7 +55,11 @@ function settingsView(){
 				}
 			}(sv,i));
 		}
-
+		$("#lifetime").change(function(sv, i){
+			return function(){
+				sv.notifyObservers("lifetime" + i);
+			}
+		});
 		$("#slow").change(function(){
 			sv.notifyObservers("UserSpeed4");
 		});
