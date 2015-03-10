@@ -49,10 +49,6 @@ function organismView(){
 		// callback(context);
 	}
 
-	// this.updateAge = function(age){
-	// 	$("#age").html("AGE: " + age);
-	// }
-
 	/* Register OnClicks */
 	/*	Loads the things that refer to actual html. 
 		Params:
@@ -65,7 +61,8 @@ function organismView(){
 	$(document).ready(this.prepAfterLoad(this));
 
 }
-/*
+
+/*	GOOD CHANCE WE'LL USE LATER
 function handleClick(e) {
     c.fillStyle = "black";
 

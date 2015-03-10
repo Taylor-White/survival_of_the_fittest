@@ -5,21 +5,23 @@ Sends information to the Simulation/Stats file
 function statsController(){
 	console.log("Creating Stats Controller");
 
+	/* DECLARATIONS */
+	this.statsView = new statsView();
+
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
-
 	this.addObserver = function(observer){
-		this.observers.push(observer);	}
+		this.observers.push(observer);	};
 	this.removeObserver = function(observer){
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			if (this.observers[i] === observer){
-				this.observers.splice(i,1);	}}}
+				this.observers.splice(i,1);	}}};
 	this.notifyObservers = function(msg){
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			this.observers[i].receiveMessage(this, msg);
-		}}
+		}};
 
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
@@ -30,20 +32,17 @@ function statsController(){
 		} else if (msg == "EXAMPLE2"){
 			// this.example2();
 		}
-	}
+	};
 
-	/* DECLARATIONS */
-	this.statsView = new statsView();
 
 	/* INTERFACE */
-
 	this.setStats = function(stats){
 		this.stats = stats;
-	}
+	};
 
 	this.clearStats = function(){
 		this.stats.clearStats();
-	}
+	};
 
 	this.updateOrgStatsView = function(){
 		// console.log(" --- Updating Org Stats View --- ");
@@ -58,7 +57,7 @@ function statsController(){
 			sv.updateGenCount(this.stats.getColStats().getGens());
 			sv.updateAge(this.stats.getColStats().getAge());
 		}
-	}
+	};
 
 	this.updateColStatsView = function(){
 		var sv = this.statsView;
@@ -71,9 +70,9 @@ function statsController(){
 		sv.updateFewestDeaths(this.stats.colStats.getFewestDeaths());
 		sv.updateMostBirthsOrgID(this.stats.colStats.getMostBirthsOrgID());
 		sv.updateFewestDeathsOrgID(this.stats.colStats.getFewestDeathsOrgID());
-	}
+	};
 
 	this.toString = function(){
 		return "The Stats Controller";
-	}
+	};
 }

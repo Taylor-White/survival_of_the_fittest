@@ -17,19 +17,18 @@ function organismController(){
 	
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
-
 	this.addObserver = function(observer){
-		this.observers.push(observer);	}
+		this.observers.push(observer); };
 	this.removeObserver = function(observer){
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			if (this.observers[i] === observer){
-				this.observers.splice(i,1);	}}}
+				this.observers.splice(i,1);	}}};
 	this.notifyObservers = function(msg){
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			this.observers[i].receiveMessage(this, msg);
-		}}
+		}};
 
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
@@ -38,13 +37,13 @@ function organismController(){
 		if (msg == "StateChanged"){
 			this.updateOrgView();
 		}
-	}
+	};
 
 	/* function for when user chooses random */
 	this.userRandState = function(){
 		this.org.randomize();
 		this.updateOrgView();
-	}
+	};
 
 	/* function for when the user wants to
 	change the organism they are viewing */
@@ -56,12 +55,12 @@ function organismController(){
 		this.org.addObserver(this);
 		
 		this.updateOrgView();
-	}
+	};
 	this.getSelectedOrg = function(){
 		return this.org;
-	}
+	};
 
 	this.updateOrgView = function(){
 		this.orgView.update(this.org.getMatrix());
-	}
+	};
 }

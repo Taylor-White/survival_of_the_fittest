@@ -7,15 +7,17 @@ File owner: Kat
 function colonyController(orgCtr, statsCtr, settCtr){
 	// console.log("creating Colony Controller");
 
+	var INIT_NUM_ORGS = 10;
+
 	this.winIntervalID = 0;
 
 	this.orgCtr = orgCtr;
 	this.statsCtr = statsCtr;
 	this.settCtr = settCtr;
 	this.colView = new colonyView();
-	this.colony = new colony(10);
+	this.colony = new colony(INIT_NUM_ORGS);
 
-	this.saved = new saved(10);	
+	this.saved = new saved(INIT_NUM_ORGS);
 
 	this.selectedOrgID = 0;
 	
@@ -25,7 +27,6 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.settView = new settingsView();
 	this.settView.addObserver(this);
 	this.settings = this.colony.getSettings();
-
 
 	this.run = false;
 	this.shouldContinue = false;
@@ -89,11 +90,11 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.settings.setSpawnCenterY(sCenterY);
 		} else if (msg.substring(0,8) == "lifetime"){
 			var sLifetime = parseInt(msg.substring(8, msg.length));
-			 console.log("Lifetime: " + sLifetime)
+			 console.log("Lifetime: " + sLifetime);
 			this.settings.setLifetime(sLifetime);
 		}
 
-	}
+	};
 
 	/* USER ACTIONS */
 	/* function for when user chooses an organism */
@@ -102,7 +103,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.selectedOrgID = orgID;
 		this.colView.selectOrg(orgID);
 		this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
-	}
+	};
 
 	/* function for when the user chooses to step the simulation */
 	this.userStep = function(){
@@ -112,25 +113,25 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		} else {
 			this.tick(this);
 		}
-	}
+	};
 
 	/* function for when the user wants to run the whole simulation out */
 	this.userRun = function(){
 		this.setRun(true);
 		this.shouldContinue = true;
-	}
+	};
 
 	/* function for when the user wants to stop the simulation from stepping 
 		when the generation is done */
 	this.userRunOneGen = function(){
 		this.setRun(true);
 		this.shouldContinue = false;
-	}
+	};
 
 	/* function for when the user wants to pause the simulation */
 	this.userPause = function(){
 		this.setRun(false);
-	}
+	};
 
 	/* function for when the user wants to randomize all orgs */
 	this.userRand = function(){
@@ -138,7 +139,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.colony.randSame();
 		this.statsCtr.updateColStatsView();
 		this.statsCtr.updateOrgStatsView();		
-	}
+	};
 
 	/* function for when the user wants to pause the simulation */
 	this.userResetCol = function(){
@@ -146,28 +147,27 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.colony.resetColony();
 		this.statsCtr.updateColStatsView();
 		this.statsCtr.updateOrgStatsView();
-	}
+	};
 
 	this.userSave = function(){
 		this.saved.addSeed(this.orgCtr.getSelectedOrg().getSeed());
 		this.saveloadView.updateSavedList(this.saved.numSeeds());
-	}
+	};
 	this.userLoad = function(index){
 
 		alert(this.saved.getSeed(index).length);
-	}
+	};
 	this.userExport = function(index){
 		// console.log("getting seed: " + this.saved.getSeed(index));
 		//Send seed to importExportView
 		this.importView.exportFile();
-	}
+	};
 	this.userSelectSaved = function(index){
 		// console.log("User Selected Saved " + index);
 		this.saveloadView.updateSelectedSavedMatrix(
 			makeMatrixPrintable(this.saved.getSeed(index))
 		);
-	}
-
+	};
 
 	this.setRun = function(newRun){
 		// console.log("Setting Run State: " + newRun);
@@ -186,7 +186,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 				*/
 				this.winIntervalID = window.setInterval(
 					function(that){
-						return function(){that.tick(that);}
+						return function(){that.tick(that);};
 					}(this), 1000/this.settings.getSpeed());
 			}
 		} else {			// if running
@@ -196,7 +196,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			}
 		}
 		this.run = newRun;
-	}
+	};
 
 	this.genDone = function(gens){
 		this.setRun(false);
@@ -204,7 +204,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.colony.evolve();
 			this.setRun(true);
 		}
-	}
+	};
 
 	this.tick = function(cc){
 		// console.log(" -- TICK -- ");
@@ -212,7 +212,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		cc.statsCtr.updateOrgStatsView();
 		cc.statsCtr.updateColStatsView();
 		cc.orgCtr.updateOrgView();
-	}
+	};
 
 	this.initialize = function(){
 		/* Register this as Observer */
@@ -238,7 +238,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.statsCtr.updateOrgStatsView();
 		this.statsCtr.updateColStatsView();		
 		this.orgCtr.updateOrgView();
-	}
+	};
 
 	this.initialize();
 }

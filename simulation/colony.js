@@ -39,17 +39,9 @@ function colony(numOrgs){
 		console.log("colony received "+ msg + " from " + observable);
 	}
 
-	/* Error Handling */
-	this.errToString = function(err){
-		if (err = 0){
-			return "No Errors";
-		} else if (err = 1){
-			return "Can't step past lifetime";
-		}
-	}
-
 	/* Get an organism by it's orgID */
 	this.getOrg = function(orgID){
+		/* NOTE org id starts at 1 */
 		return this.organism_list[orgID-1];
 	}
 
@@ -59,7 +51,6 @@ function colony(numOrgs){
 		
 		var tempState = createMatrix(50,50,0);
 		var exploredCounter = 0;
-		// console.log("  Org randomizing");
 		
 		var w = this.settings.getSpawnWidth();
 		var h = this.settings.getSpawnHeight();
@@ -80,8 +71,6 @@ function colony(numOrgs){
 				}	
 			}
 		}
-
-		// this.organism_list[0].notifyObservers("StateChanged");
 		
 		//Loops through each organism and applies the state to it
 		for (var i = 0; i < this.organism_list.length; i++){
@@ -114,10 +103,12 @@ function colony(numOrgs){
 		this.stats.clearStats();
 	}
 
-	this.step = function(){
-		// console.log("COLONY STARTING TO STEP");
-		// console.log("                   col: " + col);
+	this.replay = function(){
+		/* Should reset each org to its seed */
+		
+	}
 
+	this.step = function(){
 		if (this.stats.getColStats().getAge() >= this.settings.getLifetime()){
 			/* error code 1: Can't step past lifetime */
 			return 1;
@@ -125,16 +116,12 @@ function colony(numOrgs){
 
 		/* step each org */
 		for(var i = 0; i<this.organism_list.length; i++){
-			// console.log("");
-			// console.log("COLONY Age("+this.age+") STEPPING Org " + (i + 1));
-			// console.log("------------------- ");
 			this.organism_list[i].step();
 		}
 
 		/* increment age */
 		this.stats.getColStats().incAge();
-		// console.log("colony just turned " + this.stats.getColStats().getAge());
-		/* "Grim Reaper" -- check if the thisony members should die */
+		/* "Grim Reaper" -- checks if the colony members should die */
 		if (this.stats.getColStats().getAge() >= this.settings.getLifetime()){
 			this.genDone();	// generation done function
 		}
@@ -151,6 +138,7 @@ function colony(numOrgs){
 		return this.stats.getColStats().getAge() >= this.settings.getLifetime();
 	}
 
+
 	this.evolve = function(){
 		this.resetColony();
 		this.notifyObservers("Evolved");
@@ -164,12 +152,9 @@ function colony(numOrgs){
 		/* fill list of orgs */
 		for (var i=0; i<numOrgs; i++){
 			var org = new organism(i+1,50,50);
-			// org.addObserver(this);
-			org.setStats(this.stats);
-			org.setSettings(this.settings);
-			this.organism_list.push( org );
-
-			// org.addObserver(this);
+			org.setStats(this.stats);			// Pass reference of the Stats object
+			org.setSettings(this.settings);		// Pass reference of the Settings object
+			this.organism_list.push( org );		// Add org to the org list
 		}
 	}
 
