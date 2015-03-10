@@ -21,9 +21,6 @@ function organismView(){
 
 	/* function to update the organism on the canvas */
 	this.update = function(state){
-		// console.log("updating org view canvas");
-		// console.log("state[0][0]: " + state[0][0]);
-
 		var c = this.canvas;
 		c.fillStyle = COLOR_ALIVE;
 		c.lineWidth = 1;
@@ -46,8 +43,7 @@ function organismView(){
 				c.closePath();
 			}
 		}
-		// callback(context);
-	}
+	};
 
 	/* Register OnClicks */
 	/*	Loads the things that refer to actual html. 
@@ -57,17 +53,7 @@ function organismView(){
 	*/	
 	this.prepAfterLoad = function(ov){
 		ov.canvas = $("canvas")[0].getContext("2d");
-	}
+	};
 	$(document).ready(this.prepAfterLoad(this));
 
 }
-
-/*	GOOD CHANCE WE'LL USE LATER
-function handleClick(e) {
-    c.fillStyle = "black";
-
-    c.fillRect(Math.floor(e.offsetX/10)*10,
-               Math.floor(e.offsetY/10)*10,
-               10, 10);
-} 
-*/

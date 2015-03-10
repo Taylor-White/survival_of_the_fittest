@@ -11,8 +11,6 @@ var EXPLORED = 2;
 function organism(orgID, numCols, numRows){
 	console.log("creating an Organism");
 
-	this.stats;
-	this.settings;
 	this.orgID = orgID;
 	this.numCols = numCols;
 	this.numRows = numRows;
@@ -21,74 +19,95 @@ function organism(orgID, numCols, numRows){
 	this.observers = [];
 
 	this.addObserver = function(observer){
-		this.observers.push(observer);	}
+		this.observers.push(observer);	};
 	this.removeObserver = function(observer){
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			if (this.observers[i] === observer){
-				this.observers.splice(i,1);	}}}
+				this.observers.splice(i,1);	}}};
 	this.notifyObservers = function(msg){
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			this.observers[i].receiveMessage(this, msg);
-		}}
+		}};
 
-	this.startStep = function(callback){
-		// dont remember why this is here
-		// I'll leave it to see if I remember
-	}
-
+	/* Setters */
 	this.setBirthCount = function(b){
 		//console.log("Org " + orgID + " birth " + this.birthCount + " -> " + b);
 		this.birthCount = b;
-	}
+	};
 	this.setSusCount = function(s){
 		//console.log("Org " + orgID + " sustain " + this.susCount + " -> " + s);
 		this.susCount = s;
-	}
+	};
 	this.setsetDeathCount = function(d){
 		//console.log("Org " + orgID + " death " + this.deathCount + " -> " + d);
 		this.deathCount = d;
-	}	
+	};
 	this.setsetExploredCount = function(e){
 		//console.log("Org " + orgID + " explored " + this.exploredCount + " -> " + e);
 		this.exploredCount = e;
-	}
+	};
 	this.setSeed = function(seed){
 		this.seed = seed;
-	}
+	};
 	this.getSeed = function(){
 		return this.seed;
-	}
-
+	};
 	this.setOrgID = function(ID){
 		this.orgID = ID;
-	}
-
+	};
 	this.setStats = function(stats){
 		this.stats = stats;
-	}
+	};
 	this.setSettings = function(settings){
 		this.settings = settings;
-	}
+	};
+	this.setState = function(mat){
+		copyMatrix(this.state, mat);
+	};
 
-	/* function for when the simulation should step the simulation */
+	/* Getters */
+	this.getState = function(){
+		return this.state;
+	};
+	this.getCellValue = function(row, col){
+		return this.state[row][col];
+	};
+
+	this.getMatrix = function(){
+		 // console.log("Getting Matrix: " + this.state);
+		return this.state;
+	};
+	this.getPrintableMatrix = function(){
+		var printMat = "";
+		for (var row = 0; row < this.numRows; row++){
+			printMat = this.state[row] + "\n";
+		}
+	};
+
+
+	/* MODEL STUFF*/
+	/* Steps according to the rules in the settings */
 	this.step = function(){
 
+		/* Prepare next state's matrix (empty) */
 		var nextState = createMatrix(this.numRows, this.numCols, 0);
-		// console.log("	stepping org " + this.orgID);
+
+		/* collect stats counts */
 		var birthsCount = 0;
 		var deathsCount = 0;
 		var sustainsCount = 0;
 		var exploredCount = 0;		
 		
+		/* Shorter names for the settings arrays */
 		var birthArray = this.settings.getBirthArray();
 		var susArray = this.settings.getSustainArray();
 
+		/* Calculate the next state, collecting stats on the way */
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
 				neighbours = CalcNeighbours(this.state, row, col);
-				// console.log("neighbours " + row + ", " + col + ": " + neighbours);
 				if(this.state[row][col] == ALIVE){
 					if(susArray[neighbours] == 1){
 						sustainsCount++;
@@ -110,13 +129,15 @@ function organism(orgID, numCols, numRows){
 				}	
 			}
 		}
+
+		/* Update the stats for this org */
 		this.stats.updateOrgStats(	this.orgID, birthsCount,
 									deathsCount, exploredCount );
-		// console.log("next: " + nextState);
+		/* Save the new state */
 		this.state = nextState;
-		// this.notifyObservers("StateChanged");
 		return;
 
+		/* helper function to get the number of alive neighbors for a cell */
 		function CalcNeighbours(s, r, c){
 
 			var total = 0;
@@ -135,66 +156,28 @@ function organism(orgID, numCols, numRows){
 			}
 			return total;
 		}
-	}
+	};
 
-
-
-	this.toggleCell = function(row, col){
-		// alert(row + " " + col);
-
-		/* if out of bounds, return early and don't toggle */
-		if(!(row>=0 && row<this.numRows && col>=0 && col<this.numCols  )){
-			return;
-		}
-
-		console.log("Org " + this.orgID + " toggling cell: " + row + ", " + col);
-		console.log("    currently: " + this.state[row][col]);
-		if (this.state[row][col] == ALIVE) {
-			this.state[row][col] = DEAD;
-			this.stats.getOrgStats(this.orgID).addToExplored(-1);			
-		} else {
-			this.state[row][col] = ALIVE;
-			this.stats.getOrgStats(this.orgID).addToExplored(1);
-		}
-		console.log("    after: " + this.state[row][col]);
-		// alert(this.state);
-		// this.state[row][col] = (this.state[row][col] == ALIVE) ? 0:1;
-		this.notifyObservers("StateChanged");
-	}
-	this.getCellValue = function(row, col){
-		return this.state[row][col];
-	}
-
+	/* Sets each cell to dead */
 	this.clearState = function(){
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
 				this.state[row][col] = 0;
 			}
 		}
-		// this.notifyObservers("StateChanged");
-	}
+	};
 
-	this.getMatrix = function(){
-		 // console.log("Getting Matrix: " + this.state);
-		return this.state;
-	}
-	this.getPrintableMatrix = function(){
-		var printMat = "";
-		for (var row = 0; row < this.numRows; row++){
-			printMat = this.state[row] + "\n";
-		}
-	}
-
-	/* function to clear the organism */
+	/* Reset counters, Clear state */
 	this.resetOrg = function(){
 		this.clearState();
 		this.setBirthCount(0);
 		this.setDeathCount(0);
 		this.setSusCount(0);
 		this.setExploredCount(0);
-	}
+	};
 
-	/* Creates and returns a matrix filled with a passed in value. Usually 0 */
+	/* Creates and returns a matrix filled with a passed in value.
+		Usually 0 */
 	this.initState = function(m, n, initial){
 		this.state = [m];
 		for (var i = 0; i < m; i += 1) {
@@ -204,27 +187,24 @@ function organism(orgID, numCols, numRows){
 			}
 			this.state[i]= a;
 		}
-	}
+	};
 
-	this.setState = function(mat){
-		copyMatrix(this.state, mat);
-	}
-	this.getState = function(){
-		return this.state;
-	}
+	/* Array Changes */
 	this.changeBirthArray = function(neighbs, bool){
-		this.settings.setBirthArrayVal(neighbs, bool);
-	}
+		this.settings.setBirthArrayVal(neighbs, bool); };
 	this.changeSustainArray = function(neighbs, bool){
-		this.settings.setSustianArrayVal(neighbs, bool);
-	}
+		this.settings.setSustianArrayVal(neighbs, bool); };
 
 	this.toString = function(){
 		return "An Org | orgID: " + this.orgID + ", explored: " + this.stats.getOrgStats(this.orgID).getExplored(); 
-	}
+	};
 
 	/* WORK-IN-PROGRESS -- LOW PRIORITY */
 	this.patternCtr = function(){
+		/*	0: DEAD
+			1: ALIVE
+			9: WILD (could be either)
+		*/
 		var glider = [ 
 			[9,0,0,0,0], //Why is there a "9" in row 0, col 0? Typo?
 			[0,0,1,0,0],
@@ -243,17 +223,19 @@ function organism(orgID, numCols, numRows){
 			[0,1,1,1,0],
 			[0,0,0,0,0],
 		];
-	}
+	};
 
 	/* WORK-IN-PROGRESS -- LOW PRIORITY */
 	this.compareBack = function(row, col){
 		/* may need better than js arrays for this
 			also may need methods to query neighbors
 				so we can handle out-of-bounds there, too  */
-	}
+	};
 
 	this.initState(numRows, numCols, 0);
 }
+
+/* GLOBAL FUNCTIONS */
 
 /* Creates and returns a matrix filled with a passed in value. Usually 0 */
 function createMatrix(m, n, initial){
@@ -268,7 +250,7 @@ function createMatrix(m, n, initial){
 	return mat;
 }
 
-
+/* Copies from newMat to oldMat */
 function copyMatrix(oldMat, newMat){
 	var rows = oldMat.length;
 	var cols = oldMat[0].length;
@@ -279,21 +261,19 @@ function copyMatrix(oldMat, newMat){
 	}
 }
 
+/* Convert matrix to a string of 0s and 1s with newline endings */
 function makeMatrixPrintable(mat){
 	var numRows = mat.length;
 	// var numCols = mat[0].length;
 	var printMat = "";
 	for (var row = 0; row < numRows; row++){
 		printMat += mat[row] + "\n";
-		
-		// for (var col = 0; col < numCols; col++){
-		// 	printMat = mat[row] + "\n";
-		// }
 	}
 	return printMat;
 }
 
-/* returns number of cells added */
+/* Toggle coordinate in state */
+/* returns number of cells toggled to ALIVE */
 function toggleCell(state, row, col){
 	// alert(row + " " + col);
 
@@ -301,23 +281,18 @@ function toggleCell(state, row, col){
 	var numCols = state[numRows-1].length;
 	var numCellsTurnedOn = 0;
 
-	/* in bounds, toggle */
 	if(row>=0 && row<numRows && col>=0 && col<numCols){
+	/* in bounds, toggle */
 		if (state[row][col] == ALIVE) {
 			state[row][col] = DEAD;
-			// this.stats.getOrgStats(this.orgID).addToExplored(-1);			
-			// console.log("Turning cell ON:  " + row + ", " + col);
 			numCellsTurnedOn = -1;
 		} else {
 			state[row][col] = ALIVE;
-			// this.stats.getOrgStats(this.orgID).addToExplored(1);
-			// console.log("Turning cell OFF: " + row + ", " + col);
 			numCellsTurnedOn = 1;
 		}
-		// console.log("    after: " + state[row][col]);
-	} else { // out of bounds, don't toggle
+	} else {
+	/* out of bounds, don't toggle */
 		numCellsTurnedOn = 0;
 	}
-
 	return numCellsTurnedOn;
 }

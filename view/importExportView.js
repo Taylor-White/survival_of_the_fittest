@@ -17,7 +17,7 @@ function importExportView() {
 
 	var loadSelected = 0;
 
-	var exportString = "nothing";
+	var exportString = "";
 
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
@@ -39,7 +39,7 @@ function importExportView() {
 			this.observers[i].receiveMessage(this, msg);
 		}
 	};
-	this.updateDlify = function(){
+	this.updateDownloadify = function(){
 
 
 		/* FROM EXTERNAL LIBRARY DOWNLOADIFY */
@@ -74,31 +74,26 @@ function importExportView() {
 
 	this.prepAfterLoad = function(iev) {
 
-		this.updateDlify();
+		this.updateDownloadify();
 
 		/* Define onclick functions */
 		$("#export").click(function(event) {
 			iev.notifyObservers("UserExport" + loadSelected);
 		});
-		// $("#downloadify-container").mouseenter(function(event) {
-		// 	iev.prepExport();
-		// });
 	};
 
 	/* Helper function for testing */
 	this.prepExport = function(matrix) {
-		matrix = [
-			["1", "0", "1", "0"],
-			["1", "0", "1", "1"],
-			["1", "0", "0", "1"],
-			["0", "1", "0", "0"]
-		];
+		// matrix = [
+		// 	["1", "0", "1", "0"],
+		// 	["1", "0", "1", "1"],
+		// 	["1", "0", "0", "1"],
+		// 	["0", "1", "0", "0"]
+		// ];
 		exportString = this.convertToLif(matrix);
-		this.updateDlify();
-		alert(exportString);
+		this.updateDownloadify();
+		// alert("Downloadify would export\n" + exportString);
 	};
-
-
 
 	/* converts matrix to .lif 1.05 format */
 	/* returns a string */
