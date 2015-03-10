@@ -45,7 +45,7 @@ function importView(){
 	       data: function(){ 
 	       	  //console.log(this.exportFile())
 	          //return this.exportFile();
-	          alert(this.exportFile());
+	          // alert(this.exportFile());
 	          return "hello Taylor";
 	       },
 	       onComplete: function(){ 
