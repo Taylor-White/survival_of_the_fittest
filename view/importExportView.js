@@ -50,8 +50,8 @@ function importView() {
 				return 'seed.lif';
 			},
 			data: function() {
-				alert("dlify");
-				return "hello Taylor";
+				alert("Exporting " + exportString);
+				return exportString;
 			},
 			onComplete: function() {
 				console.log('Your File Has Been Saved!');
@@ -75,9 +75,9 @@ function importView() {
 		$("#export").click(function(event) {
 			iev.notifyObservers("UserExport" + loadSelected);
 		});
-		$("#downloadify-container").mouseenter(function(event) {
-			alert("ours");
-		});
+		// $("#downloadify-container").mouseenter(function(event) {
+		// 	iev.prepExport();
+		// });
 	};
 
 	/* Helper function for testing */

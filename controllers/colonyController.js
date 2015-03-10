@@ -164,9 +164,11 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	};
 	this.userSelectSaved = function(index){
 		// console.log("User Selected Saved " + index);
+		var selectedSeedMatrix = this.saved.getSeed(index);
 		this.saveloadView.updateSelectedSavedMatrix(
 			makeMatrixPrintable(this.saved.getSeed(index))
 		);
+		this.importExportView.prepExport(this.saved.getSeed(index));
 	};
 
 	this.setRun = function(newRun){
