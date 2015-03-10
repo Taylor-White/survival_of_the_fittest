@@ -41,9 +41,6 @@ function importView(){
 		});
 	}
 
-
-
-
 	fileInput.addEventListener('change', function(e) {
 		var file = fileInput.files[0];
 		var fileTypes = ['lif', 'cells'];
@@ -142,8 +139,6 @@ function importView(){
 				} else if(lif[i][j] == 0){
 					data = data + ".";
 				}
-
-
 				
 			}
 				data = data + "\n";
@@ -152,6 +147,7 @@ function importView(){
 		console.log("done");
 		return data;
 	}
+
 	Downloadify.create('downloadify',{
        filename: function(){
           return 'seed.lif';
@@ -176,7 +172,6 @@ function importView(){
        transparent: true,
        append: false
     });	
-
 
 	$(document).ready(this.prepAfterLoad(this));	
 }	
