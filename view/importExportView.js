@@ -10,7 +10,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   document.getElementById('importDisplayError').innerHTML = 'Importing and Exporting are not fully supported in this browser.';
 }
 
-
 function importView(){
 
 	var fileInput = document.getElementById('fileInput');
@@ -21,25 +20,79 @@ function importView(){
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 	this.addObserver = function(observer){
-		this.observers.push(observer);	}
+		this.observers.push(observer);	};
 	this.removeObserver = function(observer){
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			if (this.observers[i] === observer){
-				this.observers.splice(i,1);	}}}
+				this.observers.splice(i,1);	}}};
 	this.notifyObservers = function(msg){
 		console.log(this + " notifying that " + msg);
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			this.observers[i].receiveMessage(this, msg);
-		}}
+		}};
 
 	this.prepAfterLoad = function(iev){
+
+	Downloadify.create('downloadify',{
+       filename: function(){
+          return 'seed.lif';
+       },
+       data: function(){ 
+       	  //console.log(this.exportFile())
+          //return this.exportFile();
+          return "hello Taylor";
+       },
+       onComplete: function(){ 
+          console.log('Your File Has Been Saved!');
+       },
+       onCancel: function(){ 
+          alert('You have cancelled the saving of this file.');
+       },
+       onError: function(){ 
+          alert('You must put something in the File Contents or there will be nothing to save!');
+       },
+       // transparent: false,
+       swf: 'libraries/downloadify/media/downloadify.swf',
+       downloadImage: 'libraries/downloadify/images/download.png',
+       width: 175,
+       height: 55,
+       transparent: true,
+       append: false
+    });
 
 		$( "#export" ).click(function(event){
 			iev.notifyObservers("UserExport" + loadSelected);
 		});
-	}
+	};
+
+	this.exportFile = function(){
+		   console.log("1 fuck me");
+		var mat = [["1", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
+		    console.log("2 fuck me");
+		var output = this.prepareExport(mat);
+		    console.log("3 fuck me");
+		return output;
+	};
+
+	this.prepareExport = function(lif){
+		var data = "#Conways game of life save \n";
+		for(var i=0;i < lif.length; i++){
+			for(var j=0;j < lif[i].length;j++){
+				if(lif[i][j] == 1){
+					data = data + "*";
+				} else if(lif[i][j] === 0){
+					data = data + ".";
+				}
+				
+			}
+				data = data + "\n";
+		}
+		console.log(data);
+		console.log("done");
+		return data;
+	};
 
 	fileInput.addEventListener('change', function(e) {
 		var file = fileInput.files[0];
@@ -58,7 +111,7 @@ function importView(){
 
 				var newMat = extractMat(reader.result);
 
-			}
+			};
 			reader.readAsText(file);
 		} else {
 			fileDisplayArea.innerText = "File not supported!";
@@ -98,80 +151,17 @@ function importView(){
 	    return s;
 	}		    
 
-	function toggleCells(row, col, m){
+	/* Helper function for the extractMat function */
+	function toggleCells(row, col, m){		// TODO put this in extractMat
 	    for( var j = 0; j<row.length; j++){
 				m[row[j]][col[j]] = 1;
-	    }	
+	    }
 		return m;
 	}
 
-	this.exportFile = function(matrix){
-
-		var mat = [["1", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
-		//createMatrix(3,3,2);
-		var output = this.prepareExport(mat);
-
-			//output.href = 'data:text/plain;charset=utf-8,' + output;
-    		output.download = 'output.lif';
-    		//console.log("export should have worked");*/
-		/*var csvContent = "data:text/plain;charset=utf-8,";
-		data.forEach(function(infoArray, index){
-
-		   dataString = infoArray.join(",");
-		   csvContent += index < data.length ? dataString+ "\n" : dataString;
-
-		}); 
-		var encodedUri = encodeURI(csvContent);
-		window.open(encodedUri);
-		//window.location.href = url;
-		console.log("exporting file");*/
-		return output;
-	}
 	this.toString = function(){
 		return "The import/export View";
-	}
-	this.prepareExport = function(lif){
-		var data = "#Conways game of life save \n";
-		for(var i=0;i < lif.length; i++){
-			for(var j=0;j < lif[i].length;j++){
-				if(lif[i][j] == 1){
-					data = data + "*";
-				} else if(lif[i][j] == 0){
-					data = data + ".";
-				}
-				
-			}
-				data = data + "\n";
-		}
-		console.log(data);
-		console.log("done");
-		return data;
-	}
+	};
 
-	Downloadify.create('downloadify',{
-       filename: function(){
-          return 'seed.lif';
-       },
-       data: function(){
-          return this.exportFile();
-       },
-       onComplete: function(){ 
-          console.log('Your File Has Been Saved!');
-       },
-       onCancel: function(){ 
-          alert('You have cancelled the saving of this file.');
-       },
-       onError: function(){ 
-          alert('You must put something in the File Contents or there will be nothing to save!');
-       },
-       transparent: false,
-       swf: 'libraries/downloadify/media/downloadify.swf',
-       downloadImage: 'libraries/downloadify/images/download.png',
-       width: 175,
-       height: 55,
-       transparent: true,
-       append: false
-    });	
-
-	$(document).ready(this.prepAfterLoad(this));	
+	$(document).ready(this.prepAfterLoad(this));
 }	
