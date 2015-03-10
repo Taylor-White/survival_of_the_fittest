@@ -30,7 +30,7 @@ function settingsController(){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
-		console.log("SettCtr received "+ msg + " from " + observable);
+		// console.log("SettCtr received "+ msg + " from " + observable);
 		// alert("SettCtr received "+ msg + " from " + observable);
 		if (msg.substring(0,15) == "UserToggleBirth"){
 			var x = parseInt(msg.substring(15,msg.length));
@@ -57,7 +57,7 @@ function settingsController(){
 	}
 
 	this.updateSettingsView = function(){
-		console.log(" --- Updating Settings View --- ")
+		// console.log(" --- Updating Settings View --- ")
 		var ba = this.settings.getBirthArray();
 		var sa = this.settings.getSustainArray();
 		var len = ba.length;

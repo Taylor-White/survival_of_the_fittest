@@ -7,13 +7,13 @@ Description: This is the model
 */
 
 function stats(numOrgs){
-	console.log("Creating Stats Model");
+	// console.log("Creating Stats Model");
 
 	this.numOrgs = numOrgs;
 	this.orgStatsArray = [];
 
 	this.updateOrgStats = function(orgID, born, dead, explored){
-		console.log("Updating Org Stats: " + orgID + ", " + born + ", " + dead + ", " + explored);
+		// console.log("Updating Org Stats: " + orgID + ", " + born + ", " + dead + ", " + explored);
 		var os = this.orgStatsArray[orgID-1];
 		os.addToBirths(born);
 		os.addToDeaths(dead);
@@ -47,8 +47,6 @@ function stats(numOrgs){
 		return "The Stats Model ";
 	}
 
-
-
 	/* Constructor */
 	for (var i = 0; i < numOrgs; i++){
 		this.orgStatsArray.push(new orgStats(i + 1));
@@ -58,7 +56,7 @@ function stats(numOrgs){
 
 /* Colony Stats Object */
 function colStats(orgStatsArray){
-	console.log("Creating colStats");
+	// console.log("Creating colStats");
 
 	this.age = 0;
 	this.gens = 0;
@@ -184,7 +182,7 @@ function colStats(orgStatsArray){
 
 /* Organism Stats Object*/
 function orgStats(orgID){
-	console.log("Creating orgStats");
+	// console.log("Creating orgStats");
 	this.orgID = orgID;
 	this.births = 0;
 	this.deaths = 0;

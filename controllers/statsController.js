@@ -24,7 +24,7 @@ function statsController(){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
-		console.log("orgCtrl received " + msg);
+		// console.log("orgCtrl received " + msg);
 		if(msg == "EXAMPLE1"){
 			// this.example1();
 		} else if (msg == "EXAMPLE2"){
@@ -46,7 +46,7 @@ function statsController(){
 	}
 
 	this.updateOrgStatsView = function(){
-		console.log(" --- Updating Org Stats View --- ");
+		// console.log(" --- Updating Org Stats View --- ");
 		// console.log(" catch | " + this.stats.toString());
 		for (var i = 0; i < this.stats.numOrgs; i++) {
 			// console.log("     " + i + " | " + this.stats);

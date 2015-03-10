@@ -17,10 +17,6 @@ function organism(orgID, numCols, numRows){
 	this.numCols = numCols;
 	this.numRows = numRows;
 
-	this.rle = "";
-
-	this.age = 0;
-
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 
@@ -40,15 +36,6 @@ function organism(orgID, numCols, numRows){
 	this.startStep = function(callback){
 		// dont remember why this is here
 		// I'll leave it to see if I remember
-	}
-
-	this.incAge = function(){
-		this.setAge(this.age + 1);
-	}
-
-	this.setAge = function(a){
-		// console.log("Org " + orgID + " age " + this.age + " -> " + a);
-		this.age = a;
 	}
 
 	this.setBirthCount = function(b){
@@ -88,7 +75,6 @@ function organism(orgID, numCols, numRows){
 	/* function for when the simulation should step the simulation */
 	this.step = function(){
 
-		this.incAge();
 		var nextState = createMatrix(this.numRows, this.numCols, 0);
 		// console.log("	stepping org " + this.orgID);
 		var birthsCount = 0;
@@ -202,7 +188,6 @@ function organism(orgID, numCols, numRows){
 	/* function to clear the organism */
 	this.resetOrg = function(){
 		this.clearState();
-		this.setAge(0);
 		this.setBirthCount(0);
 		this.setDeathCount(0);
 		this.setSusCount(0);
@@ -321,12 +306,12 @@ function toggleCell(state, row, col){
 		if (state[row][col] == ALIVE) {
 			state[row][col] = DEAD;
 			// this.stats.getOrgStats(this.orgID).addToExplored(-1);			
-			console.log("Turning cell ON:  " + row + ", " + col);
+			// console.log("Turning cell ON:  " + row + ", " + col);
 			numCellsTurnedOn = -1;
 		} else {
 			state[row][col] = ALIVE;
 			// this.stats.getOrgStats(this.orgID).addToExplored(1);
-			console.log("Turning cell OFF: " + row + ", " + col);
+			// console.log("Turning cell OFF: " + row + ", " + col);
 			numCellsTurnedOn = 1;
 		}
 		// console.log("    after: " + state[row][col]);

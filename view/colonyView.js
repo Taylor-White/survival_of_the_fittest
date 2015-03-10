@@ -19,14 +19,14 @@ function colonyView(){
 			if (this.observers[i] === observer){
 				this.observers.splice(i,1);	}}}
 	this.notifyObservers = function(msg){
-		console.log(this + " notifying that " + msg);
+		// console.log(this + " notifying that " + msg);
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			this.observers[i].receiveMessage(this, msg);
 		}}
 
 	this.selectOrg = function(orgID){
-		console.log("ORG " + orgID + " SELECTED");
+			// console.log("ORG " + orgID + " SELECTED");
 		var oldID = this.currOrgID;
 		this.currOrgID = orgID;
 
@@ -38,31 +38,31 @@ function colonyView(){
 	this.prepAfterLoad = function(cv){
 		$( ".mini-org" ).click(function(event){
 			orgID = this.id.substring(2, this.id.length);
-			console.log("mini-org clicked! orgID: " + orgID);
+			// console.log("mini-org clicked! orgID: " + orgID);
 			cv.selectOrg(orgID);
 		});
 		$( "#spawnWidth" ).change(function(event){
-			console.log("spawn width: " + $('#spawnWidth').val());
+			// console.log("spawn width: " + $('#spawnWidth').val());
 			cv.notifyObservers("spawnWidth" + $('#spawnWidth').val());
 		});
 		$( "#spawnHeight" ).change(function(event){
-			console.log("spawn height" + $('#spawnHeight').val());
+			// console.log("spawn height" + $('#spawnHeight').val());
 			cv.notifyObservers("spawnHeight" + $('#spawnHeight').val());
 		});		
 		$( "#spawnDensity" ).change(function(event){
-			console.log("spawn density: " + $('#spawnDensity').val());
+			// console.log("spawn density: " + $('#spawnDensity').val());
 			cv.notifyObservers("spawnDensity" + $('#spawnDensity').val());
 		});		
 		$( "#spawnCenterX" ).change(function(event){
-			console.log("spawn centerX: " + $('#spawnCenterX').val());
+			// console.log("spawn centerX: " + $('#spawnCenterX').val());
 			cv.notifyObservers("spawnCenterX" + $('#spawnCenterX').val());
 		});			
 		$( "#spawnCenterY" ).change(function(event){
-			console.log("spawn centerY: " + $('#spawnCenterY').val());
+			// console.log("spawn centerY: " + $('#spawnCenterY').val());
 			cv.notifyObservers("spawnCenterY" + $('#spawnCenterY').val());
 		});	
 		$( "#lifetime" ).change(function(event){
-			console.log("lifetime: " + $('#spawnCenterX').val());
+			// console.log("lifetime: " + $('#spawnCenterX').val());
 			cv.notifyObservers("lifetime" + $('#lifetime').val());
 		});
 		$( "#rand" ).click(function(event){

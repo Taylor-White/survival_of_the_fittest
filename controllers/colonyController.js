@@ -5,7 +5,7 @@ File owner: Kat
 */
 
 function colonyController(orgCtr, statsCtr, settCtr){
-	console.log("creating Colony Controller");
+	// console.log("creating Colony Controller");
 
 	this.winIntervalID = 0;
 
@@ -33,7 +33,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
-		console.log("colonyController received "+ msg + " from " + observable);
+		// console.log("colonyController received "+ msg + " from " + observable);
 		if (msg == "UserRand"){
 			this.userRand();
 		} else if (msg == "UserStep"){
@@ -157,12 +157,12 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		alert(this.saved.getSeed(index).length);
 	}
 	this.userExport = function(index){
-		console.log("getting seed: " + this.saved.getSeed(index));
+		// console.log("getting seed: " + this.saved.getSeed(index));
 		//Send seed to importExportView
 		this.importView.exportFile();
 	}
 	this.userSelectSaved = function(index){
-		console.log("User Selected Saved " + index);
+		// console.log("User Selected Saved " + index);
 		this.saveloadView.updateSelectedSavedMatrix(
 			makeMatrixPrintable(this.saved.getSeed(index))
 		);
@@ -170,7 +170,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 
 
 	this.setRun = function(newRun){
-		console.log("Setting Run State: " + newRun);
+		// console.log("Setting Run State: " + newRun);
 		if (!this.run){		// if not running
 		/* STARTING */
 			if (newRun){
@@ -207,7 +207,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	}
 
 	this.tick = function(cc){
-		console.log(" -- TICK -- ");
+		// console.log(" -- TICK -- ");
 		cc.colony.step();
 		cc.statsCtr.updateOrgStatsView();
 		cc.statsCtr.updateColStatsView();

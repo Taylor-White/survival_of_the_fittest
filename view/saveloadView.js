@@ -59,7 +59,6 @@ function saveloadView(){
 		}	
 	}
 
-
 	/* takes a printable string version of the matrix */
 	this.updateSelectedSavedMatrix = function(matString){
 		$( "#savedMatrix" ).html(matString);

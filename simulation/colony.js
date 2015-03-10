@@ -5,7 +5,7 @@ File owner: Xi
 
 /* represents the colony class */
 function colony(numOrgs){
-	console.log("creating Colony");
+	// console.log("creating Colony");
 
 	/* Org stuff */
 	this.numOrgs = numOrgs;
@@ -37,9 +37,6 @@ function colony(numOrgs){
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
 		console.log("colony received "+ msg + " from " + observable);
-		if (msg == "StateChanged"){
-			// this.orgStateChanged(observable.orgID);
-		}
 	}
 
 	/* Error Handling */
@@ -57,7 +54,7 @@ function colony(numOrgs){
 	}
 
 	this.randSame = function(){
-		console.log("Entered randSame");
+		// console.log("Entered randSame");
 		var randResult, col, row;
 		
 		var tempState = createMatrix(50,50,0);
@@ -109,17 +106,12 @@ function colony(numOrgs){
 
 	/* reset each organism in the colony
 		currently randomizes */
-	this.resetEachOrg = function(){
-		console.log("Resetting Colony");
-		this.stats.getColStats().setAge(0); // reset age counter
+	this.resetColony = function(){
+		// console.log("Resetting Colony");
 		this.randSame();		// randomize each org
+		// this.stats.getColStats().setGens(0);
 		this.stats.getColStats().setAge(0); // reset colony's age
 		this.stats.clearStats();
-	}
-
-	this.resetColony = function(){
-		this.resetEachOrg();
-		this.stats.getColStats().setGens(0);
 	}
 
 	this.step = function(){
@@ -141,7 +133,7 @@ function colony(numOrgs){
 
 		/* increment age */
 		this.stats.getColStats().incAge();
-		console.log("colony just turned " + this.stats.getColStats().getAge());
+		// console.log("colony just turned " + this.stats.getColStats().getAge());
 		/* "Grim Reaper" -- check if the thisony members should die */
 		if (this.stats.getColStats().getAge() >= this.settings.getLifetime()){
 			this.genDone();	// generation done function
@@ -150,7 +142,7 @@ function colony(numOrgs){
 
 	/* handles the generation completing */
 	this.genDone = function(){
-		console.log("Gen Done");
+		// console.log("Gen Done");
 		this.stats.getColStats().incGens();
 		this.notifyObservers("GenDone");
 	}
@@ -172,7 +164,7 @@ function colony(numOrgs){
 		/* fill list of orgs */
 		for (var i=0; i<numOrgs; i++){
 			var org = new organism(i+1,50,50);
-			org.addObserver(this);
+			// org.addObserver(this);
 			org.setStats(this.stats);
 			org.setSettings(this.settings);
 			this.organism_list.push( org );

@@ -34,15 +34,9 @@ function organismController(){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
-		console.log("orgCtrl received " + msg);
-		if(msg == "UpdateOrgView"){
+		// console.log("orgCtrl received " + msg);
+		if (msg == "StateChanged"){
 			this.updateOrgView();
-		} else if (msg == "StateChanged"){
-			this.stateChanged();
-		} else if (msg == "ChangeRunTrue"){
-			this.runFlagChanged(true);
-		} else if (msg == "ChangeRunFalse"){
-			this.runFlagChanged(false);
 		}
 	}
 
@@ -52,18 +46,8 @@ function organismController(){
 		this.updateOrgView();
 	}
 
-	/* function for when the user clicks on the canvas, records the coordinates */
-	this.userToggleCell = function(x, y){
-		this.org.toggleCell(x,y);
-		this.updateOrgView();
-	}
-
-	/* function for when the user wants to clear the canvas */
-	this.userClearState = function(){
-		this.org.clearState();
-	}
-
-	/* function for when the user wants to change the organism they are using */
+	/* function for when the user wants to
+	change the organism they are viewing */
 	this.setSelectedOrg = function(org){
 		if (this.org){
 			this.org.removeObserver(this);
@@ -75,11 +59,6 @@ function organismController(){
 	}
 	this.getSelectedOrg = function(){
 		return this.org;
-	}
-
-	/* function for when the organism changes from alive or dead */
-	this.stateChanged = function(){
-		this.updateOrgView();	
 	}
 
 	this.updateOrgView = function(){
