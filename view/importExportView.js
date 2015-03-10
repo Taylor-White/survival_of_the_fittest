@@ -113,30 +113,7 @@ function importView(){
 		var mat = [["1", "0", "1", "0"], ["1", "0", "1", "1"], ["1", "0", "0", "1"], ["0", "1", "0", "0"]];
 		//createMatrix(3,3,2);
 		var output = this.prepareExport(mat);
-		Downloadify.create('downloadify',{
-	       filename: function(){
-	          return 'seed.lif';
-	       },
-	       data: function(){ 
-	          return output;
-	       },
-	       onComplete: function(){ 
-	          console.log('Your File Has Been Saved!');
-	       },
-	       onCancel: function(){ 
-	          alert('You have cancelled the saving of this file.');
-	       },
-	       onError: function(){ 
-	          alert('You must put something in the File Contents or there will be nothing to save!');
-	       },
-	       transparent: false,
-	       swf: 'libraries/downloadify/media/downloadify.swf',
-	       downloadImage: 'libraries/downloadify/images/download.png',
-	       width: 175,
-	       height: 55,
-	       transparent: true,
-	       append: false
-	    });
+
 			//output.href = 'data:text/plain;charset=utf-8,' + output;
     		output.download = 'output.lif';
     		//console.log("export should have worked");*/
@@ -151,6 +128,7 @@ function importView(){
 		window.open(encodedUri);
 		//window.location.href = url;
 		console.log("exporting file");*/
+		return output;
 	}
 	this.toString = function(){
 		return "The import/export View";
@@ -174,6 +152,30 @@ function importView(){
 		console.log("done");
 		return data;
 	}
+	Downloadify.create('downloadify',{
+       filename: function(){
+          return 'seed.lif';
+       },
+       data: function(){ 
+          return this.exportFile;
+       },
+       onComplete: function(){ 
+          console.log('Your File Has Been Saved!');
+       },
+       onCancel: function(){ 
+          alert('You have cancelled the saving of this file.');
+       },
+       onError: function(){ 
+          alert('You must put something in the File Contents or there will be nothing to save!');
+       },
+       transparent: false,
+       swf: 'libraries/downloadify/media/downloadify.swf',
+       downloadImage: 'libraries/downloadify/images/download.png',
+       width: 175,
+       height: 55,
+       transparent: true,
+       append: false
+    });	
 
 
 	$(document).ready(this.prepAfterLoad(this));	
