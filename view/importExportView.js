@@ -66,7 +66,7 @@ function importView() {
 			swf: 'libraries/downloadify/media/downloadify.swf',
 			downloadImage: 'libraries/downloadify/images/download.png',
 			width: 175,
-			height: 55,
+			height: 35,
 			transparent: true,
 			append: false
 		});
@@ -75,7 +75,7 @@ function importView() {
 		$("#export").click(function(event) {
 			iev.notifyObservers("UserExport" + loadSelected);
 		});
-		$("#downloadify-container").mousedown(function(event) {
+		$("#downloadify-container").hover(function(event) {
 			alert("ours");
 		});
 	};
