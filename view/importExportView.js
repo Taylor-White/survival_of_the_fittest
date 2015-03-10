@@ -157,7 +157,7 @@ function importView(){
           return 'seed.lif';
        },
        data: function(){ 
-          return this.exportFile;
+          return this.exportFile();
        },
        onComplete: function(){ 
           console.log('Your File Has Been Saved!');
