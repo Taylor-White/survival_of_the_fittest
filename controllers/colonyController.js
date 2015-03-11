@@ -109,7 +109,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.userStep = function(){
 		this.setRun(false);
 		if (this.colony.isGenDone()){
-			this.colony.genDone();
+			this.colony.evolve();
 		} else {
 			this.tick(this);
 		}
@@ -176,7 +176,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		/* STARTING */
 			if (newRun){
 				if (this.colony.isGenDone()){
-					this.colony.genDone();
+					this.colony.evolve();
 				}
 					
 				/*
