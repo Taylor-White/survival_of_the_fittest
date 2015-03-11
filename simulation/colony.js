@@ -157,9 +157,12 @@ function colony(numOrgs){
 		return this.stats.getColStats().getAge() >= this.settings.getLifetime();
 	};
 
-
+	this.getFittest = function(){
+		return matrix = [1, 4, 8, 9];
+	};
 	this.evolve = function(){
-		this.resetColony();
+		//this.resetColony();
+
 		this.notifyObservers("Evolved");
 	};
 
