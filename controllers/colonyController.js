@@ -34,7 +34,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
-		// console.log("colonyController received "+ msg + " from " + observable);
+		console.log("colonyController received "+ msg + " from " + observable);
 		if (msg == "UserRand"){
 			this.userRand();
 		} else if (msg == "UserStep"){
@@ -109,7 +109,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.userStep = function(){
 		this.setRun(false);
 		if (this.colony.isGenDone()){
-			this.colony.evolve();
+			// this.colony.evolve();
+			this.colony.randSame();
 		} else {
 			this.tick(this);
 		}
@@ -176,7 +177,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		/* STARTING */
 			if (newRun){
 				if (this.colony.isGenDone()){
-					this.colony.evolve();
+					// this.colony.evolve();
+					this.colony.resetColony();
 				}
 					
 				/*
@@ -202,7 +204,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.genDone = function(gens){
 		this.setRun(false);
 		if (this.shouldContinue){
-			this.colony.evolve();
+			// this.colony.evolve();
+			this.colony.resetColony();
 			this.setRun(true);
 		}
 	};

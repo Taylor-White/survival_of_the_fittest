@@ -139,9 +139,13 @@ function colStats(orgStatsArray){
 
 	/* Setters */
 	this.setAge = function(age){
+		if (age === 0){
+			console.log("resetting age");
+		}
 		this.age = age;
 	};
 	this.setGens = function(gens){
+		console.log("setting gens to " + gens);
 		this.gens = gens;
 	};
 	this.setAvgDeaths = function(avgDeaths){

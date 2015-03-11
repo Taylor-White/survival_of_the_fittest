@@ -12,18 +12,18 @@ function colonyView(){
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 	this.addObserver = function(observer){
-		this.observers.push(observer);	}
+		this.observers.push(observer);	};
 	this.removeObserver = function(observer){
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			if (this.observers[i] === observer){
-				this.observers.splice(i,1);	}}}
+				this.observers.splice(i,1);	}}};
 	this.notifyObservers = function(msg){
 		// console.log(this + " notifying that " + msg);
 		var numObs = this.observers.length;
 		for (var i=0; i<numObs; i++){
 			this.observers[i].receiveMessage(this, msg);
-		}}
+		}};
 
 	this.selectOrg = function(orgID){
 			// console.log("ORG " + orgID + " SELECTED");
@@ -34,7 +34,7 @@ function colonyView(){
 		$( "#mo" + orgID).css("border", "6px solid red");
 
 		this.notifyObservers("OrgSelected" + orgID);
-	}
+	};
 	this.prepAfterLoad = function(cv){
 		$( ".mini-org" ).click(function(event){
 			orgID = this.id.substring(2, this.id.length);
@@ -88,7 +88,7 @@ function colonyView(){
 		$( "#reset" ).click(function(event){
 			cv.notifyObservers("UserResetCol");
 		});
-	}
+	};
 	
 	$(document).ready(this.prepAfterLoad(this));
 }

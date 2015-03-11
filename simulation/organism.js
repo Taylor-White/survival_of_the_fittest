@@ -65,6 +65,7 @@ function organism(orgID, numCols, numRows){
 		this.settings = settings;
 	};
 	this.setState = function(mat){
+		console.log("setting state");
 		copyMatrix(this.state, mat);
 	};
 
@@ -205,17 +206,17 @@ function organism(orgID, numCols, numRows){
 	this.toggleCell = function(row, col){
 		// alert(row + " " + col);
 
-		var numRows = state.length;
-		var numCols = state[numRows-1].length;
+		var numRows = this.state.length;
+		var numCols = this.state[numRows-1].length;
 		var numCellsTurnedOn = 0;
 
 		if(row>=0 && row<numRows && col>=0 && col<numCols){
 		/* in bounds, toggle */
-			if (state[row][col] == ALIVE) {
-				state[row][col] = DEAD;
+			if (this.state[row][col] == ALIVE) {
+				this.state[row][col] = DEAD;
 				numCellsTurnedOn = -1;
 			} else {
-				state[row][col] = ALIVE;
+				this.state[row][col] = ALIVE;
 				numCellsTurnedOn = 1;
 			}
 		} else {
@@ -311,29 +312,4 @@ function makeMatrixPrintable(mat){
 		printMat += mat[row] + "\n";
 	}
 	return printMat;
-}
-
-/* Toggle coordinate in state */
-/* returns number of cells toggled to ALIVE */
-function toggleCell(state, row, col){
-	// alert(row + " " + col);
-
-	var numRows = state.length;
-	var numCols = state[numRows-1].length;
-	var numCellsTurnedOn = 0;
-
-	if(row>=0 && row<numRows && col>=0 && col<numCols){
-	/* in bounds, toggle */
-		if (state[row][col] == ALIVE) {
-			state[row][col] = DEAD;
-			numCellsTurnedOn = -1;
-		} else {
-			state[row][col] = ALIVE;
-			numCellsTurnedOn = 1;
-		}
-	} else {
-	/* out of bounds, don't toggle */
-		numCellsTurnedOn = 0;
-	}
-	return numCellsTurnedOn;
 }
