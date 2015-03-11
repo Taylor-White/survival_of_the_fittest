@@ -59,6 +59,7 @@ function organism(orgID, numCols, numRows){
 	};
 	this.setStats = function(stats){
 		this.stats = stats;
+		this.orgStats = stats.getOrgStats(this.orgID);
 	};
 	this.setSettings = function(settings){
 		this.settings = settings;
@@ -197,6 +198,46 @@ function organism(orgID, numCols, numRows){
 
 	this.toString = function(){
 		return "An Org | orgID: " + this.orgID + ", explored: " + this.stats.getOrgStats(this.orgID).getExplored(); 
+	};
+
+
+	/*  GENETIC ALGORITHM STUFF  */
+	this.toggleCell = function(row, col){
+		// alert(row + " " + col);
+
+		var numRows = state.length;
+		var numCols = state[numRows-1].length;
+		var numCellsTurnedOn = 0;
+
+		if(row>=0 && row<numRows && col>=0 && col<numCols){
+		/* in bounds, toggle */
+			if (state[row][col] == ALIVE) {
+				state[row][col] = DEAD;
+				numCellsTurnedOn = -1;
+			} else {
+				state[row][col] = ALIVE;
+				numCellsTurnedOn = 1;
+			}
+		} else {
+		/* out of bounds, don't toggle */
+			numCellsTurnedOn = 0;
+		}
+		this.orgStats.addToExplored(numCellsTurnedOn);
+	};
+
+	this.calcActiveArea = function(){
+		var minX = Number.POSITIVE_INFINITY;
+		var minY;
+		var maxX;
+		var maxY;
+		/* loop through state */
+		for (var row = 0; row < this.numRows; row++){
+			for (var col = 0; col < this.numCols; col++){
+
+			}
+		}
+
+		return [minX, minY, maxX, maxY];
 	};
 
 	/* WORK-IN-PROGRESS -- LOW PRIORITY */

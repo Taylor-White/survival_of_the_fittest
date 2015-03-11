@@ -108,8 +108,10 @@ function colony(numOrgs){
 		// }
 	};
 
-	this.mutate = function(){
-
+	this.mutateAll = function(){
+		for (var j = 0; j < this.organism_list.length; j++){
+			/* TODO */
+		}
 	};
 
 	/* reset each organism in the colony
@@ -124,6 +126,7 @@ function colony(numOrgs){
 
 	this.replay = function(){
 		/* Should reset each org to its seed */
+		/* TODO */
 		
 	};
 
