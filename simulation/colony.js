@@ -10,7 +10,6 @@ function colony(numOrgs){
 	/* Org stuff */
 	this.numOrgs = numOrgs;
 	this.organism_list = [];
-	this.checkin_list = [];
 	
 	/* Stats */
 	this.stats = new stats(numOrgs);
@@ -162,10 +161,26 @@ function colony(numOrgs){
 	};
 	this.evolve = function(){
 		//this.resetColony();
-
-		this.notifyObservers("Evolved");
+		var fittest = this.getFittest();
+		var result = [];
+		console.log(fittest.length);
+		//for(var i=0; i<fittest.length; ++i){
+		//	for(var j=i+1; j<fittest.length; ++j){
+				//result = mate(this.organism_list[fittest[i]].getState, this.organism_list[fittest[j]].getState);
+		//		console.log("fittest " + fittest[i] + " mated with fittest " + fittest[j]);
+				//console.log("state 1: " + this.organism_list[fittest[i]].getState);
+		//	}
+		//}
+		for(var i=0; i<this.organism_list.length; ++i){
+			this.organism_list[i].setState = result[i];
+		}
+		this.stats.getColStats().setAge(0); // reset colony's age
+		this.stats.clearStats();
+		var mate = function(parent1, parent2){
+			//parent1 ;
+			return [1, 4, 8, 9];
+		}
 	};
-
 	this.toString = function(){
 		return "The Colony | Age: " + this.stats.getColStats().getAge(); 
 	};
