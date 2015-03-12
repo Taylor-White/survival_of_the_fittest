@@ -145,7 +145,7 @@ function colStats(orgStatsArray){
 		this.age = age;
 	};
 	this.setGens = function(gens){
-		console.log("setting gens to " + gens);
+		// console.log("setting gens to " + gens);
 		this.gens = gens;
 	};
 	this.setAvgDeaths = function(avgDeaths){

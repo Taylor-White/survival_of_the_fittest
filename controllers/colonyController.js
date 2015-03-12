@@ -110,7 +110,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.setRun(false);
 		if (this.colony.isGenDone()){
 			// this.colony.evolve();
-			this.colony.randSame();
+			this.colony.genDone();
 		} else {
 			this.tick(this);
 		}
@@ -166,39 +166,61 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		// console.log("User Selected Saved " + index);
 		var selectedSeedMatrix = this.saved.getSeed(index);
 		this.saveloadView.updateSelectedSavedMatrix(
-			makeMatrixPrintable(this.saved.getSeed(index))
+			this.saved.getSeed(index)
 		);
 		this.ieView.prepExport(this.saved.getSeed(index));
 	};
 
 	this.setRun = function(newRun){
 		// console.log("Setting Run State: " + newRun);
-		if (!this.run){		// if not running
-		/* STARTING */
-			if (newRun){
-				if (this.colony.isGenDone()){
-					// this.colony.evolve();
-					this.colony.resetColony();
-				}
+
+		// if (!this.run){		// if not running
+		// /* STARTING */
+		// 	if (newRun){
+		// 		if (this.colony.isGenDone()){
+		// 			// this.colony.evolve();
+		// 			this.colony.resetColony();
+		// 		}
 					
-				/*
-				Set a regular interval based on the speed setting 
-					that calls the tick function. 
-				Store returned reference in winIntervalID so we can 
-					remove the interval to stop the simulation.
-				*/
-				this.winIntervalID = window.setInterval(
-					function(that){
-						return function(){that.tick(that);};
-					}(this), 1000/this.settings.getSpeed());
+				
+		// 		Set a regular interval based on the speed setting 
+		// 			that calls the tick function. 
+		// 		Store returned reference in winIntervalID so we can 
+		// 			remove the interval to stop the simulation.
+				
+		// 		this.winIntervalID = window.setInterval(
+		// 			function(that){
+		// 				return function(){that.tick(that);};
+		// 			}(this), 1000/this.settings.getSpeed());
+		// 	}
+		// } else {			// if running
+		// /* STOPPING */
+		// 	if (!newRun){
+		// 		window.clearInterval(this.winIntervalID);
+		// 	}
+		// }
+		if (newRun){
+			if (this.colony.isGenDone()){
+				// this.colony.evolve();
+				this.colony.resetColony();
 			}
-		} else {			// if running
-		/* STOPPING */
-			if (!newRun){
-				window.clearInterval(this.winIntervalID);
-			}
+				
+			/*
+			Set a regular interval based on the speed setting 
+				that calls the tick function. 
+			Store returned reference in winIntervalID so we can 
+				remove the interval to stop the simulation.
+			*/
+			this.winIntervalID = window.setInterval(
+				function(that){
+					return function(){that.tick(that);};
+				}(this), 1000/this.settings.getSpeed());
+		} else {
+			window.clearInterval(this.winIntervalID);
 		}
+
 		this.run = newRun;
+
 	};
 
 	this.genDone = function(gens){
@@ -211,7 +233,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	};
 
 	this.tick = function(cc){
-		// console.log(" -- TICK -- ");
+		console.log(" -- TICK -- ");
 		cc.colony.step();
 		cc.statsCtr.updateOrgStatsView();
 		cc.statsCtr.updateColStatsView();

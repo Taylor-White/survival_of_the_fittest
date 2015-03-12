@@ -84,8 +84,7 @@ function colony(numOrgs){
 			// 								toggleCell(tempStateCopy, randY, randX) );
 			/* HANDLE EXPLORED UPDATE IN ORG */
 			org.toggleCell(randY, randX);
-			// org.setSeed(tempStateCopy);
-			console.log(org);
+			org.setSeed(tempStateCopy);
 			org.setState(tempStateCopy);
 
 			org.notifyObservers("StateChanged");
