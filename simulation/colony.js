@@ -152,6 +152,7 @@ function colony(numOrgs){
 	this.advanceGen = function(){
 		this.stats.getColStats().incGens();
 		this.resetColony();
+		// this.evolve();
 	};
 
 	this.isGenDone = function(){

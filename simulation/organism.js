@@ -66,6 +66,7 @@ function organism(orgID, numCols, numRows){
 	};
 	this.setState = function(mat){
 		copyMatrix(this.state, mat);
+		var activeArray = this.getActiveArea();
 	};
 
 	/* Getters */
@@ -225,7 +226,8 @@ function organism(orgID, numCols, numRows){
 		this.orgStats.addToExplored(numCellsTurnedOn);
 	};
 
-	this.calcActiveArea = function(){
+
+	this.getActiveArea = function(){
 		var minX = Number.POSITIVE_INFINITY;
 		var minY = Number.POSITIVE_INFINITY;
 		var maxX = Number.NEGATIVE_INFINITY;
@@ -235,10 +237,24 @@ function organism(orgID, numCols, numRows){
 			for (var col = 0; col < this.numCols; col++){
 				if (this.state[row][col] == ALIVE){
 					/* SET MIN AND MAXES */
+					if (col < minX){
+						minX = col;
+					}
+					if (row < minY){
+						minY = row;
+					}
+					if (col > maxX){
+						maxX = col;
+					}
+					if (row > maxY){
+						maxY = row;
+					}
 				}
 			}
 		}
 
+
+		alert("(" + minX + ", " + minY + ")\n" + "(" + maxX + ", " + maxY + ")");
 		return [minX, minY, maxX, maxY];
 	};
 
