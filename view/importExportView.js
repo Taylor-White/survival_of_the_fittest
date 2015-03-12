@@ -50,7 +50,7 @@ function importExportView() {
 				return 'seed.lif';
 			},
 			data: function() {
-				alert("Exporting " + exportString);
+				//alert("Exporting " + exportString);
 				return exportString;
 			},
 			onComplete: function() {

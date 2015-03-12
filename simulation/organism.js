@@ -248,7 +248,7 @@ function organism(orgID, numCols, numRows){
 			9: WILD (could be either)
 		*/
 		var glider = [ 
-			[9,0,0,0,0], //Why is there a "9" in row 0, col 0? Typo?
+			[0,0,0,0,0], 
 			[0,0,1,0,0],
 			[0,1,1,0,0],
 			[0,1,0,1,0],

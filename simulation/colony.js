@@ -164,30 +164,32 @@ function colony(numOrgs){
 	};
 
 	this.getFittest = function(){
-		return matrix = [1, 4, 8, 9];
+		return matrix = [1, 3, 5, 7];
 	};
 	this.evolve = function(){
 		//this.resetColony();
 		var fittest = this.getFittest();
 		var result = [];
-		console.log(fittest.length);
-		//for(var i=0; i<fittest.length; ++i){
-		//	for(var j=i+1; j<fittest.length; ++j){
-				//result = mate(this.organism_list[fittest[i]].getState, this.organism_list[fittest[j]].getState);
-		//		console.log("fittest " + fittest[i] + " mated with fittest " + fittest[j]);
-				//console.log("state 1: " + this.organism_list[fittest[i]].getState);
-		//	}
-		//}
+		console.log("fittest length: " + fittest.length);
+		for(var i=0; i<fittest.length; ++i){
+			for(var j=i+1; j<fittest.length; ++j){
+				//result = mate(this.organism_list[1].getState, this.organism_list[2].getState);
+				console.log("fittest " + fittest[i] + " mated with fittest " + fittest[j]);
+				//console.log("state 2: " + this.organism_list[fittest[2]].getState());
+			}
+			console.log("state " + i + ": " + this.organism_list[fittest[i]].getState());
+		}
 		for(var i=0; i<this.organism_list.length; ++i){
-			this.organism_list[i].setState(result[i]);
+			//this.organism_list[i].setState(result[i]);
 		}
 		this.stats.getColStats().setAge(0); // reset colony's age
 		this.stats.clearStats();
 		var mate = function(parent1, parent2){
 			//parent1 ;
-			return [1, 4, 8, 9];
+			return [1, 3, 5, 7];
 		};
 	};
+
 	this.toString = function(){
 		return "The Colony | Age: " + this.stats.getColStats().getAge(); 
 	};
@@ -206,6 +208,7 @@ function colony(numOrgs){
 		this.stats.getColStats().setAge(0);
 		this.stats.getColStats().setGens(0);
 		this.initOrgs();
+
 		   // alert(this.organism_list[0].getMatrix() == this.organism_list[1].getMatrix());
 	};
 

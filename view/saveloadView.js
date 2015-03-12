@@ -36,7 +36,10 @@ function saveloadView(){
 		});
 		$( "#load" ).click(function(event){
 			slv.notifyObservers("UserLoad" + selected);
-		});
+		});	
+		$( "#delete" ).click(function(event){
+		//	slv.notifyObservers("UserLoad" + selected);
+		});		
 	};
 	this.updateSavedList = function(numSaved){
 		console.log("numsaved: " + numSaved);

@@ -30,8 +30,8 @@ function colonyView(){
 		var oldID = this.currOrgID;
 		this.currOrgID = orgID;
 
-		$( "#mo" + oldID ).css("border", "0px solid black");
-		$( "#mo" + orgID).css("border", "6px solid red");
+		$( "#mo" + oldID ).css("border", "1px solid #ccc");
+		$( "#mo" + orgID).css("border", "4px solid #000");
 
 		this.notifyObservers("OrgSelected" + orgID);
 	};

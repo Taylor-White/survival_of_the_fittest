@@ -92,7 +92,11 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			var sLifetime = parseInt(msg.substring(8, msg.length));
 			 console.log("Lifetime: " + sLifetime);
 			this.settings.setLifetime(sLifetime);
-		}
+		} //else if (msg.substring(0,8) == ""){
+			//var sDelete = parseInt(msg.substring(8, msg.length));
+			//console.log("sDelete: " + sDelete);
+			//this.settings.setLifetime(sDelete);
+		//}
 
 	};
 
@@ -132,6 +136,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	/* function for when the user wants to pause the simulation */
 	this.userPause = function(){
 		this.setRun(false);
+		this.colony.evolve();
 	};
 
 	/* function for when the user wants to randomize all orgs */
