@@ -14,7 +14,7 @@ function settings(){
 	this.spawnCenterY = 25;
 
 	this.fitScalerB = 1;
-	this.fitScalerD = -.5;
+	this.fitScalerD = -0.5;
 	this.fitScalerE = 4;		
 	this.fitScalerS = 0;
 	

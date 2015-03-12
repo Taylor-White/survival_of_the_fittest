@@ -14,6 +14,7 @@ function organism(orgID, numCols, numRows){
 	this.orgID = orgID;
 	this.numCols = numCols;
 	this.numRows = numRows;
+	// this.seedHistory = []; -- want to but shouldn't now
 
 	this.fitness = 0;
 
@@ -42,19 +43,22 @@ function organism(orgID, numCols, numRows){
 		//console.log("Org " + orgID + " sustain " + this.susCount + " -> " + s);
 		this.susCount = s;
 	};
-	this.setsetDeathCount = function(d){
+	this.setDeathCount = function(d){
 		//console.log("Org " + orgID + " death " + this.deathCount + " -> " + d);
 		this.deathCount = d;
 	};
-	this.setsetExploredCount = function(e){
+	this.setExploredCount = function(e){
 		//console.log("Org " + orgID + " explored " + this.exploredCount + " -> " + e);
 		this.exploredCount = e;
 	};
-	this.setSeed = function(seed){
-		this.seed = seed;
+	this.setState = function(state){
+		console.log(" ----- Setting State ----- ");
+		copyMatrix(this.state, state);
+		// var activeArray = this.getActiveArea();
 	};
-	this.getSeed = function(){
-		return this.seed;
+	this.setSeed = function(seed){
+		copyMatrix(this.seed, seed);
+		// this.seed = seed;
 	};
 	this.setOrgID = function(ID){
 		this.orgID = ID;
@@ -66,10 +70,6 @@ function organism(orgID, numCols, numRows){
 	this.setSettings = function(settings){
 		this.settings = settings;
 	};
-	this.setState = function(mat){
-		copyMatrix(this.state, mat);
-		var activeArray = this.getActiveArea();
-	};
 	this.setFitness = function(fitness){
 		this.fitness = fitness;
 	};	
@@ -78,13 +78,11 @@ function organism(orgID, numCols, numRows){
 	this.getState = function(){
 		return this.state;
 	};
+	this.getSeed = function(){
+		return this.seed;
+	};
 	this.getCellValue = function(row, col){
 		return this.state[row][col];
-	};
-
-	this.getMatrix = function(){
-		 // console.log("Getting Matrix: " + this.state);
-		return this.state;
 	};
 	this.getPrintableMatrix = function(){
 		var printMat = "";
@@ -115,23 +113,27 @@ function organism(orgID, numCols, numRows){
 		var birthArray = this.settings.getBirthArray();
 		var susArray = this.settings.getSustainArray();
 
+		// FOR DEBUG!! console.log("-----      -----     -----");
+		// FOR DEBUG!! console.log("this:\n " + this);
+		// FOR DEBUG!! console.log("this.ex:\n " + this.ex);
+
 		/* Calculate the next state, collecting stats on the way */
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
-				neighbours = CalcNeighbours(this.state, row, col);
+				var neighbours = CalcNeighbours(this.state, row, col);
 				if(this.state[row][col] == ALIVE){
 					if(susArray[neighbours] == 1){
-						sustainsCount++;
+						// sustainsCount++; -- need to add sustain to stats
 						nextState[row][col] = ALIVE;
 					} else {
-						deathsCount++;
+						this.orgStats.addToDeaths(1);
 						nextState[row][col] = EXPLORED;
 					}
 				} else if (birthArray[neighbours] == 1) {
 					if(this.state[row][col] != EXPLORED){
-						exploredCount++;
+						this.orgStats.addToExplored(1);
 					}
-					birthsCount++;
+					this.orgStats.addToBirths(1);
 					nextState[row][col] = ALIVE;
 				} else if (this.state[row][col] == EXPLORED){
 					nextState[row][col] = EXPLORED;
@@ -142,8 +144,8 @@ function organism(orgID, numCols, numRows){
 		}
 
 		/* Update the stats for this org */
-		this.stats.updateOrgStats(	this.orgID, birthsCount,
-									deathsCount, exploredCount );
+		// this.stats.updateOrgStats(	this.orgID, birthsCount,
+		// 							deathsCount, exploredCount );
 		/* Save the new state */
 		this.state = nextState;
 		return;
@@ -180,25 +182,9 @@ function organism(orgID, numCols, numRows){
 
 	/* Reset counters, Clear state */
 	this.resetOrg = function(){
+		this.orgStats.clearStats();
 		this.clearState();
-		this.setBirthCount(0);
-		this.setDeathCount(0);
-		this.setSusCount(0);
-		this.setExploredCount(0);
-		this.setFitness(0);		
-	};
-
-	/* Creates and returns a matrix filled with a passed in value.
-		Usually 0 */
-	this.initState = function(m, n, initial){
-		this.state = [m];
-		for (var i = 0; i < m; i += 1) {
-			var a = [];
-			for (var j = 0; j < n; j += 1) {
-				a[j] = initial;
-			}
-			this.state[i]= a;
-		}
+		// console.log("Just reset org: " + this);
 	};
 
 	/* Array Changes */
@@ -218,16 +204,15 @@ function organism(orgID, numCols, numRows){
 
 		var points = fb*this.orgStats.getBirths()+fd*this.orgStats.getDeaths()+fe*this.orgStats.getExplored();
 		this.setFitness(points);
-	}
+	};
 
 	this.building_toggleCell = function(row, col){
-		console.log("Toggling " + row + " " + col + " in " + this);
+		// console.log("Toggling " + row + " " + col + " in " + this);
 
 		var numRows = this.state.length;
 		var numCols = this.state[numRows-1].length;
-		var numCellsTurnedOn = 0;
 
-		if(row>=0 && row<numRows && col>=0 && col<numCols){
+		if(	inRange(row,0,numRows) && inRange(col,0,numCols) ){
 			/* in bounds, toggle */
 			if (this.state[row][col] == ALIVE) {
 				this.building_setCell(row, col, DEAD);
@@ -239,13 +224,14 @@ function organism(orgID, numCols, numRows){
 		}
 	};
 	this.building_setCell = function(row, col, newCell){
-		console.log("Setting " + row + " " + col + " in " + this);
+		// console.log("Setting " + row + " " + col + " in " + this);
 		// alert(row + " " + col);
 
 		var numRows = this.state.length;
 		var numCols = this.state[numRows-1].length;
 
-		if(row>=0 && row<numRows && col>=0 && col<numCols){
+		if(	inRange(row, 0, numRows) &&
+			inRange(col, 0, numCols)){
 			/* in bounds */
 			var oldCell = this.state[row][col];
 			this.state[row][col] = newCell;
@@ -260,8 +246,22 @@ function organism(orgID, numCols, numRows){
 				}
 			}
 		} else {
-			/* out of bounds, don't toggle */
+			/* out of bounds, don't set */
 		}
+	};
+	this.mutate = function(x, y, w, h, mutRate){
+		// console.log("Mutating " + this);
+		// console.log("  At: " + x + ", " + y + "  In: " + w + "X" + h);
+		if(boolFromPercent(mutRate)){
+			var row = getRandInt(y, y+h);
+			var col = getRandInt(x, x+w);
+			this.building_setCell(row, col, ALIVE);
+			// this.building_toggleCell(getRandInt(y, y+h), getRandInt(x, x+w));
+		}
+	};
+	this.doneBuilding = function(){
+		this.setSeed(this.getState());
+		this.notifyObservers("StateChanged");
 	};
 
 	this.getNumAlive = function(){
@@ -342,42 +342,39 @@ function organism(orgID, numCols, numRows){
 				so we can handle out-of-bounds there, too  */
 	};
 
-	this.initState(numRows, numCols, 0);
-}
-
-/* GLOBAL FUNCTIONS */
-
-/* Creates and returns a matrix filled with a passed in value. Usually 0 */
-function createMatrix(m, n, initial){
-	var mat = new Array(m);
-	for (var i = 0; i < m; i += 1) {
-		var a =   new Array(n);
-		for (var j = 0; j < n; j += 1) {
-			a[j] = initial;
+	/* Creates and returns a matrix filled with a passed in value.
+		Usually 0 */
+	this.initMats = function(mat, h, n, initial){
+		this.state = [h];
+		this.seed = [h];
+		for (var i = 0; i < h; i += 1) {
+			var stateRow = [];
+			var seedRow  = [];
+			for (var j = 0; j < n; j += 1) {
+				stateRow[j] = initial;
+				seedRow[j]  = initial;
+			}
+			this.state[i] = stateRow;
+			this.seed[i]  = seedRow;
 		}
-		mat[i]= a;
-	}
-	return mat;
-}
+	};
 
-/* Copies from newMat to oldMat */
-function copyMatrix(oldMat, newMat){
-	var rows = oldMat.length;
-	var cols = oldMat[0].length;
-	for (var i=0; i<rows; i++ ){
-		for (var j=0; j<cols; j++){
-			oldMat[i][j] = newMat[i][j] ;
+	this.init = function(){
+		this.initMats(numRows, numCols, 0);
+		this.initMats(numRows, numCols, 0);
+	};
+
+	/* Copies from newMat to oldMat */
+	function copyMatrix(oldMat, newMat){
+		var rows = oldMat.length;
+		var cols = oldMat[0].length;
+		for (var i=0; i<rows; i++ ){
+			for (var j=0; j<cols; j++){
+				oldMat[i][j] = newMat[i][j] ;
+			}
 		}
 	}
-}
 
-/* Convert matrix to a string of 0s and 1s with newline endings */
-function makeMatrixPrintable(mat){
-	var numRows = mat.length;
-	// var numCols = mat[0].length;
-	var printMat = "";
-	for (var row = 0; row < numRows; row++){
-		printMat += mat[row] + "\n";
-	}
-	return printMat;
+
+	this.init();
 }

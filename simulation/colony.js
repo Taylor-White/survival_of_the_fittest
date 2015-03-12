@@ -12,10 +12,11 @@ function colony(numOrgs){
 
 	/* Org stuff */
 	this.numOrgs = numOrgs;
-	this.organism_list = [];
+	this.orgList = [];
 	
 	/* Stats */
 	this.stats = new stats(numOrgs);
+	this.colStats = this.stats.getColStats();
 
 	/* Settings */
 	this.settings = new settings();
@@ -44,56 +45,50 @@ function colony(numOrgs){
 	/* Get an organism by it's orgID */
 	this.getOrg = function(orgID){
 		/* NOTE org id starts at 1 */
-		return this.organism_list[orgID-1];
+		return this.orgList[orgID-1];
 	};
 	this.setOrg = function(org){
 		this.prepOrg(org);
-		this.organism_list[org.getOrgrgID()-1] = org;
+		this.orgList[org.getOrgrgID()-1] = org;
 	};
 
 	this.randSame = function(){
 		var w = this.settings.getSpawnWidth();
 		var h = this.settings.getSpawnHeight();
-		var x = this.settings.getSpawnCenterX();
-		var y = this.settings.getSpawnCenterY();
+		var x = this.settings.getSpawnCenterX() - Math.floor((w/2)+1);
+		var y = this.settings.getSpawnCenterY()	- Math.floor((h/2)+1);
 		var d = this.settings.getSpawnDensity();
-		
-		var orgList = this.organism_list;
 
-		/* make new orgs for each */
-		for (var orgNum = 0; orgNum < this.organism_list; orgNum++){
-			orgList[orgNum] = new organism(orgNum+1, STATE_WIDTH, STATE_HEIGHT);
+		// console.log("Randomizing " + this);
+		// console.log("  At: " + x + ", " + y + "  In: " + w + "X" + h);
+
+		/* Reset each Org */
+		for (var orgNum = 0; orgNum < this.orgList.length; orgNum++){
+			this.orgList[orgNum].resetOrg();
 		}
 		
-		y = y-Math.floor((h/2)+1);
-		x = x-Math.floor((w/2)+1);		
 		for (var row = y; row < y+h; row++) {
 			for (var col = x; col < x+w; col++) {
-				if (Math.floor(Math.random() * (100/d)) === 0 &&
-				 		row>=0 && row<50 && col>=0 && col<50 ){
+				/* should cell be alive? */
+				if(	boolFromPercent(d)&&
+					inRange(row,0,50) &&
+					inRange(col,0,50) ){
 
-					/* apply to each org */
-					for (orgNum = 0; orgNum < orgList.length; ++orgNum){
-						orgList[orgNum].building_setCell(row, col, ALIVE);
+					/* make this cell alive in each org */
+					for (orgNum = 0; orgNum < this.orgList.length; ++orgNum){
+						this.orgList[orgNum].building_setCell(row, col, ALIVE);
 					}
-				}	
+				}
 			}
 		}
-		
-		// mutate each org and set it's seed
-		for (orgNum = 0; orgNum < orgList.length; orgNum++){
-			var org = orgList[orgNum];
 
-			org.building_toggleCell(getRandInt(y, y+h), getRandInt(x, x+w));
+		// mutate each org and freeze it's seed
+		for (orgNum = 0; orgNum < this.orgList.length; orgNum++){
+			var org = this.orgList[orgNum];
 
-			org.setSeed(org.getState());
-			// org.setState(tempStateCopy);
-
-			org.notifyObservers("StateChanged");
-
+			org.mutate(x, y, w, h, 100);
+			org.doneBuilding();
 		}
-		// console.log("orgList\n" + orgList);
-
 	};
 
 	this.loadSeed = function(seed){
@@ -107,16 +102,15 @@ function colony(numOrgs){
 
 
 		// for (var i = 0; i <= this.numOrgs; i++){
-		// 	var org = this.organism_list[i];
+		// 	var org = this.orgList[i];
 		// 	org.setState(seed);
 		// 	org.setSeed(seed);
 		// }
 	};
 
-	this.mutateAll = function(){
-		for (var j = 0; j < this.organism_list.length; j++){
-			/* TODO */
-		}
+	this.resetUniverse = function(){
+		this.randSame();		// randomize each org
+		this.colStats.setGens(0);
 	};
 
 	/* reset each organism in the colony
@@ -124,7 +118,7 @@ function colony(numOrgs){
 	this.resetColony = function(){
 		// console.log("Resetting Colony");
 		this.randSame();		// randomize each org
-		// this.stats.getColStats().setGens(0);
+		// this.colStats.setGens(0);
 	};
 
 	this.replay = function(){
@@ -135,14 +129,15 @@ function colony(numOrgs){
 
 	this.step = function(){
 		/* step each org */
-		for(var i = 0; i<this.organism_list.length; i++){
-			this.organism_list[i].step();
+		for(var i = 0; i<this.orgList.length; i++){
+			this.orgList[i].step();
 		}
 
 		/* increment age */
-		this.stats.getColStats().incAge();
+		this.colStats.incAge();
+		this.colStats.calcStats();
 		/* "Grim Reaper" -- checks if the colony members should die */
-		if (this.stats.getColStats().getAge() >= this.settings.getLifetime()){
+		if (this.colStats.getAge() >= this.settings.getLifetime()){
 			this.genDone();	// generation done function
 		}
 	};
@@ -152,21 +147,21 @@ function colony(numOrgs){
 		this.notifyObservers("GenDone");
 	};
 	this.advanceGen = function(){
-		this.stats.getColStats().incGens();
-		// this.resetColony();
-		this.evolve();
-		this.stats.getColStats().setAge(0); // reset colony's age
 		this.stats.clearStats();
+		// this.colStats.incGens();
+		this.resetColony();
+		// this.evolve();
+		this.colStats.setAge(0); // reset colony's age
 	};
 
 	this.isGenDone = function(){
 		// console.log("isGenDone");
-		return this.stats.getColStats().getAge() >= this.settings.getLifetime();
+		return this.colStats.getAge() >= this.settings.getLifetime();
 	};
 
 	this.getFittest = function(){
 		var fittest = []; //Store the 4 fittest organisms
-		var orgList = this.organism_list; 
+		var orgList = this.orgList; 
 		//Put the first 4 organisms in fittest[]
 		for(var i=0; i<4; ++i){
 			fittest[i] = i;
@@ -220,7 +215,7 @@ function colony(numOrgs){
 		var fittest = this.getFittest(); //Retrieve Fittest Organisms
 		var newOrg = []; //Array of next generation organisms
 		var counter = 0; //Keeps track of number of new organisms
-		var orgList = this.organism_list;
+		var orgList = this.orgList;
 
 
 		//Mate each organism in fittest with each of the others. 
@@ -241,14 +236,14 @@ function colony(numOrgs){
 			orgList[i].setState(orgList[fittest[i-counter]].getState());
 		}	
 
-		// this.stats.getColStats().setAge(0); // reset colony's age
+		// this.colStats.setAge(0); // reset colony's age
 		// this.stats.clearStats();
 		console.log("orglist" + orgList);
 		return;
 	};
 
 	this.toString = function(){
-		return "The Colony | Age: " + this.stats.getColStats().getAge(); 
+		return "The Colony | Age: " + this.colStats.getAge(); 
 	};
 
 	this.initOrgs = function(){
@@ -256,7 +251,7 @@ function colony(numOrgs){
 		for (var i=0; i<numOrgs; i++){
 			var org = new organism(i+1,STATE_WIDTH,STATE_HEIGHT);
 			this.prepOrg(org);
-			this.organism_list.push( org );		// Add org to the org list
+			this.orgList.push( org );		// Add org to the org list
 		}
 	};
 
@@ -266,17 +261,17 @@ function colony(numOrgs){
 	};
 
 	this.init = function(){
-		this.stats.getColStats().setAge(0);
-		this.stats.getColStats().setGens(0);
+		this.colStats.setAge(0);
+		this.colStats.setGens(0);
 		this.initOrgs();
 	};
 
 
 	this.changeBirthArray = function(orgID, neighbs, bool){
-		this.organism_list[orgID-1].changeBirthArray(neighbs,bool);
+		this.orgList[orgID-1].changeBirthArray(neighbs,bool);
 	};
 	this.changeDeathArray = function(orgID, neighbs, bool){
-		this.organism_list[orgID-1].changeDeathArray(neighbs,bool);
+		this.orgList[orgID-1].changeDeathArray(neighbs,bool);
 	};
 
 	this.getSettings = function(){
@@ -286,11 +281,5 @@ function colony(numOrgs){
 	/* SETUP */
 	this.init();
 	//Testing//
-	this.getFittest();
+	// this.getFittest();
 }
-
-function getRandInt(min, max) {
-	return Math.floor(Math.random() * (max - min)) + min;
-}
-
-

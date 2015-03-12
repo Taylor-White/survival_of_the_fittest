@@ -61,6 +61,6 @@ function organismController(){
 	};
 
 	this.updateOrgView = function(){
-		this.orgView.update(this.org.getMatrix());
+		this.orgView.update(this.org.getState());
 	};
 }

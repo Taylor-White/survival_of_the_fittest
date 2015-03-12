@@ -37,10 +37,9 @@ function stats(numOrgs){
 	};
 	this.clearStats = function(){
 		this.colStats.clearStats();
-		for (os of this.orgStatsArray){
-			os.clearStats();
+		for (var i = 0; i < this.orgStatsArray.length; i++){
+			this.orgStatsArray[i].clearStats();
 		}
-		/* add clear for each org */
 	};
 
 	this.toString = function(){
@@ -188,7 +187,9 @@ function orgStats(orgID){
 	this.orgID = orgID;
 	this.births = 0;
 	this.deaths = 0;
+	this.sustains = 0;
 	this.explored = 0;
+
 	this.toString = function(){
 		return "OrgStats: " + this.orgID;
 	};
@@ -202,6 +203,9 @@ function orgStats(orgID){
 	};
 	this.setDeaths = function(deaths){
 		this.deaths = deaths;
+	};
+	this.setSustains = function(sustains){
+		this.sustains = sustains;
 	};
 	this.setExplored = function(explored){
 		this.explored = explored;
@@ -217,6 +221,9 @@ function orgStats(orgID){
 	this.getDeaths = function(){
 		return this.deaths;
 	};
+	this.getSustains = function(){
+		return this.sustains;
+	};
 	this.getExplored = function(){
 		return this.explored;
 	};
@@ -231,15 +238,20 @@ function orgStats(orgID){
 		// console.log("Adding " + x + " to Deaths")
 		this.deaths += x;
 	};
+	this.addToSustains = function(x){
+		// console.log("Adding " + x + " to Deaths")
+		this.sustains += x;
+	};
 	this.addToExplored = function(x){
 		// console.log("Adding " + x + " to Explored")
 		this.explored += x;
 	};
 
 	this.clearStats = function(){
-		this.births = 0;
-		this.deaths = 0;
-		this.explored = 0;
+		this.setBirths(0);
+		this.setDeaths(0);
+		this.setSustains(0);
+		this.setExplored(0);
 	};
 
 	this.toString = function(){

@@ -47,6 +47,10 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.userRunOneGen();
 		} else if (msg == "UserResetCol"){
 			this.userResetCol();
+		} else if (msg == "UserResetUniverse"){
+			this.userResetUniverse();
+		} else if (msg == "UserRollback"){
+			this.userResetRollback();
 		} else if (msg == "UserSave"){
 			this.userSave();
 		} else if (msg.substring(0,10) == "UserExport"){
@@ -127,6 +131,16 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.userResetCol = function(){
 		this.setRun(false);
 		this.colony.resetColony();
+		this.statsCtr.updateViews();
+	};
+	this.userResetUniverse = function(){
+		this.setRun(false);
+		this.colony.resetUniverse();
+		this.statsCtr.updateViews();
+	};
+	this.userRollback = function(){
+		this.setRun(false);
+		this.colony.resetUniverse();
 		this.statsCtr.updateViews();
 	};
 
