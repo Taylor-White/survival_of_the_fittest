@@ -132,10 +132,10 @@ function colony(numOrgs){
 	};
 
 	this.step = function(){
-		if (this.stats.getColStats().getAge() >= this.settings.getLifetime()){
-			/* error code 1: Can't step past lifetime */
-			return 1;
-		}
+		// if (this.stats.getColStats().getAge() >= this.settings.getLifetime()){
+		// 	alert("error code 1: Can't step past lifetime");
+		// 	return 1;
+		// }
 
 		/* step each org */
 		for(var i = 0; i<this.organism_list.length; i++){
@@ -153,12 +153,15 @@ function colony(numOrgs){
 	/* handles the generation completing */
 	this.genDone = function(){
 		console.log("genDone");
-		this.stats.getColStats().incGens();
 		this.notifyObservers("GenDone");
+	};
+	this.advanceGen = function(){
+		this.stats.getColStats().incGens();
+		this.resetColony();
 	};
 
 	this.isGenDone = function(){
-		console.log("isGenDone");
+		// console.log("isGenDone");
 		return this.stats.getColStats().getAge() >= this.settings.getLifetime();
 	};
 
