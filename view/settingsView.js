@@ -69,25 +69,43 @@ function settingsView(){
 			// console.log("spawn width: " + $('.spawnWidth').val());
 			sv.notifyObservers("spawnWidth" + $('.spawnWidth').val());
 		});
+        $( document ).ready(function() {
+        	$(".spawnWidth").slider().slider("pips").slider("float");
+       	});
 		$( ".spawnHeight" ).change(function(event){
 			console.log("spawn height" + $('.spawnHeight').val());
 			sv.notifyObservers("spawnHeight" + $('.spawnHeight').val());
-		});		
+		});	
+        $( document ).ready(function() {
+        	$(".spawnHeight").slider().slider("pips").slider("float");
+        });			
 		$( ".spawnDensity" ).change(function(event){
 			console.log("spawn density: " + $('.spawnDensity').val());
 			sv.notifyObservers("spawnDensity" + $('.spawnDensity').val());
-		});		
+		});	
+        $( document ).ready(function() {
+        	$(".spawnDensity").slider().slider("pips").slider("float");
+        });                  
 		$( ".spawnCenterX" ).change(function(event){
 			console.log("spawn centerX: " + $('.spawnCenterX').val());
 			sv.notifyObservers("spawnCenterX" + $('.spawnCenterX').val());
-		});			
+		});	
+		$( document ).ready(function() {
+			$(".spawnCenterX").slider().slider("pips").slider("float");
+		});	
 		$( ".spawnCenterY" ).change(function(event){
 			console.log("spawn centerY: " + $('.spawnCenterY').val());
 			sv.notifyObservers("spawnCenterY" + $('.spawnCenterY').val());
+		});
+		$( document ).ready(function() {
+			$(".spawnCenterY").slider().slider("pips").slider("float");
 		});	
 		$( ".lifetime" ).change(function(event){
 			console.log("lifetime: " + $('.lifetime').val());
 			sv.notifyObservers("lifetime" + $('.lifetime').val());
+		});
+		$( document ).ready(function() {
+			$(".lifetime").slider().slider("pips").slider("float");
 		});
 		$( "#rand" ).click(function(event){
 			sv.notifyObservers("UserRand");
