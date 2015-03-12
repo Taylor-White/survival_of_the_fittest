@@ -165,7 +165,35 @@ function colony(numOrgs){
 	};
 
 	this.getFittest = function(){
-		return matrix = [1, 3, 5, 7];
+		var fittest = []; //Store the 4 fittest organisms
+		var orgList = this.organism_list; 
+		//Put the first 4 organisms in fittest[]
+		for(var i=0; i<4; ++i){
+			fittest[i] = i;
+		}	
+
+		//Find the least fit element in the fittest array			
+		var indexOfWeakest = function(){
+			var min=fittest[0];
+			//Loop throught fittest to find weakest organism in the fittest array
+			for(var i=1; i<fittest.length; i++){
+				if(orgList[min].getFitness() > orgList[fittest[i]].getFitness()){
+					min = fittest[i]; 
+				}
+			}
+			return min;
+		}
+		var m = indexOfWeakest();
+
+		//loop through the rest of the organisms and compare to the ones in the fittest array
+		for(var i=4; i<numOrgs; ++i){
+			//If an organism outside the fittest array is more fit, then replace
+			if(orgList[i].getFitness() > orgList[m].getFitness()){
+				fittest[m] = orgList[i].getFitness();
+				m = indexOfWeakest(); //Update weakest seed
+			}
+		}
+		return fittest;
 	};
 	this.evolve = function(){
 
@@ -175,6 +203,7 @@ function colony(numOrgs){
 
 			// var child = createMatrix(50, 50, 0);
 
+			//loop through each cell and put either a 1 or 0 in the child cell.
 			for(var i=0; i<50; i++){
 				for(var j=0; j<50; j++){
 					if(parent1[i][j] == parent2[i][j]){
@@ -256,6 +285,8 @@ function colony(numOrgs){
 	
 	/* SETUP */
 	this.init();
+	//Testing//
+	this.getFittest();
 }
 
 function getRandInt(min, max) {

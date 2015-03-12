@@ -51,7 +51,7 @@ function settingsView(){
 				};
 			}(sv,i));
 		}
-		$("#lifetime").change(function(sv, i){
+		$(".lifetime").change(function(sv, i){
 			return function(){
 				sv.notifyObservers("lifetime" + i);
 			};
@@ -65,34 +65,79 @@ function settingsView(){
 		$("#fast").change(function(){
 			sv.notifyObservers("UserSpeed100");
 		});
-		$( "#spawnWidth" ).change(function(event){
-			// console.log("spawn width: " + $('#spawnWidth').val());
-			sv.notifyObservers("spawnWidth" + $('#spawnWidth').val());
+		$( ".spawnWidth" ).change(function(event){
+			// console.log("spawn width: " + $('.spawnWidth').val());
+			sv.notifyObservers("spawnWidth" + $('.spawnWidth').val());
 		});
-		$( "#spawnHeight" ).change(function(event){
-			// console.log("spawn height" + $('#spawnHeight').val());
-			sv.notifyObservers("spawnHeight" + $('#spawnHeight').val());
-		});		
-		$( "#spawnDensity" ).change(function(event){
-			// console.log("spawn density: " + $('#spawnDensity').val());
-			sv.notifyObservers("spawnDensity" + $('#spawnDensity').val());
-		});		
-		$( "#spawnCenterX" ).change(function(event){
-			// console.log("spawn centerX: " + $('#spawnCenterX').val());
-			sv.notifyObservers("spawnCenterX" + $('#spawnCenterX').val());
-		});			
-		$( "#spawnCenterY" ).change(function(event){
-			// console.log("spawn centerY: " + $('#spawnCenterY').val());
-			sv.notifyObservers("spawnCenterY" + $('#spawnCenterY').val());
+        $( document ).ready(function() {
+        	$(".spawnWidth").slider().slider("pips").slider("float");
+       	});
+		$( ".spawnHeight" ).change(function(event){
+			console.log("spawn height" + $('.spawnHeight').val());
+			sv.notifyObservers("spawnHeight" + $('.spawnHeight').val());
 		});	
-		$( "#lifetime" ).change(function(event){
-			// console.log("lifetime: " + $('#spawnCenterX').val());
-			sv.notifyObservers("lifetime" + $('#lifetime').val());
+        $( document ).ready(function() {
+        	$(".spawnHeight").slider().slider("pips").slider("float");
+        });			
+		$( ".spawnDensity" ).change(function(event){
+			console.log("spawn density: " + $('.spawnDensity').val());
+			sv.notifyObservers("spawnDensity" + $('.spawnDensity').val());
+		});	
+        $( document ).ready(function() {
+        	$(".spawnDensity").slider().slider("pips").slider("float");
+        });                  
+		$( ".spawnCenterX" ).change(function(event){
+			console.log("spawn centerX: " + $('.spawnCenterX').val());
+			sv.notifyObservers("spawnCenterX" + $('.spawnCenterX').val());
+		});	
+		$( document ).ready(function() {
+			$(".spawnCenterX").slider().slider("pips").slider("float");
+		});	
+		$( ".spawnCenterY" ).change(function(event){
+			console.log("spawn centerY: " + $('.spawnCenterY').val());
+			sv.notifyObservers("spawnCenterY" + $('.spawnCenterY').val());
+		});
+		$( document ).ready(function() {
+			$(".spawnCenterY").slider().slider("pips").slider("float");
+		});	
+		$( ".lifetime" ).change(function(event){
+			console.log("lifetime: " + $('.lifetime').val());
+			sv.notifyObservers("lifetime" + $('.lifetime').val());
+		});
+		$( document ).ready(function() {
+			$(".lifetime").slider().slider("pips").slider("float");
 		});
 		$( "#rand" ).click(function(event){
 			sv.notifyObservers("UserRand");
 		});		
-
+		$( ".mutRate" ).change(function(event){
+			// console.log("mutation rate: " + $('#mutRate').val());
+			sv.notifyObservers("mutRate" + $('.mutRate').val());
+		});
+		$( document ).ready(function() {
+			$(".mutRate").slider().slider("pips").slider("float");
+		});
+		$( ".fitnessBirth" ).change(function(event){
+			// console.log("fitness births" + $('#fitnessBirth').val());
+			sv.notifyObservers("fitnessBirth" + $('.fitnessBirth').val());
+		});
+		$( document ).ready(function() {
+			$(".fitnessBirth").slider().slider("pips").slider("float");
+		});		
+		$( ".fitnessDeath" ).change(function(event){
+			// console.log("fitness deaths: " + $('#fitnessDeath').val());
+			sv.notifyObservers("fitnessDeath" + $('.fitnessDeath').val());
+		});	
+		$( document ).ready(function() {
+			$(".fitnessDeath").slider().slider("pips").slider("float");
+		});
+		$( ".fitnessExplore" ).change(function(event){
+			// console.log("fitness explore: " + $('#fitnessExplore').val());
+			sv.notifyObservers("fitnessExplore" + $('.fitnessExplore').val());
+		});
+		$( document ).ready(function() {
+			$(".fitnessExplore").slider().slider("pips").slider("float");
+		});	
 	};
 
 	$(document).ready(this.prepAfterLoad(this));

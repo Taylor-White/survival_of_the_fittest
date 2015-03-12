@@ -15,6 +15,8 @@ function organism(orgID, numCols, numRows){
 	this.numCols = numCols;
 	this.numRows = numRows;
 
+	this.fitness = 0;
+
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 
@@ -68,6 +70,9 @@ function organism(orgID, numCols, numRows){
 		copyMatrix(this.state, mat);
 		var activeArray = this.getActiveArea();
 	};
+	this.setFitness = function(fitness){
+		this.fitness = fitness;
+	};	
 
 	/* Getters */
 	this.getState = function(){
@@ -87,6 +92,10 @@ function organism(orgID, numCols, numRows){
 			printMat = this.state[row] + "\n";
 		}
 	};
+	this.getFitness = function(){
+		this.updateFitness();
+		return this.fitness;
+	};		
 
 
 	/* MODEL STUFF*/
@@ -176,6 +185,7 @@ function organism(orgID, numCols, numRows){
 		this.setDeathCount(0);
 		this.setSusCount(0);
 		this.setExploredCount(0);
+		this.setFitness(0);		
 	};
 
 	/* Creates and returns a matrix filled with a passed in value.
@@ -200,6 +210,15 @@ function organism(orgID, numCols, numRows){
 	this.toString = function(){
 		return "An Org | orgID: " + this.orgID + ", explored: " + this.stats.getOrgStats(this.orgID).getExplored(); 
 	};
+	this.updateFitness = function(){
+		var fb = this.settings.getFitScalerB();
+		var fd = this.settings.getFitScalerD();
+		var fe = this.settings.getFitScalerE();
+		//var fs = this.settings.getFitScalerS();
+
+		var points = fb*this.orgStats.getBirths()+fd*this.orgStats.getDeaths()+fe*this.orgStats.getExplored();
+		this.setFitness(points);
+	}
 
 	this.building_toggleCell = function(row, col){
 		console.log("Toggling " + row + " " + col + " in " + this);
@@ -286,6 +305,7 @@ function organism(orgID, numCols, numRows){
 
 
 		// alert("(" + minX + ", " + minY + ")\n" + "(" + maxX + ", " + maxY + ")");
+		
 		return [minX, minY, maxX, maxY];
 	};
 
