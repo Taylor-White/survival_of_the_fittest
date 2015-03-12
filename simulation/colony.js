@@ -161,7 +161,31 @@ function colony(numOrgs){
 	};
 
 	this.getFittest = function(){
-		return matrix = [1, 3, 5, 7];
+		var fittest = []; //Store the 4 fittest organisms
+		var orgList = this.organism_list; 
+		//Put the first 4 organisms in fittest[]
+		for(var i=0; i<4; ++i){
+			fittest[i] = i;
+		}	
+		//Find the least fit element in the fittest array			
+		var indexOfWeakest = function(){
+			var min=fittest[0];
+			for(var i=1; i<fittest.length; i++){
+
+				if(orgList[min].getFitness() > orgList[fittest[i]].getFitness()){
+					min = fittest[i];
+				}
+			}
+			return min;
+		}
+		var m = indexOfWeakest();
+		for(var i=4; i<numOrgs; ++i){
+			if(orgList[i].getFitness() > orgList[m].getFitness()){
+				fittest[m] = orgList[i].getFitness();
+				m = indexOfWeakest();
+			}
+		}
+		return fittest;
 	};
 	this.evolve = function(){
 
@@ -169,6 +193,7 @@ function colony(numOrgs){
 
 			var child = createMatrix(50, 50, 0);
 
+			//loop through each cell and put either a 1 or 0 in the child cell.
 			for(var i=0; i<50; i++){
 				for(var j=0; j<50; j++){
 					if(parent1[i][j] == parent2[i][j]){
@@ -196,7 +221,7 @@ function colony(numOrgs){
 
 		//Set state of the first 6 organisms to the 6 new child organisms
 		for(var i=0; i<counter; ++i){
-			orgList[i+1].setState(newOrg[i]);
+			orgList[i].setState(newOrg[i]);
 		}
 		//Set state of the last 4 organisms to the 4 elite fittest organisms
 		for(var i=counter; i<fittest.length+counter; ++i){
@@ -242,6 +267,8 @@ function colony(numOrgs){
 	
 	/* SETUP */
 	this.init();
+	//Testing//
+	this.getFittest();
 }
 
 function getRandInt(min, max) {

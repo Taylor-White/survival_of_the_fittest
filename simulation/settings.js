@@ -13,6 +13,10 @@ function settings(){
 	this.spawnCenterX = 25;
 	this.spawnCenterY = 25;
 
+	this.fitScalerB = 1;
+	this.fitScalerD = -.5;
+	this.fitScalerE = 4;		
+	this.fitScalerS = 0;
 	
 	
 	/* Setters */
@@ -51,6 +55,18 @@ function settings(){
 	this.setSpawnCenterY = function(cy){
 		this.spawnCenterY = cy;
 	};
+	this.setFitScalerB = function(fb){
+		this.fitScalerB = fb;
+	};	
+	this.setFitScalerD = function(fd){
+		this.fitScalerD = fd;
+	};	
+	this.setFitScalerE = function(fe){
+		this.fitScalerE = fe;
+	};			
+	this.setFitScalerS = function(fs){
+		this.fitScalerS = fs;
+	};	
 
 	/* Toggles */
 	this.toggleBirthArrayVal = function(neighbs){
@@ -96,5 +112,16 @@ function settings(){
 	this.getSpawnCenterY = function(){
 		return this.spawnCenterY;
 	};
-
+	this.getFitScalerB = function(){
+		return this.fitScalerB;
+	};	
+	this.getFitScalerD = function(){
+		return this.fitScalerD;
+	};	
+	this.getFitScalerE = function(){
+		return this.fitScalerE;
+	};		
+	this.getFitScalerS = function(){
+		return this.fitScalerS;
+	};	
 }
