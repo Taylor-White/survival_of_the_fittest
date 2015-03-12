@@ -16,7 +16,6 @@ function importExportView() {
 	var fileDisplayArea = document.getElementById('fileDisplayArea');
 
 	var loadSelected = 0;
-
 	var exportString = "";
 
 	/*	OBSERVABLE METHODS */

@@ -114,7 +114,6 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	/* function for when the user wants to pause the simulation */
 	this.userPause = function(){
 		this.setRun(false);
-		this.colony.evolve();
 	};
 
 	/* function for when the user wants to randomize all orgs */
