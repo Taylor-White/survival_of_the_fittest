@@ -227,13 +227,15 @@ function organism(orgID, numCols, numRows){
 
 	this.calcActiveArea = function(){
 		var minX = Number.POSITIVE_INFINITY;
-		var minY;
-		var maxX;
-		var maxY;
+		var minY = Number.POSITIVE_INFINITY;
+		var maxX = Number.NEGATIVE_INFINITY;
+		var maxY = Number.NEGATIVE_INFINITY;
 		/* loop through state */
 		for (var row = 0; row < this.numRows; row++){
 			for (var col = 0; col < this.numCols; col++){
-
+				if (this.state[row][col] == ALIVE){
+					/* SET MIN AND MAXES */
+				}
 			}
 		}
 

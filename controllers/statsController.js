@@ -72,6 +72,11 @@ function statsController(){
 		sv.updateFewestDeathsOrgID(this.stats.colStats.getFewestDeathsOrgID());
 	};
 
+	this.updateViews = function(){
+		this.updateColStatsView();
+		this.updateOrgStatsView();
+	};
+
 	this.toString = function(){
 		return "The Stats Controller";
 	};

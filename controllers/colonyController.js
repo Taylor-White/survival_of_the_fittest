@@ -86,7 +86,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.setRun(false);
 		if (this.colony.isGenDone()){
 			// this.colony.evolve();
-			this.colony.randSame();
+			this.advanceGen();
 		} else {
 			this.tick(this);
 		}
@@ -94,15 +94,21 @@ function colonyController(orgCtr, statsCtr, settCtr){
 
 	/* function for when the user wants to run the whole simulation out */
 	this.userRun = function(){
-		this.setRun(true);
+		if (this.colony.isGenDone()){
+			this.advanceGen();
+		}
 		this.shouldContinue = true;
+		this.setRun(true);
 	};
 
 	/* function for when the user wants to stop the simulation from stepping 
 		when the generation is done */
 	this.userRunOneGen = function(){
-		this.setRun(true);
+		if (this.colony.isGenDone()){
+			this.advanceGen();
+		} 
 		this.shouldContinue = false;
+		this.setRun(true);
 	};
 
 	/* function for when the user wants to pause the simulation */
@@ -115,16 +121,14 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.userRand = function(){
 		/* user settings should already be updated */
 		this.colony.randSame();
-		this.statsCtr.updateColStatsView();
-		this.statsCtr.updateOrgStatsView();		
+		this.statsCtr.updateViews();
 	};
 
 	/* function for when the user wants to pause the simulation */
 	this.userResetCol = function(){
 		this.setRun(false);
 		this.colony.resetColony();
-		this.statsCtr.updateColStatsView();
-		this.statsCtr.updateOrgStatsView();
+		this.statsCtr.updateViews();
 	};
 
 	this.userSave = function(){
@@ -150,20 +154,19 @@ function colonyController(orgCtr, statsCtr, settCtr){
 
 	this.setRun = function(newRun){
 		// console.log("Setting Run State: " + newRun);
-		if (!this.run){		// if not running
+
+		if (this.run === false){
 		/* STARTING */
-			if (newRun){
+			if (newRun === true){
 				if (this.colony.isGenDone()){
-					// this.colony.evolve();
-					this.colony.resetColony();
+					this.genDone();
 				}
-					
-				/*
-				Set a regular interval based on the speed setting 
-					that calls the tick function. 
-				Store returned reference in winIntervalID so we can 
-					remove the interval to stop the simulation.
-				*/
+				
+				// Set a regular interval based on the speed setting 
+				// 	that calls the tick function. 
+				// Store returned reference in winIntervalID so we can 
+				// 	remove the interval to stop the simulation.
+				
 				this.winIntervalID = window.setInterval(
 					function(that){
 						return function(){that.tick(that);};
@@ -171,28 +174,33 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			}
 		} else {			// if running
 		/* STOPPING */
-			if (!newRun){
+			if (newRun === false){
 				window.clearInterval(this.winIntervalID);
 			}
 		}
 		this.run = newRun;
+
 	};
 
 	this.genDone = function(gens){
 		this.setRun(false);
 		if (this.shouldContinue){
-			// this.colony.evolve();
-			this.colony.resetColony();
+			this.advanceGen();
 			this.setRun(true);
 		}
 	};
 
+	this.advanceGen = function(){
+		// this.colony.evolve();
+		this.colony.advanceGen();
+		this.statsCtr.updateViews();
+	};
+
 	this.tick = function(cc){
-		// console.log(" -- TICK -- ");
+		console.log(" -- TICK -- ");
 		cc.colony.step();
-		cc.statsCtr.updateOrgStatsView();
-		cc.statsCtr.updateColStatsView();
 		cc.orgCtr.updateOrgView();
+		cc.statsCtr.updateViews();
 	};
 
 	this.initialize = function(){
@@ -216,8 +224,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.colony.randSame();	
 		
 		/* Update Views */
-		this.statsCtr.updateOrgStatsView();
-		this.statsCtr.updateColStatsView();		
+		this.statsCtr.updateViews();	
 		this.orgCtr.updateOrgView();
 	};
 

@@ -82,7 +82,7 @@ function colony(numOrgs){
 			// this.stats.getOrgStats(j+1).setExplored(
 			// 								exploredCounter + 
 			// 								toggleCell(tempStateCopy, randY, randX) );
-			/* HANDLE EXPLORED UPDATE IN ORG */
+			/* TODO!!! HANDLE EXPLORED UPDATE IN ORG */
 			org.toggleCell(randY, randX);
 			org.setSeed(tempStateCopy);
 			org.setState(tempStateCopy);
@@ -132,11 +132,6 @@ function colony(numOrgs){
 	};
 
 	this.step = function(){
-		if (this.stats.getColStats().getAge() >= this.settings.getLifetime()){
-			/* error code 1: Can't step past lifetime */
-			return 1;
-		}
-
 		/* step each org */
 		for(var i = 0; i<this.organism_list.length; i++){
 			this.organism_list[i].step();
@@ -152,9 +147,11 @@ function colony(numOrgs){
 
 	/* handles the generation completing */
 	this.genDone = function(){
-		// console.log("genDone");
-		this.stats.getColStats().incGens();
 		this.notifyObservers("GenDone");
+	};
+	this.advanceGen = function(){
+		this.stats.getColStats().incGens();
+		this.resetColony();
 	};
 
 	this.isGenDone = function(){
@@ -232,8 +229,6 @@ function colony(numOrgs){
 		this.stats.getColStats().setAge(0);
 		this.stats.getColStats().setGens(0);
 		this.initOrgs();
-
-		   // alert(this.organism_list[0].getMatrix() == this.organism_list[1].getMatrix());
 	};
 
 
