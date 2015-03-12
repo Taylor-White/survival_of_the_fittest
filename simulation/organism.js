@@ -201,31 +201,62 @@ function organism(orgID, numCols, numRows){
 		return "An Org | orgID: " + this.orgID + ", explored: " + this.stats.getOrgStats(this.orgID).getExplored(); 
 	};
 
-
-	/*  GENETIC ALGORITHM STUFF  */
-	this.toggleCell = function(row, col){
-		// alert(row + " " + col);
+	this.building_toggleCell = function(row, col){
+		console.log("Toggling " + row + " " + col + " in " + this);
 
 		var numRows = this.state.length;
 		var numCols = this.state[numRows-1].length;
 		var numCellsTurnedOn = 0;
 
 		if(row>=0 && row<numRows && col>=0 && col<numCols){
-		/* in bounds, toggle */
+			/* in bounds, toggle */
 			if (this.state[row][col] == ALIVE) {
-				this.state[row][col] = DEAD;
-				numCellsTurnedOn = -1;
+				this.building_setCell(row, col, DEAD);
 			} else {
-				this.state[row][col] = ALIVE;
-				numCellsTurnedOn = 1;
+				this.building_setCell(row, col, ALIVE);
 			}
 		} else {
-		/* out of bounds, don't toggle */
-			numCellsTurnedOn = 0;
+			/* out of bounds, don't toggle */
 		}
-		this.orgStats.addToExplored(numCellsTurnedOn);
+	};
+	this.building_setCell = function(row, col, newCell){
+		console.log("Setting " + row + " " + col + " in " + this);
+		// alert(row + " " + col);
+
+		var numRows = this.state.length;
+		var numCols = this.state[numRows-1].length;
+
+		if(row>=0 && row<numRows && col>=0 && col<numCols){
+			/* in bounds */
+			var oldCell = this.state[row][col];
+			this.state[row][col] = newCell;
+
+			if (oldCell == ALIVE) {
+				if (newCell == DEAD){
+					this.orgStats.addToExplored(-1);
+				}
+			} else if (oldCell == DEAD) {
+				if (newCell == ALIVE){
+					this.orgStats.addToExplored(1);
+				}
+			}
+		} else {
+			/* out of bounds, don't toggle */
+		}
 	};
 
+	this.getNumAlive = function(){
+		var numAlive = 0;
+		for (var row = 0; row < this.numRows; row++){
+			for (var col = 0; col < this.numCols; col++){
+				if (this.state[row][col] == ALIVE){
+					++numAlive;
+				}
+			}
+		}
+		return numAlive;
+		
+	};
 
 	this.getActiveArea = function(){
 		var minX = Number.POSITIVE_INFINITY;
@@ -254,7 +285,7 @@ function organism(orgID, numCols, numRows){
 		}
 
 
-		alert("(" + minX + ", " + minY + ")\n" + "(" + maxX + ", " + maxY + ")");
+		// alert("(" + minX + ", " + minY + ")\n" + "(" + maxX + ", " + maxY + ")");
 		return [minX, minY, maxX, maxY];
 	};
 

@@ -3,6 +3,9 @@ Organisms: list of Organisms
 File owner: Xi
 */
 
+STATE_WIDTH = 50;
+STATE_HEIGHT = 50;
+
 /* represents the colony class */
 function colony(numOrgs){
 	// console.log("creating Colony");
@@ -43,53 +46,54 @@ function colony(numOrgs){
 		/* NOTE org id starts at 1 */
 		return this.organism_list[orgID-1];
 	};
+	this.setOrg = function(org){
+		this.prepOrg(org);
+		this.organism_list[org.getOrgrgID()-1] = org;
+	};
 
 	this.randSame = function(){
-		// console.log("Entered randSame");
-		var tempState = createMatrix(50,50,0);
-		var exploredCounter = 0;
-		
 		var w = this.settings.getSpawnWidth();
 		var h = this.settings.getSpawnHeight();
 		var x = this.settings.getSpawnCenterX();
 		var y = this.settings.getSpawnCenterY();
 		var d = this.settings.getSpawnDensity();
 		
-		// Creates random state based on user settings
-		//   Keeps track of num explored 
+		var orgList = this.organism_list;
+
+		/* make new orgs for each */
+		for (var orgNum = 0; orgNum < this.organism_list; orgNum++){
+			orgList[orgNum] = new organism(orgNum+1, STATE_WIDTH, STATE_HEIGHT);
+		}
+		
 		y = y-Math.floor((h/2)+1);
 		x = x-Math.floor((w/2)+1);		
 		for (var row = y; row < y+h; row++) {
 			for (var col = x; col < x+w; col++) {
-				var i = Math.floor(Math.random() * (100/d));
-				if(i === 0 && row>=0 && row<50 && col>=0 && col<50  ){
-					tempState[row][col] = 1; 
-					exploredCounter++;
+				if (Math.floor(Math.random() * (100/d)) === 0 &&
+				 		row>=0 && row<50 && col>=0 && col<50 ){
+
+					/* apply to each org */
+					for (orgNum = 0; orgNum < orgList.length; ++orgNum){
+						orgList[orgNum].building_setCell(row, col, ALIVE);
+					}
 				}	
 			}
 		}
 		
-		//Loops through each organism and applies the state to it
-		for (var j = 0; j < this.organism_list.length; j++){
-			var org = this.organism_list[j];
+		// mutate each org and set it's seed
+		for (orgNum = 0; orgNum < orgList.length; orgNum++){
+			var org = orgList[orgNum];
 
-			var tempStateCopy = createMatrix(50,50,0);
-			copyMatrix(tempStateCopy, tempState);
+			org.building_toggleCell(getRandInt(y, y+h), getRandInt(x, x+w));
 
-			var randY = getRandInt(y, y+h); 
-			var randX = getRandInt(x, x+w);
-			/* toggleCell returns number turned on (-1, 0, 1) */
-			// this.stats.getOrgStats(j+1).setExplored(
-			// 								exploredCounter + 
-			// 								toggleCell(tempStateCopy, randY, randX) );
-			/* TODO!!! HANDLE EXPLORED UPDATE IN ORG */
-			org.toggleCell(randY, randX);
-			org.setSeed(tempStateCopy);
-			org.setState(tempStateCopy);
+			org.setSeed(org.getState());
+			// org.setState(tempStateCopy);
 
 			org.notifyObservers("StateChanged");
 
 		}
+		// console.log("orgList\n" + orgList);
+
 	};
 
 	this.loadSeed = function(seed){
@@ -121,8 +125,6 @@ function colony(numOrgs){
 		// console.log("Resetting Colony");
 		this.randSame();		// randomize each org
 		// this.stats.getColStats().setGens(0);
-		this.stats.getColStats().setAge(0); // reset colony's age
-		this.stats.clearStats();
 	};
 
 	this.replay = function(){
@@ -151,8 +153,10 @@ function colony(numOrgs){
 	};
 	this.advanceGen = function(){
 		this.stats.getColStats().incGens();
-		this.resetColony();
-		// this.evolve();
+		// this.resetColony();
+		this.evolve();
+		this.stats.getColStats().setAge(0); // reset colony's age
+		this.stats.clearStats();
 	};
 
 	this.isGenDone = function(){
@@ -167,7 +171,9 @@ function colony(numOrgs){
 
 		var mate = function(parent1, parent2){
 
-			var child = createMatrix(50, 50, 0);
+			var org = new organism(i+1,STATE_WIDTH,STATE_HEIGHT);
+
+			// var child = createMatrix(50, 50, 0);
 
 			for(var i=0; i<50; i++){
 				for(var j=0; j<50; j++){
@@ -178,33 +184,37 @@ function colony(numOrgs){
 					}									
 				}
 			}
+			// console.log("child: " + child);
 			return child;
-		};	
+		};
 
 		var fittest = this.getFittest(); //Retrieve Fittest Organisms
 		var newOrg = []; //Array of next generation organisms
 		var counter = 0; //Keeps track of number of new organisms
-		var orgList = this.organism_list; 
+		var orgList = this.organism_list;
 
-		//Mate each organism in fittest with each of the others. Put the child organisms in newOrg
+
+		//Mate each organism in fittest with each of the others. 
+		//Put the child organisms in newOrg
 		for(var i=0; i<fittest.length; ++i){
 			for(var j=i+1; j<fittest.length; ++j){
-				newOrg[counter] = mate(orgList[fittest[i]].getState(), orgList[fittest[j]].getState());
+				newOrg[counter] = mate(orgList[fittest[i]].getSeed(), orgList[fittest[j]].getSeed());
 				counter++;
 			}
 		}
 
 		//Set state of the first 6 organisms to the 6 new child organisms
 		for(var i=0; i<counter; ++i){
-			orgList[i+1].setState(newOrg[i]);
+			orgList[i].setState(newOrg[i]);
 		}
 		//Set state of the last 4 organisms to the 4 elite fittest organisms
 		for(var i=counter; i<fittest.length+counter; ++i){
 			orgList[i].setState(orgList[fittest[i-counter]].getState());
 		}	
 
-		this.stats.getColStats().setAge(0); // reset colony's age
-		this.stats.clearStats();
+		// this.stats.getColStats().setAge(0); // reset colony's age
+		// this.stats.clearStats();
+		console.log("orglist" + orgList);
 		return;
 	};
 
@@ -215,11 +225,15 @@ function colony(numOrgs){
 	this.initOrgs = function(){
 		/* fill list of orgs */
 		for (var i=0; i<numOrgs; i++){
-			var org = new organism(i+1,50,50);
-			org.setStats(this.stats);			// Pass reference of the Stats object
-			org.setSettings(this.settings);		// Pass reference of the Settings object
+			var org = new organism(i+1,STATE_WIDTH,STATE_HEIGHT);
+			this.prepOrg(org);
 			this.organism_list.push( org );		// Add org to the org list
 		}
+	};
+
+	this.prepOrg = function(org){
+		org.setStats(this.stats);			// Pass reference of the Stats object
+		org.setSettings(this.settings);		// Pass reference of the Settings object
 	};
 
 	this.init = function(){
