@@ -167,22 +167,26 @@ function colony(numOrgs){
 		for(var i=0; i<4; ++i){
 			fittest[i] = i;
 		}	
+
 		//Find the least fit element in the fittest array			
 		var indexOfWeakest = function(){
 			var min=fittest[0];
+			//Loop throught fittest to find weakest organism in the fittest array
 			for(var i=1; i<fittest.length; i++){
-
 				if(orgList[min].getFitness() > orgList[fittest[i]].getFitness()){
-					min = fittest[i];
+					min = fittest[i]; 
 				}
 			}
 			return min;
 		}
 		var m = indexOfWeakest();
+
+		//loop through the rest of the organisms and compare to the ones in the fittest array
 		for(var i=4; i<numOrgs; ++i){
+			//If an organism outside the fittest array is more fit, then replace
 			if(orgList[i].getFitness() > orgList[m].getFitness()){
 				fittest[m] = orgList[i].getFitness();
-				m = indexOfWeakest();
+				m = indexOfWeakest(); //Update weakest seed
 			}
 		}
 		return fittest;
