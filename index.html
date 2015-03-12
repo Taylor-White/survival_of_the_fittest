@@ -5,18 +5,26 @@
       <meta charset="utf-8">
       <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css">
       <link rel="stylesheet" href="libraries/bootstrap/css/custom.css">
-      <script src="libraries/jquery.js"></script>
-      <script src="libraries/bootstrap/js/bootstrap.min.js"></script>
-      <script src="libraries/downloadify/src/downloadify.js"></script>     
-      <script type="text/javascript" src="libraries/downloadify/js/swfobject.js"></script>
-      <script type="text/javascript" src="libraries/downloadify/js/downloadify.min.js"></script>
-
+      <!-- plus a jQuery UI theme, here I use "flick" -->
+      <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
       <!-- Latest compiled and minified CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
       <!-- Optional theme -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="libraries/jQuery-ui-Slider-Pips-1.8.0/src/css/jquery-ui-slider-pips.css">
+
+      <!-- include the jQuery and jQuery UI scripts -->
+      <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+      <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+      <!-- Latest compiled and minified JavaScript 
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+      <!--<script src="libraries/jquery.js"></script>-->
+      <script src="libraries/bootstrap/js/bootstrap.min.js"></script>
+      <script src="libraries/downloadify/src/downloadify.js"></script>     
+      <script type="text/javascript" src="libraries/downloadify/js/swfobject.js"></script>
+      <script type="text/javascript" src="libraries/downloadify/js/downloadify.min.js"></script>
+      <script type="text/javascript" src="libraries/jQuery-ui-Slider-Pips-1.8.0/src/js/jquery-ui-slider-pips.js"></script>
+                      
    </head>
    <body onload="$( document ).ready(main());">
       <div class="container">
@@ -225,17 +233,23 @@
                         <fieldset>
                            <legend>Spawn Settings</legend>
                            Width: <br />
-                           <input id="spawnWidth" type="text" value="5" /><br />
+                           <!--<input id="spawnWidth" type="text" value="5" /><br />-->
+                           <div class="spawnWidth"></div>
                            Height: <br />
-                           <input id="spawnHeight" type="text" value="5" /><br />
+                           <!--<input id="spawnHeight" type="text" value="5" /><br />-->
+                           <div class="spawnHeight"></div>
                            Density: <br />
-                           <input id="spawnDensity" type="text" value="35" />%<br />
+                           <!--<input id="spawnDensity" type="text" value="35" />%<br />-->
+                           <div class="spawnDensity"></div>
                            Center (x): <br />
-                           <input id="spawnCenterX" type="text" value="25" /><br />
+                           <!--<input id="spawnCenterX" type="text" value="25" /><br />-->
+                           <div class="spawnCenterX"></div>                   
                            Center (y): <br />
-                           <input id="spawnCenterY" type="text" value="25" /><br />
+                           <!--<input id="spawnCenterY" type="text" value="25" /><br />-->
+                           <div class="spawnCenterY"></div>
                            Lifetime:<br />   
-                           <input id="lifetime" type="text" value="50"/> <br />
+                           <!--<input id="lifetime" type="text" value="50"/> <br />-->
+                           <div class="lifetime"></div>                     
                         </fieldset>
                         <body>
                           
@@ -283,9 +297,43 @@
                                  <td id="8"><input type="checkbox" ></td>
                               </tr>
                            </table>
-                           
                      </body>
-               </div>
+                           <fieldset>
+                           <legend>Genetic Algorithm Settings</legend>
+                           <br>Mutation Rate: <br />
+                           <!--<input id="mutRate" type="text" value="5" />%<br />-->
+                           <div class="mutRate"></div>
+                           <script type="text/javascript">
+                           $( document ).ready(function() {
+                              $(".mutRate").slider().slider("pips").slider("float");
+                           });
+                           </script></input>
+                           Fitness Birth: <br />
+                           <!--<input id="fitnessBirth" type="text" value="5" /><br />-->
+                           <div class="fitnessBirth"></div>
+                           <script type="text/javascript">
+                           $( document ).ready(function() {
+                              $(".fitnessBirth").slider().slider("pips").slider("float");
+                           });
+                           </script>
+                           Fitness Death: <br />
+                           <!--<input id="fitnessDeath" type="text" value="35" />%<br />-->
+                           <div class="fitnessDeath"></div>
+                           <script type="text/javascript">
+                           $( document ).ready(function() {
+                              $(".fitnessDeath").slider().slider("pips").slider("float");
+                           });
+                           </script>
+                           Fitness Explore: <br />
+                           <div class="fitnessExplore"></div>
+                           <script type="text/javascript">
+                           $( document ).ready(function() {
+                              $(".fitnessExplore").slider().slider("pips").slider("float");
+                           });
+                           </script>
+
+                        </fieldset>
+                  </div>
 
    <div role="tabpanel" class="tab-pane" id="saved">
       <h3>Saved seeds:</h3>
@@ -300,8 +348,9 @@
          <pre id="fileDisplayArea"></pre>
          <output id="list"></output>
          <h3>Export:</h3>
+         <p>Before being able to export user must save a seed first</p>
          <div id="downloadify-container">
-            <p id="downloadify">downloadify</p>
+            <p id="downloadify">downloadify</p><br>
          </div>
       </div>
    </body>

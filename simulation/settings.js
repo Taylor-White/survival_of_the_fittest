@@ -55,6 +55,7 @@ function settings(){
 	this.setSpawnCenterY = function(cy){
 		this.spawnCenterY = cy;
 	};
+
 	this.setFitScalerB = function(fb){
 		this.fitScalerB = fb;
 	};	
@@ -67,6 +68,10 @@ function settings(){
 	this.setFitScalerS = function(fs){
 		this.fitScalerS = fs;
 	};	
+
+	this.setMutRate = function(mut){
+		this.mutRate = mut;
+	};
 
 	/* Toggles */
 	this.toggleBirthArrayVal = function(neighbs){

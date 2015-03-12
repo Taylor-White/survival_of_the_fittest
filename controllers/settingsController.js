@@ -66,8 +66,24 @@ function settingsController(){
 			this.settings.setSpawnCenterY(sCenterY);
 		} else if (msg.substring(0,8) == "lifetime"){
 			var sLifetime = parseInt(msg.substring(8, msg.length));
-			 console.log("Lifetime: " + sLifetime);
+			 //console.log("Lifetime: " + sLifetime);
 			this.settings.setLifetime(sLifetime);
+		} else if (msg.substring(0,12) == "mutRate"){
+			var sMutation = parseInt(msg.substring(7, msg.length));
+			// console.log("mutRate: " + sMutation)
+			this.settings.setMutRate(sMutation);
+		} else if (msg.substring(0,12) == "fitnessBirth"){
+			var sFitBirth = parseInt(msg.substring(12, msg.length));
+			// console.log("fitnessBirth: " + sCenterX)
+			this.settings.setFitBirth(sFitBirth);
+		} else if (msg.substring(0,12) == "fitnessDeath"){
+			var sFitDeath = parseInt(msg.substring(12, msg.length));
+			// console.log("fitnessDeath: " + sFitDeath)
+			this.settings.setFitDeath(sFitDeath);
+		} else if (msg.substring(0,8) == "fitnessExplore"){
+			var sFitExplore = parseInt(msg.substring(14, msg.length));
+			 //console.log("fitnessExplore: " + sFitExplore);
+			this.settings.setFitExplore(sFitExplore);
 		}
 	};
 
