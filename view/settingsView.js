@@ -51,7 +51,7 @@ function settingsView(){
 				};
 			}(sv,i));
 		}
-		$("#lifetime").change(function(sv, i){
+		$(".lifetime").change(function(sv, i){
 			return function(){
 				sv.notifyObservers("lifetime" + i);
 			};
@@ -65,48 +65,48 @@ function settingsView(){
 		$("#fast").change(function(){
 			sv.notifyObservers("UserSpeed100");
 		});
-		$( "#spawnWidth" ).change(function(event){
-			// console.log("spawn width: " + $('#spawnWidth').val());
-			sv.notifyObservers("spawnWidth" + $('#spawnWidth').val());
+		$( ".spawnWidth" ).change(function(event){
+			// console.log("spawn width: " + $('.spawnWidth').val());
+			sv.notifyObservers("spawnWidth" + $('.spawnWidth').val());
 		});
-		$( "#spawnHeight" ).change(function(event){
-			// console.log("spawn height" + $('#spawnHeight').val());
-			sv.notifyObservers("spawnHeight" + $('#spawnHeight').val());
+		$( ".spawnHeight" ).change(function(event){
+			console.log("spawn height" + $('.spawnHeight').val());
+			sv.notifyObservers("spawnHeight" + $('.spawnHeight').val());
 		});		
-		$( "#spawnDensity" ).change(function(event){
-			// console.log("spawn density: " + $('#spawnDensity').val());
-			sv.notifyObservers("spawnDensity" + $('#spawnDensity').val());
+		$( ".spawnDensity" ).change(function(event){
+			console.log("spawn density: " + $('.spawnDensity').val());
+			sv.notifyObservers("spawnDensity" + $('.spawnDensity').val());
 		});		
-		$( "#spawnCenterX" ).change(function(event){
-			// console.log("spawn centerX: " + $('#spawnCenterX').val());
-			sv.notifyObservers("spawnCenterX" + $('#spawnCenterX').val());
+		$( ".spawnCenterX" ).change(function(event){
+			console.log("spawn centerX: " + $('.spawnCenterX').val());
+			sv.notifyObservers("spawnCenterX" + $('.spawnCenterX').val());
 		});			
-		$( "#spawnCenterY" ).change(function(event){
-			// console.log("spawn centerY: " + $('#spawnCenterY').val());
-			sv.notifyObservers("spawnCenterY" + $('#spawnCenterY').val());
+		$( ".spawnCenterY" ).change(function(event){
+			console.log("spawn centerY: " + $('.spawnCenterY').val());
+			sv.notifyObservers("spawnCenterY" + $('.spawnCenterY').val());
 		});	
-		$( "#lifetime" ).change(function(event){
-			// console.log("lifetime: " + $('#spawnCenterX').val());
-			sv.notifyObservers("lifetime" + $('#lifetime').val());
+		$( ".lifetime" ).change(function(event){
+			console.log("lifetime: " + $('.lifetime').val());
+			sv.notifyObservers("lifetime" + $('.lifetime').val());
 		});
 		$( "#rand" ).click(function(event){
 			sv.notifyObservers("UserRand");
 		});		
-		$( "#mutRate" ).change(function(event){
+		$( ".mutRate" ).change(function(event){
 			// console.log("mutation rate: " + $('#mutRate').val());
-			sv.notifyObservers("mutRate" + $('#mutRate').val());
+			sv.notifyObservers("mutRate" + $('.mutRate').val());
 		});
-		$( "#fitnessBirth" ).change(function(event){
+		$( ".fitnessBirth" ).change(function(event){
 			// console.log("fitness births" + $('#fitnessBirth').val());
-			sv.notifyObservers("fitnessBirth" + $('#fitnessBirth').val());
+			sv.notifyObservers("fitnessBirth" + $('.fitnessBirth').val());
 		});		
-		$( "#fitnessDeath" ).change(function(event){
+		$( ".fitnessDeath" ).change(function(event){
 			// console.log("fitness deaths: " + $('#fitnessDeath').val());
-			sv.notifyObservers("fitnessDeath" + $('#fitnessDeath').val());
+			sv.notifyObservers("fitnessDeath" + $('.fitnessDeath').val());
 		});		
-		$( "#fitnessExplore" ).change(function(event){
+		$( ".fitnessExplore" ).change(function(event){
 			// console.log("fitness explore: " + $('#fitnessExplore').val());
-			sv.notifyObservers("fitnessExplore" + $('#fitnessExplore').val());
+			sv.notifyObservers("fitnessExplore" + $('.fitnessExplore').val());
 		});		
 	};
 
