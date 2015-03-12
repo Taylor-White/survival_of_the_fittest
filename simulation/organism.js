@@ -247,7 +247,7 @@ function organism(orgID, numCols, numRows){
 			9: WILD (could be either)
 		*/
 		var glider = [ 
-			[0,0,0,0,0], 
+			[9,0,0,0,0], 
 			[0,0,1,0,0],
 			[0,1,1,0,0],
 			[0,1,0,1,0],

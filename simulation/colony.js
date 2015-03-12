@@ -166,27 +166,52 @@ function colony(numOrgs){
 		return matrix = [1, 3, 5, 7];
 	};
 	this.evolve = function(){
+		var mate = function(parent1, parent2){
+			var child = createMatrix(50, 50, 0);
+		
+			for(var i=0; i<50; i++){
+				for(var j=0; j<50; j++){
+					if(parent1[i][j] == parent2[i][j]){
+						child[i][j] = parent1[i][j];
+					} else{
+						child[i][j] = Math.floor(Math.random() * 2);
+					}
+					//console.log("parent1 " + parent1[i][j]);
+					//console.log("parent2 " + parent2[i][j]);
+					//console.log("child " + child[i][j]);										
+				}
+			}
+			//console.log("child cell[0][0]: " + child[0][0]);
+			//parent1 ;
+			return child;
+		};		
 		//this.resetColony();
 		var fittest = this.getFittest();
-		var result = [];
+		var resultOrg = [];
+		counter = 0;
 		console.log("fittest length: " + fittest.length);
 		for(var i=0; i<fittest.length; ++i){
 			for(var j=i+1; j<fittest.length; ++j){
-				//result = mate(this.organism_list[1].getState, this.organism_list[2].getState);
-				console.log("fittest " + fittest[i] + " mated with fittest " + fittest[j]);
-				//console.log("state 2: " + this.organism_list[fittest[2]].getState());
+				resultOrg[counter] = mate(this.organism_list[fittest[i]].getState(), this.organism_list[fittest[j]].getState());
+				//console.log("fittest " + fittest[i] + " mated with fittest " + fittest[j]);
+				//console.log("counter: " + counter);
+				counter++;
 			}
-			console.log("state " + i + ": " + this.organism_list[fittest[i]].getState());
+			//console.log("state " + fittest[i] + ": " + this.organism_list[fittest[i]].getState());
 		}
-		for(var i=0; i<this.organism_list.length; ++i){
-			//this.organism_list[i].setState(result[i]);
+		for(var i=0; i<counter; ++i){
+			//console.log(resultOrg[i]);
+			this.organism_list[i+1].setState(resultOrg[i]);
 		}
+		//console.log("fittest length: " + fittest.length);
+		for(var i=counter; i<fittest.length+counter; ++i){
+			//console.log("fittest index: " + fittest[i]);
+			//console.log("index: " + i);
+			this.organism_list[i].setState(this.organism_list[fittest[i-counter]].getState());
+		}	
 		this.stats.getColStats().setAge(0); // reset colony's age
 		this.stats.clearStats();
-		var mate = function(parent1, parent2){
-			//parent1 ;
-			return [1, 3, 5, 7];
-		};
+		return;
 	};
 
 	this.toString = function(){
