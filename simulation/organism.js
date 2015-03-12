@@ -15,6 +15,8 @@ function organism(orgID, numCols, numRows){
 	this.numCols = numCols;
 	this.numRows = numRows;
 
+	this.fitness = 0;
+
 	/*	OBSERVABLE METHODS */
 	this.observers = [];
 
@@ -69,7 +71,7 @@ function organism(orgID, numCols, numRows){
 		var activeArray = this.getActiveArea();
 	};
 	this.setFitness = function(fitness){
-		this.setFitness = fitness;
+		this.fitness = fitness;
 	};	
 
 	/* Getters */
@@ -91,7 +93,7 @@ function organism(orgID, numCols, numRows){
 		}
 	};
 	this.getFitness = function(){
-		//this.updateFitness();
+		this.updateFitness();
 		return this.fitness;
 	};		
 
@@ -212,9 +214,9 @@ function organism(orgID, numCols, numRows){
 		var fb = this.settings.getFitScalerB();
 		var fd = this.settings.getFitScalerD();
 		var fe = this.settings.getFitScalerE();
-		var fs = this.settings.getFitScalerS();
+		//var fs = this.settings.getFitScalerS();
 
-		var points = fb*birthsCount+fd*deathsCount+fe*exploredCount+fs*sustainsCount;
+		var points = fb*this.orgStats.getBirths()+fd*this.orgStats.getDeaths()+fe*this.orgStats.getExplored();
 		this.setFitness(points);
 	}
 
