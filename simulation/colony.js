@@ -164,49 +164,45 @@ function colony(numOrgs){
 		return matrix = [1, 3, 5, 7];
 	};
 	this.evolve = function(){
+
 		var mate = function(parent1, parent2){
+
 			var child = createMatrix(50, 50, 0);
-		
+
 			for(var i=0; i<50; i++){
 				for(var j=0; j<50; j++){
 					if(parent1[i][j] == parent2[i][j]){
 						child[i][j] = parent1[i][j];
 					} else{
 						child[i][j] = Math.floor(Math.random() * 2);
-					}
-					//console.log("parent1 " + parent1[i][j]);
-					//console.log("parent2 " + parent2[i][j]);
-					//console.log("child " + child[i][j]);										
+					}									
 				}
 			}
-			//console.log("child cell[0][0]: " + child[0][0]);
-			//parent1 ;
 			return child;
-		};		
-		//this.resetColony();
-		var fittest = this.getFittest();
-		var resultOrg = [];
-		counter = 0;
-		console.log("fittest length: " + fittest.length);
+		};	
+
+		var fittest = this.getFittest(); //Retrieve Fittest Organisms
+		var newOrg = []; //Array of next generation organisms
+		var counter = 0; //Keeps track of number of new organisms
+		var orgList = this.organism_list; 
+
+		//Mate each organism in fittest with each of the others. Put the child organisms in newOrg
 		for(var i=0; i<fittest.length; ++i){
 			for(var j=i+1; j<fittest.length; ++j){
-				resultOrg[counter] = mate(this.organism_list[fittest[i]].getState(), this.organism_list[fittest[j]].getState());
-				//console.log("fittest " + fittest[i] + " mated with fittest " + fittest[j]);
-				//console.log("counter: " + counter);
+				newOrg[counter] = mate(orgList[fittest[i]].getState(), orgList[fittest[j]].getState());
 				counter++;
 			}
-			//console.log("state " + fittest[i] + ": " + this.organism_list[fittest[i]].getState());
 		}
+
+		//Set state of the first 6 organisms to the 6 new child organisms
 		for(var i=0; i<counter; ++i){
-			//console.log(resultOrg[i]);
-			this.organism_list[i+1].setState(resultOrg[i]);
+			orgList[i+1].setState(newOrg[i]);
 		}
-		//console.log("fittest length: " + fittest.length);
+		//Set state of the last 4 organisms to the 4 elite fittest organisms
 		for(var i=counter; i<fittest.length+counter; ++i){
-			//console.log("fittest index: " + fittest[i]);
-			//console.log("index: " + i);
-			this.organism_list[i].setState(this.organism_list[fittest[i-counter]].getState());
+			orgList[i].setState(orgList[fittest[i-counter]].getState());
 		}	
+
 		this.stats.getColStats().setAge(0); // reset colony's age
 		this.stats.clearStats();
 		return;

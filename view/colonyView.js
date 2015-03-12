@@ -41,33 +41,7 @@ function colonyView(){
 			// console.log("mini-org clicked! orgID: " + orgID);
 			cv.selectOrg(orgID);
 		});
-		$( "#spawnWidth" ).change(function(event){
-			// console.log("spawn width: " + $('#spawnWidth').val());
-			cv.notifyObservers("spawnWidth" + $('#spawnWidth').val());
-		});
-		$( "#spawnHeight" ).change(function(event){
-			// console.log("spawn height" + $('#spawnHeight').val());
-			cv.notifyObservers("spawnHeight" + $('#spawnHeight').val());
-		});		
-		$( "#spawnDensity" ).change(function(event){
-			// console.log("spawn density: " + $('#spawnDensity').val());
-			cv.notifyObservers("spawnDensity" + $('#spawnDensity').val());
-		});		
-		$( "#spawnCenterX" ).change(function(event){
-			// console.log("spawn centerX: " + $('#spawnCenterX').val());
-			cv.notifyObservers("spawnCenterX" + $('#spawnCenterX').val());
-		});			
-		$( "#spawnCenterY" ).change(function(event){
-			// console.log("spawn centerY: " + $('#spawnCenterY').val());
-			cv.notifyObservers("spawnCenterY" + $('#spawnCenterY').val());
-		});	
-		$( "#lifetime" ).change(function(event){
-			// console.log("lifetime: " + $('#spawnCenterX').val());
-			cv.notifyObservers("lifetime" + $('#lifetime').val());
-		});
-		$( "#rand" ).click(function(event){
-			cv.notifyObservers("UserRand");
-		});
+
 
 		$( "#step" ).click(function(event){
 			cv.notifyObservers("UserStep");
