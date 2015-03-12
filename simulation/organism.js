@@ -65,7 +65,6 @@ function organism(orgID, numCols, numRows){
 		this.settings = settings;
 	};
 	this.setState = function(mat){
-		console.log("setting state");
 		copyMatrix(this.state, mat);
 	};
 

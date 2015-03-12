@@ -84,8 +84,7 @@ function colony(numOrgs){
 			// 								toggleCell(tempStateCopy, randY, randX) );
 			/* HANDLE EXPLORED UPDATE IN ORG */
 			org.toggleCell(randY, randX);
-			// org.setSeed(tempStateCopy);
-			console.log(org);
+			org.setSeed(tempStateCopy);
 			org.setState(tempStateCopy);
 
 			org.notifyObservers("StateChanged");
@@ -119,7 +118,7 @@ function colony(numOrgs){
 	/* reset each organism in the colony
 		currently randomizes */
 	this.resetColony = function(){
-		console.log("Resetting Colony");
+		// console.log("Resetting Colony");
 		this.randSame();		// randomize each org
 		// this.stats.getColStats().setGens(0);
 		this.stats.getColStats().setAge(0); // reset colony's age
@@ -153,13 +152,13 @@ function colony(numOrgs){
 
 	/* handles the generation completing */
 	this.genDone = function(){
-		console.log("genDone");
+		// console.log("genDone");
 		this.stats.getColStats().incGens();
 		this.notifyObservers("GenDone");
 	};
 
 	this.isGenDone = function(){
-		console.log("isGenDone");
+		// console.log("isGenDone");
 		return this.stats.getColStats().getAge() >= this.settings.getLifetime();
 	};
 
