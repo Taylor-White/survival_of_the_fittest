@@ -114,18 +114,30 @@ function settingsView(){
 			// console.log("mutation rate: " + $('#mutRate').val());
 			sv.notifyObservers("mutRate" + $('.mutRate').val());
 		});
+		$( document ).ready(function() {
+			$(".mutRate").slider().slider("pips").slider("float");
+		});
 		$( ".fitnessBirth" ).change(function(event){
 			// console.log("fitness births" + $('#fitnessBirth').val());
 			sv.notifyObservers("fitnessBirth" + $('.fitnessBirth').val());
+		});
+		$( document ).ready(function() {
+			$(".fitnessBirth").slider().slider("pips").slider("float");
 		});		
 		$( ".fitnessDeath" ).change(function(event){
 			// console.log("fitness deaths: " + $('#fitnessDeath').val());
 			sv.notifyObservers("fitnessDeath" + $('.fitnessDeath').val());
-		});		
+		});	
+		$( document ).ready(function() {
+			$(".fitnessDeath").slider().slider("pips").slider("float");
+		});
 		$( ".fitnessExplore" ).change(function(event){
 			// console.log("fitness explore: " + $('#fitnessExplore').val());
 			sv.notifyObservers("fitnessExplore" + $('.fitnessExplore').val());
-		});		
+		});
+		$( document ).ready(function() {
+			$(".fitnessExplore").slider().slider("pips").slider("float");
+		});	
 	};
 
 	$(document).ready(this.prepAfterLoad(this));
