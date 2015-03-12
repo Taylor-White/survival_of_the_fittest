@@ -68,35 +68,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
 		} else if (msg == "GenDone"){
 			this.genDone(observable.gens);
-		} else if (msg.substring(0,10) == "spawnWidth"){
-			var sWidth = parseInt(msg.substring(10, msg.length));
-			// console.log("spawnWidth: " + sWidth)
-			this.settings.setSpawnWidth(sWidth);
-		} else if (msg.substring(0,11) == "spawnHeight"){
-			var sHeight = parseInt(msg.substring(11, msg.length));
-			// console.log("spawnHeight: " + sHeight)
-			this.settings.setSpawnHeight(sHeight);
-		} else if (msg.substring(0,12) == "spawnDensity"){
-			var sDensity = parseInt(msg.substring(12, msg.length));
-			// console.log("spawnDensity: " + sDensity)
-			this.settings.setSpawnDensity(sDensity);
-		} else if (msg.substring(0,12) == "spawnCenterX"){
-			var sCenterX = parseInt(msg.substring(12, msg.length));
-			// console.log("spawnCenterX: " + sCenterX)
-			this.settings.setSpawnCenterX(sCenterX);
-		} else if (msg.substring(0,12) == "spawnCenterY"){
-			var sCenterY = parseInt(msg.substring(12, msg.length));
-			// console.log("spawnCenterY: " + sCenterY)
-			this.settings.setSpawnCenterY(sCenterY);
-		} else if (msg.substring(0,8) == "lifetime"){
-			var sLifetime = parseInt(msg.substring(8, msg.length));
-			 console.log("Lifetime: " + sLifetime);
-			this.settings.setLifetime(sLifetime);
-		} //else if (msg.substring(0,8) == ""){
-			//var sDelete = parseInt(msg.substring(8, msg.length));
-			//console.log("sDelete: " + sDelete);
-			//this.settings.setLifetime(sDelete);
-		//}
+		} 
 
 	};
 

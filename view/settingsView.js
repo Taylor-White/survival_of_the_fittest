@@ -65,6 +65,33 @@ function settingsView(){
 		$("#fast").change(function(){
 			sv.notifyObservers("UserSpeed100");
 		});
+		$( "#spawnWidth" ).change(function(event){
+			// console.log("spawn width: " + $('#spawnWidth').val());
+			sv.notifyObservers("spawnWidth" + $('#spawnWidth').val());
+		});
+		$( "#spawnHeight" ).change(function(event){
+			// console.log("spawn height" + $('#spawnHeight').val());
+			sv.notifyObservers("spawnHeight" + $('#spawnHeight').val());
+		});		
+		$( "#spawnDensity" ).change(function(event){
+			// console.log("spawn density: " + $('#spawnDensity').val());
+			sv.notifyObservers("spawnDensity" + $('#spawnDensity').val());
+		});		
+		$( "#spawnCenterX" ).change(function(event){
+			// console.log("spawn centerX: " + $('#spawnCenterX').val());
+			sv.notifyObservers("spawnCenterX" + $('#spawnCenterX').val());
+		});			
+		$( "#spawnCenterY" ).change(function(event){
+			// console.log("spawn centerY: " + $('#spawnCenterY').val());
+			sv.notifyObservers("spawnCenterY" + $('#spawnCenterY').val());
+		});	
+		$( "#lifetime" ).change(function(event){
+			// console.log("lifetime: " + $('#spawnCenterX').val());
+			sv.notifyObservers("lifetime" + $('#lifetime').val());
+		});
+		$( "#rand" ).click(function(event){
+			sv.notifyObservers("UserRand");
+		});		
 
 	};
 
