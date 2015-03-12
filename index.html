@@ -13,6 +13,7 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
       <!-- For the sliders in settings -->
       <link rel="stylesheet" href="libraries/jQuery-ui-Slider-Pips-1.8.0/src/css/jquery-ui-slider-pips.css">
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
       <!-- include the jQuery and jQuery UI scripts -->
       <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
@@ -28,11 +29,20 @@
                       
    </head>
    <body onload="$( document ).ready(main());">
+
       <div class="container">
          <div class="jumbotron">
-            <h1>Welcome to Conway's Game of life!</h1>
-            <p>A js application for CIS422</p>
+            <h1>Survival of the Fittest</h1>
+            <p>proudly developed by 'Taylor and Friends'</p>
+
+               <div class="pull-right">
+               <a href="http://github.com/victorianorton/survival_of_the_fittest" target="_blank">
+               <i class="fa fa-github fa-3x"></i>
+               </a></div>
          </div>
+
+            <h3><span id="gens" class="label label-default"></span>
+            <span id="age" class="label label-primary"></span></h3><br>
          <div class="row">
             <div class="col-md-6">
                <canvas id="org-canvas" width="500px" height="500px"></canvas>
@@ -81,8 +91,6 @@
             </div>
 
             <div class="col-md-6">
-            <h3><span id="gens" class="label label-default">Generation: </span></h3>
-            <h3><span id="age" class="label label-success">Age: </span></h3>
                <div role="tabpanel">
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
