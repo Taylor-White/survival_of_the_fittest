@@ -34,7 +34,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
-		console.log("colonyController received "+ msg + " from " + observable);
+		// console.log("colonyController received "+ msg + " from " + observable);
 		if (msg == "UserRand"){
 			this.userRand();
 		} else if (msg == "UserStep"){
@@ -171,7 +171,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		// console.log("User Selected Saved " + index);
 		var selectedSeedMatrix = this.saved.getSeed(index);
 		this.saveloadView.updateSelectedSavedMatrix(
-			makeMatrixPrintable(this.saved.getSeed(index))
+			this.saved.getSeed(index)
 		);
 		this.ieView.prepExport(this.saved.getSeed(index));
 	};
