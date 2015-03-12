@@ -92,7 +92,22 @@ function settingsView(){
 		$( "#rand" ).click(function(event){
 			sv.notifyObservers("UserRand");
 		});		
-
+		$( "#mutRate" ).change(function(event){
+			// console.log("mutation rate: " + $('#mutRate').val());
+			sv.notifyObservers("mutRate" + $('#mutRate').val());
+		});
+		$( "#fitnessBirth" ).change(function(event){
+			// console.log("fitness births" + $('#fitnessBirth').val());
+			sv.notifyObservers("fitnessBirth" + $('#fitnessBirth').val());
+		});		
+		$( "#fitnessDeath" ).change(function(event){
+			// console.log("fitness deaths: " + $('#fitnessDeath').val());
+			sv.notifyObservers("fitnessDeath" + $('#fitnessDeath').val());
+		});		
+		$( "#fitnessExplore" ).change(function(event){
+			// console.log("fitness explore: " + $('#fitnessExplore').val());
+			sv.notifyObservers("fitnessExplore" + $('#fitnessExplore').val());
+		});		
 	};
 
 	$(document).ready(this.prepAfterLoad(this));

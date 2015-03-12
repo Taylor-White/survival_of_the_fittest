@@ -51,6 +51,18 @@ function settings(){
 	this.setSpawnCenterY = function(cy){
 		this.spawnCenterY = cy;
 	};
+	this.setMutRate = function(mut){
+		this.mutRate = mut;
+	};
+	this.setFitBirth = function(fb){
+		this.fitnessBirth = fb;
+	};
+	this.setFitDeath = function(fd){
+		this.fitnessDeath = fd;
+	};
+	this.setFitExplore = function(fe){
+		this.fitnessExplore = fe;
+	};
 
 	/* Toggles */
 	this.toggleBirthArrayVal = function(neighbs){
