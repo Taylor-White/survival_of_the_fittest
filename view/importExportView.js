@@ -174,7 +174,7 @@ function importExportView() {
 			counterX = 0;
 		}
 
-		s = createMatrix(Math.max.apply(Math, coordinateX) + 1, Math.max.apply(Math, coordinateY) + 1, 0);
+		s = createMatrix(50, 50, 0);
 		s = toggleCells(coordinateX, coordinateY, s);
 
 		for (var z = 0; z < s.length; z++) {

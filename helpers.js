@@ -47,13 +47,13 @@ function makeMatrixPrintable(mat){
 }
 
 function fillToSize(oldMatrix){
-	var newMatrix = createMatrix(STATE_WIDTH, STATE_HEIGHT, 0);
-	oldW = oldMatrix.length;
-	oldH = oldMatrix[0].length;
+	var newMatrix = createMatrix(STATE_HEIGHT, STATE_WIDTH, 0);
+	oldH = oldMatrix.length;
+	oldW = oldMatrix[0].length;
 
-	for(var i=0; i<oldW; i++){
-		for(var j=0; j<oldH; j++){
-			newMatrix[STATE_WIDTH/2-Math.floor(oldW/2)+i][STATE_HEIGHT/2-Math.floor(oldH/2)+j] = oldMatrix[i][j];
+	for(var row=0; row<oldH; row++){
+		for(var col=0; col<oldW; col++){
+			newMatrix[STATE_HEIGHT/2-Math.floor(oldH/2)+row][STATE_WIDTH/2-Math.floor(oldW/2)+col] = oldMatrix[row][col];
 		}
 	}
 
