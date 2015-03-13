@@ -73,9 +73,9 @@
 
                      <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run 1 Lifetime      </button><br>
                      <button type="button" id="reset" class="btn btn-default">
-                     <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh 1 Generation</button><br>
+                     <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reset 1 Generation</button><br>
                      <button type="button" id="reset" class="btn btn-default">
-                     <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh Universe    </button><br>
+                     <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reset Universe    </button><br>
                   </div>
                </div>
                   <br><br><b>SPEED:  </b><br />
@@ -249,22 +249,22 @@
                      <div role="tabpanel" class="tab-pane" id="settings">
                         <fieldset>
                            <legend>Spawn Settings</legend>
-                           Width: <br />
+                           Width: <span id="widthDisplay"></span><br />
                            <!--<input id="spawnWidth" type="text" value="5" /><br />-->
                            <div class="spawnWidth"></div>
-                           Height: <br />
+                           Height: <span id="heightDisplay"></span><br />
                            <!--<input id="spawnHeight" type="text" value="5" /><br />-->
                            <div class="spawnHeight"></div>
-                           Density: <br />
+                           Density: <span id="densityDisplay"></span><br />
                            <!--<input id="spawnDensity" type="text" value="35" />%<br />-->
                            <div class="spawnDensity"></div>
-                           Center (x): <br />
+                           Center (x): <span id="spawnCenterXDisplay"></span><br />
                            <!--<input id="spawnCenterX" type="text" value="25" /><br />-->
                            <div class="spawnCenterX"></div>                   
-                           Center (y): <br />
+                           Center (y): <span id="spawnCenterYDisplay"></span><br />
                            <!--<input id="spawnCenterY" type="text" value="25" /><br />-->
                            <div class="spawnCenterY"></div>
-                           Lifetime:<br />   
+                           Lifetime: <span id="lifetimeDisplay"></span><br />   
                            <!--<input id="lifetime" type="text" value="50"/> <br />-->
                            <div class="lifetime"></div>                     
                         </fieldset>
@@ -317,24 +317,29 @@
                      </body>
                            <fieldset>
                            <legend>Genetic Algorithm Settings</legend>
-                           <br>Mutation Rate: <br />
+                           <br>Mutation Rate: <span id="mutDisplay"></span><br />
                            <!--<input id="mutRate" type="text" value="5" />%<br />-->
                            <div class="mutRate"></div>
-                           Fitness Birth: <br />
+                           Fitness Birth: <span id="fitnessBirthDisplay"></span><br />
                            <!--<input id="fitnessBirth" type="text" value="5" /><br />-->
                            <div class="fitnessBirth"></div>
-                           Fitness Death: <br />
+                           Fitness Death: <span id="fitnessDeathDisplay"></span><br />
                            <!--<input id="fitnessDeath" type="text" value="35" />%<br />-->
                            <div class="fitnessDeath"></div>
-                           Fitness Explore: <br />
+                           Fitness Explore: <span id="fitnessExploredDisplay"></span><br />
                            <div class="fitnessExplore"></div>
                         </fieldset>
                   </div>
 
    <div role="tabpanel" class="tab-pane" id="saved">
       <h3>Saved seeds:</h3>
-         <div id="savedSeedLinks"></div>
-         <div id="savedMatrix"></div>
+         <div class="col-md-5">
+            <div id="savedSeedLinks"></div>
+            
+         </div>  
+         <div class="col-md-5">  
+             <canvas id="savedMatrix" width="250px" height="250px"></canvas>
+         </div>       
          <button type="button" id="save" class="btn btn-default">Save Seed</button>
          <button type="button" id="load" class="btn btn-default">Load Seed</button>
          <h3>Import:</h3>

@@ -13,6 +13,8 @@ function settings(){
 	this.spawnCenterX = 25;
 	this.spawnCenterY = 25;
 
+	this.mutRate = 1;
+
 	this.fitScalerB = 1;
 	this.fitScalerD = -0.5;
 	this.fitScalerE = 4;		
@@ -46,6 +48,7 @@ function settings(){
 		this.spawnWidth = w;
 	};
 	this.setSpawnHeight = function(h){
+		console.log("swag");
 		this.spawnHeight = h;
 	};
 	this.setSpawnDensity = function(d){
@@ -59,6 +62,7 @@ function settings(){
 	};
 
 	this.setFitScalerB = function(fb){
+		console.log("set fit scaler B" + fb);
 		this.fitScalerB = fb;
 	};	
 	this.setFitScalerD = function(fd){
@@ -119,6 +123,9 @@ function settings(){
 	this.getSpawnCenterY = function(){
 		return this.spawnCenterY;
 	};
+	this.getMutRate = function(){
+		return this.mutRate;
+	};	
 	this.getFitScalerB = function(){
 		return this.fitScalerB;
 	};	
