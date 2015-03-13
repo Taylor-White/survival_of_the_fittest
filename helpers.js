@@ -47,6 +47,10 @@ function makeMatrixPrintable(mat){
 }
 
 function fillToSize(matrix){
+	var nm = createMatrix(STATE_WIDTH, STATE_HEIGHT, 0);
 
-	matrix
+	console.log(matrix.length);
+
+	//matrix
+	//if()
 }

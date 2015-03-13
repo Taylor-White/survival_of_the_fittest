@@ -119,7 +119,7 @@ function colony(numOrgs){
 			org.setSeed(seed);
 		}
 	};
-/*
+
 	this.resetUniverse = function(){
 		this.randSame();		// randomize each org
 		this.colStats.setGens(0);
