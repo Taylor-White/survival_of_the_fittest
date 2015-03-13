@@ -96,7 +96,7 @@ function settingsView(){
 		$(".spawnCenterY").slider({step: 1}).slider("pips", {step: 10}).slider("float");
 		$(".spawnCenterX").slider({step: 1}).slider("pips", {step: 10}).slider("float");		
 		$(".lifetime").slider({step: 1, min: 0, max: 200}).slider("pips", {step: 10}).slider("float");
-		$(".mutRate").slider({min:0, max: 10}).slider("pips").slider("float");
+		$(".mutRate").slider({min:0, max: 100}).slider("pips", {step: 10}).slider("float");
 		$(".fitnessBirth").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");	
 		$(".fitnessDeath").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");
 		$(".fitnessExplore").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");

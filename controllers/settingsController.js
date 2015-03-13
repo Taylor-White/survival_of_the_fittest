@@ -131,7 +131,6 @@ function settingsController(){
 		this.settingsView.setSpawnCenterYVal(yv);
 		this.settingsView.setSpawnCenterXVal(xv);
 		this.settingsView.setLifetimeVal(lv);
-		console.log("thisgetscalled: " + fbv);
 		this.settingsView.setMutRateVal(mv);
 		this.settingsView.setFitnessBirthVal(fbv);
 		this.settingsView.setFitnessDeathVal(fdv);

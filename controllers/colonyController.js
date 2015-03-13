@@ -56,7 +56,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.userExport(exportIndex);
 		} else if (msg == "UserImported"){
 
-			this.userImported(observer.getImported());
+			this.userImported(observable.getImported());
 		} else if (msg.substring(0,8) == "UserLoad"){
 			var loadIndex = parseInt(msg.substring(8, msg.length));
 			this.userLoad(loadIndex);
@@ -159,8 +159,13 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.saved.addSeed(this.orgCtr.getSelectedOrg().getSeed());
 		this.saveloadView.updateSavedList(this.saved.numSeeds());
 	};
+	// this.userImport = function(s){
+	// 	this.saved.addSeed(s);
+	// 	this.saveloadView.updateSavedList(this.saved.numSeeds());
+	// };	
 	this.userLoad = function(index){
-		colony.loadSeed(this.saved.getSeed(index).length);
+		//console.log(this.colony.loadSeed(this.saved.getSeed(index)));
+		this.colony.loadSeed(this.saved.getSeed(index));
 	};
 	this.userExport = function(index){
 		// console.log("getting seed: " + this.saved.getSeed(index));
@@ -172,7 +177,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		//Send seed to importExportView
 		// this.ieView.exportFile();
 		/* TAYLOR */
-		this.saved.addSeed(fillToSize(importedMat));
+		this.saved.addSeed(importedMat);
+		// this.saved.addSeed(fillToSize(importedMat));
 		this.saveloadView.updateSavedList(this.saved.numSeeds());
 	};
 	this.userSelectSaved = function(index){

@@ -3,9 +3,6 @@ Organisms: list of Organisms
 File owner: Xi
 */
 
-STATE_WIDTH = 50;
-STATE_HEIGHT = 50;
-
 /* represents the colony class */
 function colony(numOrgs){
 	// console.log("creating Colony");
