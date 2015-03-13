@@ -165,7 +165,11 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	// };	
 	this.userLoad = function(index){
 		//console.log(this.colony.loadSeed(this.saved.getSeed(index)));
+		// console.log("this.saved");
+		// console.log(this.saved);
+		this.setRun(false);
 		this.colony.loadSeed(this.saved.getSeed(index));
+		this.statsCtr.updateViews();
 	};
 	this.userExport = function(index){
 		// console.log("getting seed: " + this.saved.getSeed(index));
