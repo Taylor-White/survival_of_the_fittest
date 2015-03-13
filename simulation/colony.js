@@ -110,34 +110,17 @@ function colony(numOrgs){
 		/* copy seed to each and mutate it */
 		var org;
 		for(var i=0; i<this.numOrgs; ++i){
-			console.log("   ---   LOAD setting org:");
-			console.log(org);
+			// console.log("   ---   LOAD setting org:");
+			// console.log(org);
 			org = new organism(i + 1, STATE_WIDTH, STATE_HEIGHT);
 			this.prepOrg(org);
 			org.building_setState(seed);
-			org.mutate();
+			// org.mutate();
 			org.doneBuilding();
 			this.setOrg(org);	// uses orgID to determine placement in array
 		}
 		this.colStats.setGens(0);
 		this.colStats.setAge(0);
-
-
-
-		/* TODO!!!!! */
-		/* Need to make sure to count alives for explored count */
-
-		/*
-			We may only need to load one in
-				Going to wait for GA
-		*/
-
-
-		// for (var i = 0; i <= this.numOrgs; i++){
-		// 	var org = this.orgList[i];
-		// 	org.setState(seed);
-		// 	org.setSeed(seed);
-		// }
 	};
 
 	this.resetUniverse = function(){
