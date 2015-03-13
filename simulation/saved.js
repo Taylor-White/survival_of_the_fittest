@@ -9,7 +9,9 @@ function saved(numOrgs){
 	this.addSeed = function(seed){
 		// alert("saving seed \n" + seed);
 		console.log("Saving Seed " + seed);
-		seeds.push(seed);
+		var tempState = createMatrix(50,50,0);
+		copyMatrix(tempState, seed);
+		seeds.push(tempState);
 		return seeds.length;
 	};
 	/* should we use a seed id instead of index

@@ -411,22 +411,3 @@ function organism(orgID, numCols, numRows){
 
 	this.init();
 }
-
-/* Copies from newMat to oldMat */
-function copyMatrix(oldMat, newMat){
-	// console.log("-------");
-	// console.log("-------");
-	// console.log("oldMat");
-	// console.log(oldMat);
-	// console.log("newMat");
-	// console.log(newMat);
-	var rows = oldMat.length;
-	var cols = oldMat[0].length;
-	for (var i=0; i<rows; i++ ){
-		for (var j=0; j<cols; j++){
-			oldMat[i][j] = newMat[i][j] ;
-		}
-	}
-	// console.log("oldMat After");
-	// console.log(oldMat);
-}

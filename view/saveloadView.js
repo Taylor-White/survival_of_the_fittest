@@ -71,9 +71,9 @@ function saveloadView(){
 	this.selectedSavedSeed = function(numseeds, current){
 		for(var i=0; i<numseeds; i++){
 			if(i == current){
-				$( "#savedSeedLinks #" + current ).css("background-color", "yellow");
+				$( "#savedSeedLinks #" + current ).css("font-weight", "bold");
 			}else{
-				$( "#savedSeedLinks #" + i ).css("background-color", "white");
+				$( "#savedSeedLinks #" + i ).css("font-weight", "normal");
 			}
 		}
 	};
