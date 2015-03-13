@@ -122,18 +122,18 @@ function colony(numOrgs){
 	this.resetUniverse = function(){
 		this.randSame();		// randomize each org
 		this.colStats.setGens(0);
-	};
-
-	/* reset each organism in the colony
-		currently randomizes */
-	this.resetColony = function(){
-		// console.log("Resetting Colony");
-		this.randSame();		// randomize each org
-		// this.colStats.setGens(0);
+		this.colStats.setAge(0);
 	};
 
 	this.resetGen = function(){
 		/* Should reset each org to its seed */
+		for(var orgID = 1; orgID<=this.numOrgs; orgID++ ){
+			this.getOrg(orgID).resetToSeed();
+		}
+		// if (this.isGenDone()){
+		// 	this.colStats.setGens(this.colStats.getGens()-1);
+		// }
+		this.colStats.setAge(0);
 		/* TODO */
 		
 	};
@@ -160,7 +160,7 @@ function colony(numOrgs){
 	this.advanceGen = function(){
 		// this.stats.clearStats();
 		this.stats.clearColStats();
-		// this.colStats.incGens();
+		this.colStats.incGens();
 		// this.resetColony();
 		this.evolve();
 		// this.stats.clearOrgStats();
@@ -220,7 +220,7 @@ function colony(numOrgs){
 			// console.log("child: " + child);
 			return child;
 		};
-		
+
 		var fittest = this.getFittest(); //Retrieve Fittest Organisms
 		this.stats.clearStats();
 		var newOrgs = []; //Array of next generation organisms
@@ -237,8 +237,8 @@ function colony(numOrgs){
 				
 				/* make a baby for each pairing */
 				var newOrg = mate(this, newOrgs.length+1, leftParent.getSeed(), rightParent.getSeed());
-				// if(boolFromPercent(this.settings.getMutRate())){
-				if(boolFromPercent(20)){
+				if(boolFromPercent(this.settings.getMutRate())){
+				// if(boolFromPercent(50)){
 					newOrg.mutate();
 				}
 				newOrg.doneBuilding();
@@ -254,7 +254,7 @@ function colony(numOrgs){
 			this.prepOrg(elite);
 			// console.log("elite");
 			// console.log(elite);
-			elite.build_setState(fittest[eliteCount].getSeed());
+			elite.building_setState(fittest[eliteCount].getSeed());
 			elite.doneBuilding();
 			newOrgs.push(elite);
 		}	

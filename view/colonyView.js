@@ -59,8 +59,12 @@ function colonyView(){
 			cv.notifyObservers("UserPause");
 		});
 
-		$( "#reset" ).click(function(event){
-			cv.notifyObservers("UserResetCol");
+		$( "#reset-gen" ).click(function(event){
+			cv.notifyObservers("UserResetGen");
+		});
+
+		$( "#reset-universe" ).click(function(event){
+			cv.notifyObservers("UserResetUniverse");
 		});
 	};
 	
