@@ -24,6 +24,14 @@ function createMatrix(m, n, initial){
 	return mat;
 }
 
+function createArrayCopy(arr){
+	var newArr = [];
+	for(var i = 0; i<arr.length; ++i){
+		newArr.push(arr[i]);
+	}
+	return newArr;
+}
+
 /* Convert matrix to a string of 0s and 1s with newline endings */
 function makeMatrixPrintable(mat){
 	var numRows = mat.length;

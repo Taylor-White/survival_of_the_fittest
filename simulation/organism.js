@@ -184,10 +184,15 @@ function organism(orgID, numCols, numRows){
 	};
 
 	/* Reset counters, Clear state */
-	this.resetOrg = function(){
+	this.clearOrg = function(){
 		this.orgStats.clearStats();
 		this.clearState();
 		// console.log("Just reset org: " + this);
+	};
+
+	this.resetToSeed = function(){
+		this.orgStats.clearStats();
+		this.setState(this.getSeed());
 	};
 
 	/* Array Changes */
@@ -196,17 +201,22 @@ function organism(orgID, numCols, numRows){
 	this.changeSustainArray = function(neighbs, bool){
 		this.settings.setSustianArrayVal(neighbs, bool); };
 
-	// this.toString = function(){
-	// 	return "An Org | orgID: " + this.orgID + ", explored: " + this.stats.getOrgStats(this.orgID).getExplored(); 
-	// };
+	this.toString = function(){
+		return "An Org | orgID: " + this.orgID + ", explored: " + this.stats.getOrgStats(this.orgID).getExplored(); 
+	};
 	this.updateFitness = function(){
 		var fb = this.settings.getFitScalerB();
 		var fd = this.settings.getFitScalerD();
 		var fe = this.settings.getFitScalerE();
 		//var fs = this.settings.getFitScalerS();
+		// console.log(" -- Updating fitness -- " + this);
+		// console.log(" -- -- births " + fb + " | " + this.orgStats.getBirths());
+		// console.log(" -- -- deaths " + fd + " | " + this.orgStats.getDeaths());
+		// console.log(" -- -- births " + fe + " | " + this.orgStats.getExplored());
 
 		var points = fb*this.orgStats.getBirths()+fd*this.orgStats.getDeaths()+fe*this.orgStats.getExplored();
 		this.setFitness(points);
+		// alert("Updating fitness to " + points);
 	};
 
 	this.building_toggleCell = function(row, col){
@@ -253,15 +263,30 @@ function organism(orgID, numCols, numRows){
 			/* out of bounds, don't set */
 		}
 	};
-	this.mutate = function(x, y, w, h, mutRate){
-		// console.log("Mutating " + this);
-		// console.log("  At: " + x + ", " + y + "  In: " + w + "X" + h);
-		if(boolFromPercent(mutRate)){
-			var row = getRandInt(y, y+h);
-			var col = getRandInt(x, x+w);
-			this.building_setCell(row, col, ALIVE);
-			// this.building_toggleCell(getRandInt(y, y+h), getRandInt(x, x+w));
-		}
+	this.build_setState = function(state){
+		this.setState(state);
+		this.orgStats.setExplored(this.getNumAlive());
+	};
+	this.mutate = function(){
+		var activeArray = this.getActiveArea();
+
+		minX = activeArray[0];
+		minY = activeArray[1];
+		maxX = activeArray[2];
+		maxY = activeArray[3];
+
+
+		var row = getRandInt(minY, maxY);
+		var col = getRandInt(minX, maxX);
+
+		// console.log("Mutating cell " + row + ", " + col + " in");
+		// console.log("  " + minX + ", " + minY + "  -> " + maxX + ", " + maxY);
+		// console.log(this);
+
+		/* setcell Should random choose between ALIVE and DEAD */
+		// this.building_setCell(row, col, ALIVE);
+		this.building_toggleCell(row, col);
+
 	};
 	this.doneBuilding = function(){
 		this.setSeed(this.getState());

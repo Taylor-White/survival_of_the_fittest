@@ -17,6 +17,8 @@ function settings(){
 	this.fitScalerD = -0.5;
 	this.fitScalerE = 4;		
 	this.fitScalerS = 0;
+
+	this.mutRate = 20;
 	
 	
 	/* Setters */
@@ -129,4 +131,7 @@ function settings(){
 	this.getFitScalerS = function(){
 		return this.fitScalerS;
 	};	
+	this.getMutRate = function(){
+		return this.mutRate;
+	};
 }

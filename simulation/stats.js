@@ -41,6 +41,17 @@ function stats(numOrgs){
 			this.orgStatsArray[i].clearStats();
 		}
 	};
+	this.clearColStats = function(){
+		this.colStats.clearStats();
+	};
+	this.clearOrgStats = function(){
+		for (var i = 0; i < this.orgStatsArray.length; i++){
+			this.orgStatsArray[i].clearStats();
+		}
+	};
+	this.clearOrgStatsByID = function(orgID){
+		this.orgStatsArray[orgID-1].clearStats();
+	};
 
 	this.toString = function(){
 		return "The Stats Model ";

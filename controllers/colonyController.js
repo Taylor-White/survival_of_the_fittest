@@ -67,6 +67,21 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		} else if (msg.substring(0,15) == "UserSelectSaved"){
 			var selectSavedIndex = parseInt(msg.substring(15, msg.length));
 			this.userSelectSaved(selectSavedIndex);
+
+		} else if (msg.substring(0,11) == "OrgReplaced"){
+			// console.log(msg);
+			var orgID = parseInt(msg.substring(11, msg.length));
+			if (this.orgCtr.getSelectedOrg().getOrgID() == orgID){
+
+				// console.log("Current Selected Org: " + this.orgCtr.getSelectedOrg().getOrgID() );
+				// console.log("this.colony.getOrg(orgID) " + this.colony.getOrg(orgID) );
+				// console.log("this.orgCtr.getSelectedOrg().getOrgID() " + 
+				// 	this.orgCtr.getSelectedOrg().getOrgID() );
+
+				// alert("replacing " + orgID);
+				this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
+			}
+
 		} else if (msg.substring(0,11) == "OrgSelected"){
 			var orgID = parseInt(msg.substring(11, msg.length));
 			this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));

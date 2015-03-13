@@ -48,6 +48,8 @@ function organismController(){
 	/* function for when the user wants to
 	change the organism they are viewing */
 	this.setSelectedOrg = function(org){
+		// console.log("Selecting Org");
+		// console.log(org);
 		if (this.org){
 			this.org.removeObserver(this);
 		}
