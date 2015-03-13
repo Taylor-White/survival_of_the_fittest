@@ -48,42 +48,52 @@ function settingsController(){
 			var sWidth = parseInt(msg.substring(10, msg.length));
 			// console.log("spawnWidth: " + sWidth)
 			this.settings.setSpawnWidth(sWidth);
+			this.updateSettingsView();
 		} else if (msg.substring(0,11) == "spawnHeight"){
 			var sHeight = parseInt(msg.substring(11, msg.length));
 			// console.log("spawnHeight: " + sHeight)
 			this.settings.setSpawnHeight(sHeight);
+			this.updateSettingsView();
 		} else if (msg.substring(0,12) == "spawnDensity"){
 			var sDensity = parseInt(msg.substring(12, msg.length));
 			// console.log("spawnDensity: " + sDensity)
 			this.settings.setSpawnDensity(sDensity);
+			this.updateSettingsView();
 		} else if (msg.substring(0,12) == "spawnCenterX"){
 			var sCenterX = parseInt(msg.substring(12, msg.length));
 			// console.log("spawnCenterX: " + sCenterX)
 			this.settings.setSpawnCenterX(sCenterX);
+			this.updateSettingsView();
 		} else if (msg.substring(0,12) == "spawnCenterY"){
 			var sCenterY = parseInt(msg.substring(12, msg.length));
 			// console.log("spawnCenterY: " + sCenterY)
 			this.settings.setSpawnCenterY(sCenterY);
+			this.updateSettingsView();
 		} else if (msg.substring(0,8) == "lifetime"){
 			var sLifetime = parseInt(msg.substring(8, msg.length));
 			 //console.log("Lifetime: " + sLifetime);
 			this.settings.setLifetime(sLifetime);
-		} else if (msg.substring(0,12) == "mutRate"){
+			this.updateSettingsView();
+		} else if (msg.substring(0,7) == "mutRate"){
 			var sMutation = parseInt(msg.substring(7, msg.length));
 			// console.log("mutRate: " + sMutation)
 			this.settings.setMutRate(sMutation);
+			this.updateSettingsView();
 		} else if (msg.substring(0,12) == "fitnessBirth"){
 			var sFitBirth = parseInt(msg.substring(12, msg.length));
-			// console.log("fitnessBirth: " + sCenterX)
-			this.settings.setFitBirth(sFitBirth);
+			 console.log("fitnessBirth: " + sFitBirth)
+			this.settings.setFitScalerB(sFitBirth);
+			this.updateSettingsView();
 		} else if (msg.substring(0,12) == "fitnessDeath"){
 			var sFitDeath = parseInt(msg.substring(12, msg.length));
 			// console.log("fitnessDeath: " + sFitDeath)
-			this.settings.setFitDeath(sFitDeath);
-		} else if (msg.substring(0,8) == "fitnessExplore"){
+			this.settings.setFitScalerD(sFitDeath);
+			this.updateSettingsView();
+		} else if (msg.substring(0,14) == "fitnessExplore"){
 			var sFitExplore = parseInt(msg.substring(14, msg.length));
 			 //console.log("fitnessExplore: " + sFitExplore);
-			this.settings.setFitExplore(sFitExplore);
+			this.settings.setFitScalerE(sFitExplore);
+			this.updateSettingsView();
 		}
 	};
 
@@ -102,5 +112,31 @@ function settingsController(){
 			this.settingsView.setBirthArrayVal(i, ba[i]==1);
 			this.settingsView.setSustainArrayVal(i, sa[i]==1);
 		}
+
+		var wv = this.settings.getSpawnWidth();
+		var hv = this.settings.getSpawnHeight();
+		var dv = this.settings.getSpawnDensity();
+		var yv = this.settings.getSpawnCenterY();
+		var xv = this.settings.getSpawnCenterX();
+		var lv = this.settings.getLifetime();
+		var mv = this.settings.getMutRate();
+		var fbv = this.settings.getFitScalerB();
+		var fdv = this.settings.getFitScalerD();
+		var fev = this.settings.getFitScalerE();
+
+
+		this.settingsView.setWidthVal(wv);
+		this.settingsView.setHeightVal(hv);
+		this.settingsView.setDensityVal(dv);
+		this.settingsView.setSpawnCenterYVal(yv);
+		this.settingsView.setSpawnCenterXVal(xv);
+		this.settingsView.setLifetimeVal(lv);
+		console.log("thisgetscalled: " + fbv);
+		this.settingsView.setMutRateVal(mv);
+		this.settingsView.setFitnessBirthVal(fbv);
+		this.settingsView.setFitnessDeathVal(fdv);
+		this.settingsView.setFitnessExploredVal(fev);
+
+
 	};
 }

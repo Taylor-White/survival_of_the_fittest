@@ -28,8 +28,46 @@ function settingsView(){
 		$("#life-settings #birth  #" + neighbs + " :checkbox").prop("checked", bool);	};
 	this.setSustainArrayVal = function(neighbs, bool){
 		$("#life-settings #sustain  #" + neighbs + " :checkbox").prop("checked", bool);};
-
-
+	this.setWidthVal = function(val){
+		$("#widthDisplay").text(val);
+		$(".spawnWidth").slider( "option", "value", val);
+	};
+	this.setHeightVal = function(val){
+		$("#heightDisplay").text(val);
+		$(".spawnHeight").slider( "option", "value", val);		
+	};
+	this.setDensityVal = function(val){
+		$("#densityDisplay").text(val);
+		$(".spawnDensity").slider( "option", "value", val);		
+	};	
+	this.setSpawnCenterYVal = function(val){
+		$("#spawnCenterYDisplay").text(val);
+		$(".spawnCenterY").slider( "option", "value", val);		
+	};	
+	this.setSpawnCenterXVal = function(val){
+		$("#spawnCenterXDisplay").text(val);
+		$(".spawnCenterX").slider( "option", "value", val);			
+	};	
+	this.setLifetimeVal = function(val){
+		$("#lifetimeDisplay").text(val);
+		$(".lifetime").slider( "option", "value", val);
+	};	
+	this.setMutRateVal = function(val){
+		$("#mutDisplay").text(val);
+		$(".mutRate").slider( "option", "value", val);
+	};	
+	this.setFitnessBirthVal = function(val){
+		$("#fitnessBirthDisplay").text(val);
+		$(".fitnessBirth").slider( "option", "value", val);
+	};	
+	this.setFitnessDeathVal = function(val){
+		$("#fitnessDeathDisplay").text(val);
+		$(".fitnessDeath").slider( "option", "value", val);
+	};		
+	this.setFitnessExploredVal = function(val){
+		$("#fitnessExploredDisplay").text(val);
+		$(".fitnessExplore").slider( "option", "value", val);
+	};						
 	this.toString = function(){
 		return "The Settings View";
 	};
@@ -51,6 +89,19 @@ function settingsView(){
 				};
 			}(sv,i));
 		}
+		//Initialize sliders
+        $(".spawnWidth").slider({step: 1}).slider("pips", {step: 10}).slider("float");
+        $(".spawnHeight").slider({step: 1}).slider("pips", {step: 10}).slider("float");
+		$(".spawnDensity").slider({step: 1}).slider("pips", {step: 10}).slider("float"); 
+		$(".spawnCenterY").slider({step: 1}).slider("pips", {step: 10}).slider("float");
+		$(".spawnCenterX").slider({step: 1}).slider("pips", {step: 10}).slider("float");		
+		$(".lifetime").slider({step: 1, min: 0, max: 200}).slider("pips", {step: 10}).slider("float");
+		$(".mutRate").slider({min:0, max: 10}).slider("pips").slider("float");
+		$(".fitnessBirth").slider({min:-10, max: 10, step: .5}).slider("pips", {step: 2}).slider("float");	
+		$(".fitnessDeath").slider({min:-10, max: 10, step: .5}).slider("pips", {step: 2}).slider("float");
+		$(".fitnessExplore").slider({min:-10, max: 10, step: .5}).slider("pips", {step: 2}).slider("float");
+
+
 		$(".lifetime").change(function(sv, i){
 			return function(){
 				sv.notifyObservers("lifetime" + i);
@@ -65,79 +116,56 @@ function settingsView(){
 		$("#fast").change(function(){
 			sv.notifyObservers("UserSpeed100");
 		});
-		$( ".spawnWidth" ).change(function(event){
+		$( ".spawnWidth" ).on("slidestop", function(event, ui){
 			// console.log("spawn width: " + $('.spawnWidth').val());
-			sv.notifyObservers("spawnWidth" + $('.spawnWidth').val());
+			sv.notifyObservers("spawnWidth" + ui.value);
 		});
-        $( document ).ready(function() {
-        	$(".spawnWidth").slider().slider("pips").slider("float");
-       	});
-		$( ".spawnHeight" ).change(function(event){
+		$( ".spawnHeight" ).on("slidestop", function(event, ui){
 			console.log("spawn height" + $('.spawnHeight').val());
-			sv.notifyObservers("spawnHeight" + $('.spawnHeight').val());
-		});	
-        $( document ).ready(function() {
-        	$(".spawnHeight").slider().slider("pips").slider("float");
-        });			
-		$( ".spawnDensity" ).change(function(event){
+			sv.notifyObservers("spawnHeight" + ui.value);
+		});			
+		$( ".spawnDensity" ).on("slidestop", function(event, ui){
 			console.log("spawn density: " + $('.spawnDensity').val());
-			sv.notifyObservers("spawnDensity" + $('.spawnDensity').val());
-		});	
-        $( document ).ready(function() {
-        	$(".spawnDensity").slider().slider("pips").slider("float");
-        });                  
-		$( ".spawnCenterX" ).change(function(event){
+			sv.notifyObservers("spawnDensity" + ui.value);
+		});		              
+		$( ".spawnCenterX" ).on("slidestop", function(event, ui){
 			console.log("spawn centerX: " + $('.spawnCenterX').val());
-			sv.notifyObservers("spawnCenterX" + $('.spawnCenterX').val());
+			sv.notifyObservers("spawnCenterX" + ui.value);
 		});	
-		$( document ).ready(function() {
-			$(".spawnCenterX").slider().slider("pips").slider("float");
-		});	
-		$( ".spawnCenterY" ).change(function(event){
+		$( ".spawnCenterY" ).on("slidestop", function(event, ui){
 			console.log("spawn centerY: " + $('.spawnCenterY').val());
-			sv.notifyObservers("spawnCenterY" + $('.spawnCenterY').val());
+			sv.notifyObservers("spawnCenterY" + ui.value);
 		});
-		$( document ).ready(function() {
-			$(".spawnCenterY").slider().slider("pips").slider("float");
-		});	
-		$( ".lifetime" ).change(function(event){
+		$( ".lifetime" ).on("slidestop", function(event, ui){
 			console.log("lifetime: " + $('.lifetime').val());
-			sv.notifyObservers("lifetime" + $('.lifetime').val());
+			sv.notifyObservers("lifetime" + ui.value);
 		});
-		$( document ).ready(function() {
-			$(".lifetime").slider().slider("pips").slider("float");
-		});
-		$( "#rand" ).click(function(event){
+			
+		$( "#rand" ).click("slidestop", function(event, ui){
 			sv.notifyObservers("UserRand");
 		});		
-		$( ".mutRate" ).change(function(event){
+		$( ".mutRate" ).on("slidestop", function(event, ui){
 			// console.log("mutation rate: " + $('#mutRate').val());
-			sv.notifyObservers("mutRate" + $('.mutRate').val());
+			sv.notifyObservers("mutRate" + ui.value);
 		});
-		$( document ).ready(function() {
-			$(".mutRate").slider().slider("pips").slider("float");
-		});
-		$( ".fitnessBirth" ).change(function(event){
+			
+
+		$( ".fitnessBirth" ).on("slidestop", function(event, ui){
 			// console.log("fitness births" + $('#fitnessBirth').val());
-			sv.notifyObservers("fitnessBirth" + $('.fitnessBirth').val());
+			sv.notifyObservers("fitnessBirth" + ui.value);
 		});
-		$( document ).ready(function() {
-			$(".fitnessBirth").slider().slider("pips").slider("float");
-		});		
-		$( ".fitnessDeath" ).change(function(event){
+
+		$( ".fitnessDeath" ).on("slidestop", function(event, ui){
 			// console.log("fitness deaths: " + $('#fitnessDeath').val());
-			sv.notifyObservers("fitnessDeath" + $('.fitnessDeath').val());
+			sv.notifyObservers("fitnessDeath" + ui.value);
 		});	
-		$( document ).ready(function() {
-			$(".fitnessDeath").slider().slider("pips").slider("float");
-		});
-		$( ".fitnessExplore" ).change(function(event){
+	
+
+		$( ".fitnessExplore" ).on("slidestop", function(event, ui){
 			// console.log("fitness explore: " + $('#fitnessExplore').val());
-			sv.notifyObservers("fitnessExplore" + $('.fitnessExplore').val());
+			sv.notifyObservers("fitnessExplore" + ui.value);
 		});
-		$( document ).ready(function() {
-			$(".fitnessExplore").slider().slider("pips").slider("float");
-		});	
+		
 	};
 
 	$(document).ready(this.prepAfterLoad(this));
