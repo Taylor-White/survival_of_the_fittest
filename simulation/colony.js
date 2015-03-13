@@ -69,7 +69,7 @@ function colony(numOrgs){
 		// console.log("Randomizing " + this);
 		// console.log("  At: " + x + ", " + y + "  In: " + w + "X" + h);
 
-		/* Reset each Org */
+		/* Clear each Org */
 		for (var orgNum = 0; orgNum < this.orgList.length; orgNum++){
 			this.orgList[orgNum].clearOrg();
 		}
@@ -100,6 +100,30 @@ function colony(numOrgs){
 	};
 
 	this.loadSeed = function(seed){
+		// alert("loaded seed\n" + seed);
+
+		/* Clear each Org */
+		for (var orgNum = 0; orgNum < this.orgList.length; orgNum++){
+			this.orgList[orgNum].clearOrg();
+		}
+
+		/* copy seed to each and mutate it */
+		var org;
+		for(var i=0; i<this.numOrgs; ++i){
+			console.log("   ---   LOAD setting org:");
+			console.log(org);
+			org = new organism(i + 1, STATE_WIDTH, STATE_HEIGHT);
+			this.prepOrg(org);
+			org.building_setState(seed);
+			org.mutate();
+			org.doneBuilding();
+			this.setOrg(org);	// uses orgID to determine placement in array
+		}
+		this.colStats.setGens(0);
+		this.colStats.setAge(0);
+
+
+
 		/* TODO!!!!! */
 		/* Need to make sure to count alives for explored count */
 
@@ -264,8 +288,8 @@ function colony(numOrgs){
 			this.setOrg(org);	// uses orgID to determine placement in array
 		}
 
-		console.log("this.orglist");
-		console.log(this.orgList);
+		// console.log("this.orglist");
+		// console.log(this.orgList);
 		return;
 	};
 

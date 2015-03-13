@@ -37,7 +37,8 @@ function saveloadView(){
 			slv.notifyObservers("UserSave");
 		});
 		$( "#load" ).click(function(event){
-			slv.notifyObservers("UserLoad" + selected);
+			// alert("UserLoad" + slv.getSelected());
+			slv.notifyObservers("UserLoad" + slv.getSelected());
 		});	
 		$( "#delete" ).click(function(event){
 		//	slv.notifyObservers("UserLoad" + selected);
@@ -59,6 +60,8 @@ function saveloadView(){
 				savedSeedLink.click(
 					function(slv, i){
 						return function(){
+							slv.setSelected(i);
+							// alert("UserSelectSaved" + slv.getSelected());
 							slv.notifyObservers("UserSelectSaved" + i);
 						};
 					}(this, i));
@@ -98,6 +101,15 @@ function saveloadView(){
 				c.closePath();
 			}
 		}		
+	};
+
+	this.getSelected = function(){
+		return selected;
+	};
+
+
+	this.setSelected = function(index){
+		selected = index;
 	};
 
 	this.toString = function(){
