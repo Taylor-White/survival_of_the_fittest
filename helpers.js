@@ -2,6 +2,7 @@
 Global utility functions
 *****************/
 function getRandInt(min, max) {
+	/* inclusive -> exclusive */
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 function boolFromPercent(rate){

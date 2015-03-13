@@ -52,7 +52,7 @@ function organism(orgID, numCols, numRows){
 		this.exploredCount = e;
 	};
 	this.setState = function(state){
-		console.log(" ----- Setting State ----- ");
+		// console.log(" ----- Setting State ----- ");
 		copyMatrix(this.state, state);
 		// var activeArray = this.getActiveArea();
 	};
@@ -80,6 +80,9 @@ function organism(orgID, numCols, numRows){
 	};
 	this.getSeed = function(){
 		return this.seed;
+	};
+	this.getOrgID = function(){
+		return this.orgID;
 	};
 	this.getCellValue = function(row, col){
 		return this.state[row][col];
@@ -193,9 +196,9 @@ function organism(orgID, numCols, numRows){
 	this.changeSustainArray = function(neighbs, bool){
 		this.settings.setSustianArrayVal(neighbs, bool); };
 
-	this.toString = function(){
-		return "An Org | orgID: " + this.orgID + ", explored: " + this.stats.getOrgStats(this.orgID).getExplored(); 
-	};
+	// this.toString = function(){
+	// 	return "An Org | orgID: " + this.orgID + ", explored: " + this.stats.getOrgStats(this.orgID).getExplored(); 
+	// };
 	this.updateFitness = function(){
 		var fb = this.settings.getFitScalerB();
 		var fd = this.settings.getFitScalerD();
@@ -226,6 +229,7 @@ function organism(orgID, numCols, numRows){
 	this.building_setCell = function(row, col, newCell){
 		// console.log("Setting " + row + " " + col + " in " + this);
 		// alert(row + " " + col);
+		// console.log(this);
 
 		var numRows = this.state.length;
 		var numCols = this.state[numRows-1].length;
@@ -344,7 +348,7 @@ function organism(orgID, numCols, numRows){
 
 	/* Creates and returns a matrix filled with a passed in value.
 		Usually 0 */
-	this.initMats = function(mat, h, n, initial){
+	this.initState = function(h, n, initial){
 		this.state = [h];
 		this.seed = [h];
 		for (var i = 0; i < h; i += 1) {
@@ -359,22 +363,44 @@ function organism(orgID, numCols, numRows){
 		}
 	};
 
+
+		// this.initState = function(m, n, initial){
+		// 	this.state = [m];
+		// 	for (var i = 0; i < m; i += 1) {
+		// 		var a = [];
+		// 		for (var j = 0; j < n; j += 1) {
+		// 			a[j] = initial;
+		// 		}
+		// 		this.state[i]= a;
+		// 	}
+		// };
+
 	this.init = function(){
-		this.initMats(numRows, numCols, 0);
-		this.initMats(numRows, numCols, 0);
+		// this.setState(createMatrix(50,50,0));
+		// this.setSeed(createMatrix(50,50,0));
+
+		this.initState(numRows, numCols, 0);
+		this.initState(numRows, numCols, 0);
 	};
 
-	/* Copies from newMat to oldMat */
-	function copyMatrix(oldMat, newMat){
-		var rows = oldMat.length;
-		var cols = oldMat[0].length;
-		for (var i=0; i<rows; i++ ){
-			for (var j=0; j<cols; j++){
-				oldMat[i][j] = newMat[i][j] ;
-			}
+	this.init();
+}
+
+/* Copies from newMat to oldMat */
+function copyMatrix(oldMat, newMat){
+	// console.log("-------");
+	// console.log("-------");
+	// console.log("oldMat");
+	// console.log(oldMat);
+	// console.log("newMat");
+	// console.log(newMat);
+	var rows = oldMat.length;
+	var cols = oldMat[0].length;
+	for (var i=0; i<rows; i++ ){
+		for (var j=0; j<cols; j++){
+			oldMat[i][j] = newMat[i][j] ;
 		}
 	}
-
-
-	this.init();
+	// console.log("oldMat After");
+	// console.log(oldMat);
 }

@@ -48,8 +48,9 @@ function colony(numOrgs){
 		return this.orgList[orgID-1];
 	};
 	this.setOrg = function(org){
-		this.prepOrg(org);
-		this.orgList[org.getOrgrgID()-1] = org;
+		// console.log(org);
+		// this.prepOrg(org);
+		this.orgList[org.getOrgID()-1] = org;
 	};
 
 	this.randSame = function(){
@@ -121,7 +122,7 @@ function colony(numOrgs){
 		// this.colStats.setGens(0);
 	};
 
-	this.replay = function(){
+	this.resetGen = function(){
 		/* Should reset each org to its seed */
 		/* TODO */
 		
@@ -177,7 +178,7 @@ function colony(numOrgs){
 				}
 			}
 			return min;
-		}
+		};
 		var m = indexOfWeakest();
 
 		//loop through the rest of the organisms and compare to the ones in the fittest array
@@ -192,20 +193,30 @@ function colony(numOrgs){
 	};
 	this.evolve = function(){
 
-		var mate = function(parent1, parent2){
+		var mate = function(col, orgID, parent1, parent2){
+			// console.log("Parent1");
+			// console.log(parent1);
+			// console.log("Parent2");
+			// console.log(parent2);
 
-			var org = new organism(i+1,STATE_WIDTH,STATE_HEIGHT);
+			/* temporary orgID: -1 */
+			var child = new organism(orgID,STATE_WIDTH,STATE_HEIGHT);
+			col.prepOrg(child);
 
 			// var child = createMatrix(50, 50, 0);
 
 			//loop through each cell and put either a 1 or 0 in the child cell.
-			for(var i=0; i<50; i++){
-				for(var j=0; j<50; j++){
-					if(parent1[i][j] == parent2[i][j]){
-						child[i][j] = parent1[i][j];
+			for(var row=0; row<50; row++){
+				for(var col=0; col<50; col++){
+					var p1cell = parent1[row][col];
+					var p2cell = parent2[row][col];
+					if( p1cell == p2cell){
+						// console.log("child\n");
+						// console.log(child);
+						child.building_setCell(row,col,p1cell);
 					} else{
-						child[i][j] = Math.floor(Math.random() * 2);
-					}									
+						child.building_setCell(Math.floor(Math.random() * 2));
+					}
 				}
 			}
 			// console.log("child: " + child);
@@ -213,46 +224,42 @@ function colony(numOrgs){
 		};
 
 		var fittest = this.getFittest(); //Retrieve Fittest Organisms
-		var newOrg = []; //Array of next generation organisms
-		var counter = 0; //Keeps track of number of new organisms
+		var newOrgs = []; //Array of next generation organisms
+		var numNewOrgs = 0; //Keeps track of number of new organisms
 		var orgList = this.orgList;
 
 
 		//Mate each organism in fittest with each of the others. 
-		//Put the child organisms in newOrg
+		//Put the child organisms in newOrgs
 		for(var i=0; i<fittest.length; ++i){
 			for(var j=i+1; j<fittest.length; ++j){
-				newOrg[counter] = mate(orgList[fittest[i]].getSeed(), orgList[fittest[j]].getSeed());
-				counter++;
+				var leftOrg  = orgList[fittest[i]];
+				var rightOrg = orgList[fittest[j]];
+
+				newOrgs[numNewOrgs] = mate(this, i+1, leftOrg.getSeed(), rightOrg.getSeed());
+				numNewOrgs++;
 			}
 		}
 
 		//Set state of the first 6 organisms to the 6 new child organisms
-		for(var i=0; i<counter; ++i){
-			orgList[i].setState(newOrg[i]);
+		for(var i=0; i<numNewOrgs; ++i){
+			var org = newOrgs[i];
+
+			console.log("org:");
+			console.log(org);
+			this.setOrg(org);	// uses orgID to determine placement in array
 		}
 		//Set state of the last 4 organisms to the 4 elite fittest organisms
-		for(var i=counter; i<fittest.length+counter; ++i){
-			orgList[i].setState(orgList[fittest[i-counter]].getState());
+		for(var i=numNewOrgs; i<fittest.length+numNewOrgs; ++i){
+			orgList[i].setState(orgList[fittest[i-numNewOrgs]].getState());
 		}	
 
-		// this.colStats.setAge(0); // reset colony's age
-		// this.stats.clearStats();
-		console.log("orglist" + orgList);
+		// console.log("orglist" + orgList);
 		return;
 	};
 
 	this.toString = function(){
 		return "The Colony | Age: " + this.colStats.getAge(); 
-	};
-
-	this.initOrgs = function(){
-		/* fill list of orgs */
-		for (var i=0; i<numOrgs; i++){
-			var org = new organism(i+1,STATE_WIDTH,STATE_HEIGHT);
-			this.prepOrg(org);
-			this.orgList.push( org );		// Add org to the org list
-		}
 	};
 
 	this.prepOrg = function(org){
@@ -263,7 +270,13 @@ function colony(numOrgs){
 	this.init = function(){
 		this.colStats.setAge(0);
 		this.colStats.setGens(0);
-		this.initOrgs();
+
+		/* fill list of orgs */
+		for (var i=0; i<numOrgs; i++){
+			var org = new organism(i+1,STATE_WIDTH,STATE_HEIGHT);
+			this.prepOrg(org);
+			this.orgList.push( org );		// Add org to the org list
+		}
 	};
 
 
