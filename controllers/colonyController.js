@@ -163,8 +163,13 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.saved.addSeed(this.orgCtr.getSelectedOrg().getSeed());
 		this.saveloadView.updateSavedList(this.saved.numSeeds());
 	};
+	this.userImport = function(s){
+		this.saved.addSeed(s);
+		this.saveloadView.updateSavedList(this.saved.numSeeds());
+	};	
 	this.userLoad = function(index){
-		colony.loadSeed(this.saved.getSeed(index).length);
+		//console.log(this.colony.loadSeed(this.saved.getSeed(index)));
+		this.colony.loadSeed(this.saved.getSeed(index));
 	};
 	this.userExport = function(index){
 		// console.log("getting seed: " + this.saved.getSeed(index));

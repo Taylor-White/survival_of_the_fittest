@@ -1,6 +1,9 @@
 /*****************
 Global utility functions
 *****************/
+STATE_WIDTH = 50;
+STATE_HEIGHT = 50;
+
 function getRandInt(min, max) {
 	/* inclusive -> exclusive */
 	return Math.floor(Math.random() * (max - min)) + min;
@@ -43,3 +46,7 @@ function makeMatrixPrintable(mat){
 	return printMat;
 }
 
+function fillToSize(matrix){
+
+	matrix
+}

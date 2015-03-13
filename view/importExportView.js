@@ -133,7 +133,7 @@ function importExportView() {
 				display(reader.result);
 
 				var newMat = extractMat(reader.result);
-
+				//this.notifyObservers("UserImport");
 			};
 			reader.readAsText(file);
 		} else {
