@@ -54,6 +54,9 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		} else if (msg.substring(0,10) == "UserExport"){
 			var exportIndex = parseInt(msg.substring(8, msg.length));
 			this.userExport(exportIndex);
+		} else if (msg == "UserImported"){
+
+			this.userImported(observer.getImported());
 		} else if (msg.substring(0,8) == "UserLoad"){
 			var loadIndex = parseInt(msg.substring(8, msg.length));
 			this.userLoad(loadIndex);
@@ -163,6 +166,14 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		// console.log("getting seed: " + this.saved.getSeed(index));
 		//Send seed to importExportView
 		this.ieView.exportFile();
+	};
+	this.userImported = function(importedMat){
+		// console.log("getting seed: " + this.saved.getSeed(index));
+		//Send seed to importExportView
+		// this.ieView.exportFile();
+		/* TAYLOR */
+		this.saved.addSeed(fillToSize(importedMat));
+		this.saveloadView.updateSavedList(this.saved.numSeeds());
 	};
 	this.userSelectSaved = function(index){
 		// console.log("User Selected Saved " + index);

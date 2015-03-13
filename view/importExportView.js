@@ -115,34 +115,42 @@ function importExportView() {
 		return data;
 	};
 
-	fileInput.addEventListener('change', function(e) {
-		var file = fileInput.files[0];
-		var fileTypes = ['lif', 'cells'];
+	fileInput.addEventListener('change',
+		function(that){
+			// return function(){that.tick(that);};
+			return function(e) {
+				var file = fileInput.files[0];
+				var fileTypes = ['lif', 'cells'];
 
-		/* file extension from input file */
-		var extension = file.name.split('.').pop().toLowerCase();
-		/* is extension in acceptable types? */
-		validExtension = fileTypes.indexOf(extension) > -1;
+				/* file extension from input file */
+				var extension = file.name.split('.').pop().toLowerCase();
+				/* is extension in acceptable types? */
+				validExtension = fileTypes.indexOf(extension) > -1;
 
-		if (validExtension) {
-			var newMat;
-			var reader = new FileReader();
+				if (validExtension) {
+					var newMat;
+					var reader = new FileReader();
 
-			reader.onload = function(e) {
+					reader.onload = function(e) {
 
-				display(reader.result);
+						display(reader.result);
 
-				var newMat = extractMat(reader.result);
+						that.imported = extractMat(reader.result);
+						that.notifyObservers("UserImported");
+						// alert(that.imported);
 
+					};
+					reader.readAsText(file);
+				} else {
+					fileDisplayArea.innerText = "File not supported!";
+				}
 			};
-			reader.readAsText(file);
-		} else {
-			fileDisplayArea.innerText = "File not supported!";
-		}
-	});
+		}(this)
+	);
 
 	function display(content) {
 		fileDisplayArea.innerText = content;
+
 	}
 
 	function extractMat(result) {
@@ -182,6 +190,10 @@ function importExportView() {
 		}
 		return m;
 	}
+
+	this.getImported = function(){
+		return this.imported;
+	};
 
 	this.toString = function() {
 		return "The import/export View";
