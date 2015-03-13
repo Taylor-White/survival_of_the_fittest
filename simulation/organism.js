@@ -192,7 +192,8 @@ function organism(orgID, numCols, numRows){
 
 	this.resetToSeed = function(){
 		this.orgStats.clearStats();
-		this.setState(this.getSeed());
+		this.building_setState(this.getSeed());
+		this.doneBuilding();
 	};
 
 	/* Array Changes */
@@ -263,7 +264,7 @@ function organism(orgID, numCols, numRows){
 			/* out of bounds, don't set */
 		}
 	};
-	this.build_setState = function(state){
+	this.building_setState = function(state){
 		this.setState(state);
 		this.orgStats.setExplored(this.getNumAlive());
 	};

@@ -45,12 +45,10 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.userPause();
 		} else if (msg == "UserRunOneGen"){
 			this.userRunOneGen();
-		} else if (msg == "UserResetCol"){
-			this.userResetCol();
+		} else if (msg == "UserResetGen"){
+			this.userResetGen();
 		} else if (msg == "UserResetUniverse"){
 			this.userResetUniverse();
-		} else if (msg == "UserRollback"){
-			this.userResetRollback();
 		} else if (msg == "UserSave"){
 			this.userSave();
 		} else if (msg.substring(0,10) == "UserExport"){
@@ -143,17 +141,12 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	};
 
 	/* function for when the user wants to pause the simulation */
-	this.userResetCol = function(){
+	this.userResetGen = function(){
 		this.setRun(false);
-		this.colony.resetColony();
+		this.colony.resetGen();
 		this.statsCtr.updateViews();
 	};
 	this.userResetUniverse = function(){
-		this.setRun(false);
-		this.colony.resetUniverse();
-		this.statsCtr.updateViews();
-	};
-	this.userRollback = function(){
 		this.setRun(false);
 		this.colony.resetUniverse();
 		this.statsCtr.updateViews();
@@ -227,6 +220,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		// this.colony.evolve();
 		this.colony.advanceGen();
 		this.statsCtr.updateViews();
+		this.orgCtr.updateOrgView();
 	};
 
 	this.tick = function(cc){
