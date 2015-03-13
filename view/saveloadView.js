@@ -68,7 +68,15 @@ function saveloadView(){
 			}
 		}	
 	};
-
+	this.selectedSavedSeed = function(numseeds, current){
+		for(var i=0; i<numseeds; i++){
+			if(i == current){
+				$( "#savedSeedLinks #" + current ).css("background-color", "yellow");
+			}else{
+				$( "#savedSeedLinks #" + i ).css("background-color", "white");
+			}
+		}
+	};
 	/* takes a printable string version of the matrix */
 	this.updateSelectedSavedMatrix = function(matState){
 		c = this.canvas;

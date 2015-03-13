@@ -192,6 +192,7 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.saved.getSeed(index)
 		);
 		this.ieView.prepExport(this.saved.getSeed(index));
+		this.saveloadView.selectedSavedSeed(this.saved.numSeeds(), index);
 	};
 
 	this.setRun = function(newRun){
