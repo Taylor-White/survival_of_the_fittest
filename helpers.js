@@ -48,12 +48,12 @@ function makeMatrixPrintable(mat){
 
 function fillToSize(oldMatrix){
 	var newMatrix = createMatrix(STATE_HEIGHT, STATE_WIDTH, 0);
-	oldH = oldMatrix.length;
-	oldW = oldMatrix[0].length;
+	oldW = oldMatrix.length;
+	oldH = oldMatrix[0].length;
 
-	for(var row=0; row<oldH; row++){
-		for(var col=0; col<oldW; col++){
-			newMatrix[STATE_HEIGHT/2-Math.floor(oldH/2)+row][STATE_WIDTH/2-Math.floor(oldW/2)+col] = oldMatrix[row][col];
+	for(var row=0; row<oldW; row++){
+		for(var col=0; col<oldH; col++){
+			newMatrix[STATE_WIDTH/2-Math.floor(oldW/2)+col][STATE_HEIGHT/2-Math.floor(oldH/2)+row] = oldMatrix[row][col];
 		}
 	}
 
