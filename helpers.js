@@ -46,11 +46,16 @@ function makeMatrixPrintable(mat){
 	return printMat;
 }
 
-function fillToSize(matrix){
-	var nm = createMatrix(STATE_WIDTH, STATE_HEIGHT, 0);
+function fillToSize(oldMatrix){
+	var newMatrix = createMatrix(STATE_WIDTH, STATE_HEIGHT, 0);
+	oldW = oldMatrix.length;
+	oldH = oldMatrix[0].length;
 
-	console.log(matrix.length);
+	for(var i=0; i<oldW; i++){
+		for(var j=0; j<oldH; j++){
+			newMatrix[STATE_WIDTH/2-Math.floor(oldW/2)+i][STATE_HEIGHT/2-Math.floor(oldH/2)+j] = oldMatrix[i][j];
+		}
+	}
 
-	//matrix
-	//if()
+	return newMatrix;
 }

@@ -177,8 +177,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		//Send seed to importExportView
 		// this.ieView.exportFile();
 		/* TAYLOR */
-		this.saved.addSeed(importedMat);
-		// this.saved.addSeed(fillToSize(importedMat));
+		//this.saved.addSeed(importedMat);
+		this.saved.addSeed(fillToSize(importedMat));
 		this.saveloadView.updateSavedList(this.saved.numSeeds());
 	};
 	this.userSelectSaved = function(index){
