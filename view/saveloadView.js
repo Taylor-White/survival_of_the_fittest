@@ -6,6 +6,8 @@ internal save and load functions
 
 *****************/
 
+
+
 function saveloadView(){
 	console.log("creating saveload View");
 
@@ -40,6 +42,7 @@ function saveloadView(){
 		$( "#delete" ).click(function(event){
 		//	slv.notifyObservers("UserLoad" + selected);
 		});		
+		slv.canvas = document.getElementById( "savedMatrix" ).getContext("2d");
 	};
 	this.updateSavedList = function(numSaved){
 		console.log("numsaved: " + numSaved);
@@ -64,14 +67,36 @@ function saveloadView(){
 	};
 
 	/* takes a printable string version of the matrix */
-	this.updateSelectedSavedMatrix = function(matString){
-		$( "#savedMatrix" ).html(matString);
+	this.updateSelectedSavedMatrix = function(matState){
+		c = this.canvas;
+		c.fillStyle = 'black';
+		c.lineWidth = 1;
+		c.strokeStyle = "#eee";
+		for (var row = 0; row < 50; row++) {
+			for (var column = 0; column < 50; column++) {
+				c.beginPath();
+				var x = column * 5;
+				var y = row * 5;
+				if(matState[row][column] == 1){
+					c.fillStyle = COLOR_ALIVE;
+				} else if(matState[row][column] == 2){
+					c.fillStyle = COLOR_EXPLORED;
+				}else{
+					c.fillStyle = COLOR_DEAD;
+				}				
+				c.rect(x, y, 5, 5);
+				c.fill();
+				c.stroke();
+				c.closePath();
+			}
+		}		
 	};
 
 	this.toString = function(){
 		return "The Save/Load View";
 	};
 
-	this.updateSavedList(0);
+	
 	$(document).ready(this.prepAfterLoad(this));
+	this.updateSavedList(0);
 }

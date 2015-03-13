@@ -13,8 +13,8 @@ var COLOR_DEAD = "white"; //Color of dead cells, (0 on the matrix)
 var COLOR_ALIVE = "#3A619E"; //Color of alive cells, (1 on the matrix)
 var COLOR_EXPLORED = "#ccefc8"; //Color of explored cells, (2 on the matrix)
 
-var CELL_WIDTH = 10; //Pixel width of cell
-var CELL_HEIGHT = 10; //Pixel height of cell
+var CELL_WIDTH = CANVAS_WIDTH/COLUMNS; //Pixel width of cell
+var CELL_HEIGHT = CANVAS_HEIGHT/ROWS; //Pixel height of cell
 
 function organismView(){
 	// console.log("creating Organism View");
@@ -22,6 +22,7 @@ function organismView(){
 	/* function to update the organism on the canvas */
 	this.update = function(state){
 		var c = this.canvas;
+
 		c.fillStyle = COLOR_ALIVE;
 		c.lineWidth = 1;
 		c.strokeStyle = "#eee";
