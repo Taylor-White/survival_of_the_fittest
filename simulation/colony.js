@@ -3,8 +3,6 @@ Organisms: list of Organisms
 File owner: Xi
 */
 
-
-
 /* represents the colony class */
 function colony(numOrgs){
 	// console.log("creating Colony");
@@ -109,15 +107,13 @@ function colony(numOrgs){
 			We may only need to load one in
 				Going to wait for GA
 		*/
-		console.log(seed);
 
 
-		for (var i = 0; i < this.numOrgs; i++){
-			var org = this.orgList[i];
-			alert(this.orgList[i]);
-			org.setState(seed);
-			org.setSeed(seed);
-		}
+		// for (var i = 0; i <= this.numOrgs; i++){
+		// 	var org = this.orgList[i];
+		// 	org.setState(seed);
+		// 	org.setSeed(seed);
+		// }
 	};
 
 	this.resetUniverse = function(){

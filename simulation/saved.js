@@ -8,20 +8,20 @@ function saved(numOrgs){
 	/* returns index seed was put in */
 	this.addSeed = function(seed){
 		// alert("saving seed \n" + seed);
-		console.log("Saving Seed ");
+		console.log("Saving Seed " + seed);
 		seeds.push(seed);
 		return seeds.length;
-	}
+	};
 	/* should we use a seed id instead of index
 			so we can remove later? */
 	this.getSeed = function(index){
 		return seeds[index];
-	}
+	};
 	this.delSeed = function(index){
 		/* TODO */
-	}	
+	};
 	/* returns index seed was put in */
 	this.numSeeds = function(){
 		return seeds.length;
-	}
+	};
 }
