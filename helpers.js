@@ -38,7 +38,6 @@ function createArrayCopy(arr){
 /* Convert matrix to a string of 0s and 1s with newline endings */
 function makeMatrixPrintable(mat){
 	var numRows = mat.length;
-	// var numCols = mat[0].length;
 	var printMat = "";
 	for (var row = 0; row < numRows; row++){
 		printMat += mat[row] + "\n";
@@ -50,24 +49,16 @@ function fillToSize(oldMatrix){
 	var newMatrix = createMatrix(STATE_HEIGHT, STATE_WIDTH, 0);
 	oldW = oldMatrix.length;
 	oldH = oldMatrix[0].length;
-
 	for(var row=0; row<oldW; row++){
 		for(var col=0; col<oldH; col++){
 			newMatrix[STATE_WIDTH/2-Math.floor(oldW/2)+col][STATE_HEIGHT/2-Math.floor(oldH/2)+row] = oldMatrix[row][col];
 		}
 	}
-
 	return newMatrix;
 }
 
 /* Copies from newMat to oldMat */
 function copyMatrix(oldMat, newMat){
-	// console.log("-------");
-	// console.log("-------");
-	// console.log("oldMat");
-	// console.log(oldMat);
-	// console.log("newMat");
-	// console.log(newMat);
 	var rows = oldMat.length;
 	var cols = oldMat[0].length;
 	for (var i=0; i<rows; i++ ){
@@ -75,6 +66,4 @@ function copyMatrix(oldMat, newMat){
 			oldMat[i][j] = newMat[i][j] ;
 		}
 	}
-	// console.log("oldMat After");
-	// console.log(oldMat);
 }

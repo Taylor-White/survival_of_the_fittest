@@ -33,27 +33,13 @@ function colony(numOrgs){
 		for (var i=0; i<numObs; i++){
 			this.observers[i].receiveMessage(this, msg);}};
 
-	/*	OBSERVER METHODS */
-	/* parses the message passed and decides how to handle it */
-	this.receiveMessage = function(observable, msg){
-		// console.log("colony received "+ msg + " from " + observable);
-	};
-
 	/* Get an organism by it's orgID */
 	this.getOrg = function(orgID){
-		/* NOTE org id starts at 1 */
-		// console.log("Colony Get Org Received " + orgID);
-		// console.log("	Org: ");
-		// console.log(this.orgList[orgID-1]);
 		return this.orgList[orgID-1];
 	};
 	this.setOrg = function(newOrg){
 
 		var oldOrg = this.orgList[newOrg.getOrgID()-1];
-		// console.log("Colony setting org from");
-		// console.log(oldOrg);
-		// console.log("					 to");
-		// console.log(newOrg);
 		this.prepOrg(newOrg);
 		this.orgList[newOrg.getOrgID()-1] = newOrg;
 		this.notifyObservers("OrgReplaced" + newOrg.getOrgID());
@@ -65,9 +51,6 @@ function colony(numOrgs){
 		var x = this.settings.getSpawnCenterX() - Math.floor((w/2)+1);
 		var y = this.settings.getSpawnCenterY()	- Math.floor((h/2)+1);
 		var d = this.settings.getSpawnDensity();
-
-		// console.log("Randomizing " + this);
-		// console.log("  At: " + x + ", " + y + "  In: " + w + "X" + h);
 
 		/* Clear each Org */
 		for (var orgNum = 0; orgNum < this.orgList.length; orgNum++){
@@ -94,14 +77,11 @@ function colony(numOrgs){
 			var org = this.orgList[orgNum];
 
 			org.mutate();
-			// org.building_setCell(getRandInt(y,y+h), getRandInt(x,x+w), ALIVE);
 			org.doneBuilding();
 		}
 	};
 
 	this.loadSeed = function(seed){
-		// alert("loaded seed\n" + seed);
-
 		/* Clear each Org */
 		for (var orgNum = 0; orgNum < this.orgList.length; orgNum++){
 			this.orgList[orgNum].clearOrg();
@@ -110,12 +90,10 @@ function colony(numOrgs){
 		/* copy seed to each and mutate it */
 		var org;
 		for(var i=0; i<this.numOrgs; ++i){
-			// console.log("   ---   LOAD setting org:");
-			// console.log(org);
 			org = new organism(i + 1, STATE_WIDTH, STATE_HEIGHT);
 			this.prepOrg(org);
 			org.building_setState(seed);
-			// org.mutate();
+			org.mutate();
 			org.doneBuilding();
 			this.setOrg(org);	// uses orgID to determine placement in array
 		}
@@ -134,12 +112,7 @@ function colony(numOrgs){
 		for(var orgID = 1; orgID<=this.numOrgs; orgID++ ){
 			this.getOrg(orgID).resetToSeed();
 		}
-		// if (this.isGenDone()){
-		// 	this.colStats.setGens(this.colStats.getGens()-1);
-		// }
 		this.colStats.setAge(0);
-		/* TODO */
-		
 	};
 
 	this.step = function(){
@@ -162,17 +135,13 @@ function colony(numOrgs){
 		this.notifyObservers("GenDone");
 	};
 	this.advanceGen = function(){
-		// this.stats.clearStats();
 		this.stats.clearColStats();
 		this.colStats.incGens();
-		// this.resetColony();
 		this.evolve();
-		// this.stats.clearOrgStats();
 		this.colStats.setAge(0); // reset colony's age
 	};
 
 	this.isGenDone = function(){
-		// console.log("isGenDone");
 		return this.colStats.getAge() >= this.settings.getLifetime();
 	};
 
@@ -190,22 +159,14 @@ function colony(numOrgs){
 			}
 			fitOrgs.splice(worstIndex,1);
 		}
-
 		// return array with best 4
 		return fitOrgs;
 	};
 	this.evolve = function(){
 
 		var mate = function(colony, orgID, parent1, parent2){
-			// console.log("Parent1");
-			// console.log(parent1);
-			// console.log("Parent2");
-			// console.log(parent2);
-
 			var child = new organism(orgID,STATE_WIDTH,STATE_HEIGHT);
 			colony.prepOrg(child);
-
-			// var child = createMatrix(50, 50, 0);
 
 			//loop through each cell and put either a 1 or 0 in the child cell.
 			for(var row=0; row<50; row++){
@@ -213,15 +174,12 @@ function colony(numOrgs){
 					var p1cell = parent1[row][col];
 					var p2cell = parent2[row][col];
 					if( p1cell == p2cell){
-						// console.log("child\n");
-						// console.log(child);
 						child.building_setCell(row,col,p1cell);
 					} else{
 						child.building_setCell(Math.floor(Math.random() * 2));
 					}
 				}
 			}
-			// console.log("child: " + child);
 			return child;
 		};
 
@@ -236,18 +194,14 @@ function colony(numOrgs){
 			for(var j=i+1; j<fittest.length; ++j){	// loop right elites
 				var leftParent  = fittest[i];
 				var rightParent = fittest[j];
-
-				// alert("Pairing \n" + leftParent + "\n" + "with\n" + rightParent);
 				
 				/* make a baby for each pairing */
 				var newOrg = mate(this, newOrgs.length+1, leftParent.getSeed(), rightParent.getSeed());
 				if(boolFromPercent(this.settings.getMutRate())){
-				// if(boolFromPercent(50)){
 					newOrg.mutate();
 				}
 				newOrg.doneBuilding();
 				newOrgs.push(newOrg);
-				// alert("Having a baby\n" + newOrg);
 			}
 		}
 
@@ -256,8 +210,6 @@ function colony(numOrgs){
 		for(var eliteCount=0; eliteCount<fittest.length; ++eliteCount){
 			elite = new organism(newOrgs.length + 1, STATE_WIDTH, STATE_HEIGHT);
 			this.prepOrg(elite);
-			// console.log("elite");
-			// console.log(elite);
 			elite.building_setState(fittest[eliteCount].getSeed());
 			elite.doneBuilding();
 			newOrgs.push(elite);
@@ -266,13 +218,8 @@ function colony(numOrgs){
 		//Set state of the first 6 organisms to the 6 new child organisms
 		for(var i=0; i<newOrgs.length; ++i){
 			var org = newOrgs[i];
-			// console.log("setting org:");
-			// console.log(org);
 			this.setOrg(org);	// uses orgID to determine placement in array
 		}
-
-		// console.log("this.orglist");
-		// console.log(this.orgList);
 		return;
 	};
 
@@ -281,7 +228,6 @@ function colony(numOrgs){
 	};
 
 	this.prepOrg = function(org){
-		// this.stats.clearOrgStatsByID(org.getOrgID());
 		org.setStats(this.stats);			// Pass reference of the Stats object
 		org.setSettings(this.settings);		// Pass reference of the Settings object
 	};
@@ -298,8 +244,6 @@ function colony(numOrgs){
 		}
 	};
 
-
-
 	this.changeBirthArray = function(orgID, neighbs, bool){
 		this.orgList[orgID-1].changeBirthArray(neighbs,bool);
 	};
@@ -313,6 +257,4 @@ function colony(numOrgs){
 	
 	/* SETUP */
 	this.init();
-	//Testing//
-	// this.getFittest();
 }

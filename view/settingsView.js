@@ -2,7 +2,6 @@
 Displays information about settings
 *****************/
 
-
 function settingsView(){
 	console.log("creating Organism Stats View");
 
@@ -21,7 +20,6 @@ function settingsView(){
 		for (var i=0; i<numObs; i++){
 			this.observers[i].receiveMessage(this, msg);
 		}};
-
 	
 	/* Setters */
 	this.setBirthArrayVal = function(neighbs, bool){
@@ -94,75 +92,53 @@ function settingsView(){
         $(".spawnHeight").slider({step: 1}).slider("pips", {step: 10}).slider("float");
 		$(".spawnDensity").slider({step: 1}).slider("pips", {step: 10}).slider("float"); 
 		$(".spawnCenterY").slider({step: 1}).slider("pips", {step: 10}).slider("float");
-		$(".spawnCenterX").slider({step: 1}).slider("pips", {step: 10}).slider("float");		
+		$(".spawnCenterX").slider({step: 1}).slider("pips", {step: 10}).slider("float");
 		$(".lifetime").slider({step: 1, min: 0, max: 200}).slider("pips", {step: 10}).slider("float");
 		$(".mutRate").slider({min:0, max: 100}).slider("pips", {step: 10}).slider("float");
 		$(".fitnessBirth").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");	
 		$(".fitnessDeath").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");
 		$(".fitnessExplore").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");
 
-
 		$(".lifetime").change(function(sv, i){
 			return function(){
-				sv.notifyObservers("lifetime" + i);
-			};
+				sv.notifyObservers("lifetime" + i);};
 		});
 		$("#slow").change(function(){
-			sv.notifyObservers("UserSpeed4");
-		});
+			sv.notifyObservers("UserSpeed4");});
 		$("#medium").change(function(){
-			sv.notifyObservers("UserSpeed8");
-		});
+			sv.notifyObservers("UserSpeed8");});
 		$("#fast").change(function(){
-			sv.notifyObservers("UserSpeed100");
-		});
+			sv.notifyObservers("UserSpeed100");});
+
 		$( ".spawnWidth" ).on("slidestop", function(event, ui){
 			// console.log("spawn width: " + $('.spawnWidth').val());
-			sv.notifyObservers("spawnWidth" + ui.value);
-		});
+			sv.notifyObservers("spawnWidth" + ui.value);});
 		$( ".spawnHeight" ).on("slidestop", function(event, ui){
 			console.log("spawn height" + $('.spawnHeight').val());
-			sv.notifyObservers("spawnHeight" + ui.value);
-		});			
+			sv.notifyObservers("spawnHeight" + ui.value);});			
 		$( ".spawnDensity" ).on("slidestop", function(event, ui){
 			console.log("spawn density: " + $('.spawnDensity').val());
-			sv.notifyObservers("spawnDensity" + ui.value);
-		});		              
+			sv.notifyObservers("spawnDensity" + ui.value);});		              
 		$( ".spawnCenterX" ).on("slidestop", function(event, ui){
 			console.log("spawn centerX: " + $('.spawnCenterX').val());
-			sv.notifyObservers("spawnCenterX" + ui.value);
-		});	
+			sv.notifyObservers("spawnCenterX" + ui.value);});	
 		$( ".spawnCenterY" ).on("slidestop", function(event, ui){
 			console.log("spawn centerY: " + $('.spawnCenterY').val());
-			sv.notifyObservers("spawnCenterY" + ui.value);
-		});
+			sv.notifyObservers("spawnCenterY" + ui.value);});
+		
 		$( ".lifetime" ).on("slidestop", function(event, ui){
 			console.log("lifetime: " + $('.lifetime').val());
-			sv.notifyObservers("lifetime" + ui.value);
-		});
-			
+			sv.notifyObservers("lifetime" + ui.value);});
 		$( "#rand" ).click("slidestop", function(event, ui){
-			sv.notifyObservers("UserRand");
-		});		
+			sv.notifyObservers("UserRand");});		
 		$( ".mutRate" ).on("slidestop", function(event, ui){
-			// console.log("mutation rate: " + $('#mutRate').val());
-			sv.notifyObservers("mutRate" + ui.value);
-		});
-			
-
+			sv.notifyObservers("mutRate" + ui.value);});
 		$( ".fitnessBirth" ).on("slidestop", function(event, ui){
-			// console.log("fitness births" + $('#fitnessBirth').val());
-			sv.notifyObservers("fitnessBirth" + ui.value);
-		});
+			sv.notifyObservers("fitnessBirth" + ui.value);});
 
 		$( ".fitnessDeath" ).on("slidestop", function(event, ui){
-			// console.log("fitness deaths: " + $('#fitnessDeath').val());
-			sv.notifyObservers("fitnessDeath" + ui.value);
-		});	
-	
-
+			sv.notifyObservers("fitnessDeath" + ui.value);});	
 		$( ".fitnessExplore" ).on("slidestop", function(event, ui){
-			// console.log("fitness explore: " + $('#fitnessExplore').val());
 			sv.notifyObservers("fitnessExplore" + ui.value);
 		});
 		

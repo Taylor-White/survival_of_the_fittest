@@ -37,11 +37,9 @@ function saveloadView(){
 			slv.notifyObservers("UserSave");
 		});
 		$( "#load" ).click(function(event){
-			// alert("UserLoad" + slv.getSelected());
 			slv.notifyObservers("UserLoad" + slv.getSelected());
 		});	
 		$( "#delete" ).click(function(event){
-		//	slv.notifyObservers("UserLoad" + selected);
 		});		
 		slv.canvas = document.getElementById( "savedMatrix" ).getContext("2d");
 	};
@@ -61,7 +59,6 @@ function saveloadView(){
 					function(slv, i){
 						return function(){
 							slv.setSelected(i);
-							// alert("UserSelectSaved" + slv.getSelected());
 							slv.notifyObservers("UserSelectSaved" + i);
 						};
 					}(this, i));
@@ -106,17 +103,12 @@ function saveloadView(){
 	this.getSelected = function(){
 		return selected;
 	};
-
-
 	this.setSelected = function(index){
 		selected = index;
 	};
-
 	this.toString = function(){
 		return "The Save/Load View";
 	};
-
-	
 	$(document).ready(this.prepAfterLoad(this));
 	this.updateSavedList(0);
 }

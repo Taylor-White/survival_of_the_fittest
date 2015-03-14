@@ -34,7 +34,6 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	/*	OBSERVER METHODS */
 	/* parses the message passed and decides how to handle it */
 	this.receiveMessage = function(observable, msg){
-		// console.log("colonyController received "+ msg + " from " + observable);
 		if (msg == "UserRand"){
 			this.userRand();
 		} else if (msg == "UserStep"){
@@ -70,16 +69,8 @@ function colonyController(orgCtr, statsCtr, settCtr){
 			this.userSelectSaved(selectSavedIndex);
 
 		} else if (msg.substring(0,11) == "OrgReplaced"){
-			// console.log(msg);
 			var orgID = parseInt(msg.substring(11, msg.length));
 			if (this.orgCtr.getSelectedOrg().getOrgID() == orgID){
-
-				// console.log("Current Selected Org: " + this.orgCtr.getSelectedOrg().getOrgID() );
-				// console.log("this.colony.getOrg(orgID) " + this.colony.getOrg(orgID) );
-				// console.log("this.orgCtr.getSelectedOrg().getOrgID() " + 
-				// 	this.orgCtr.getSelectedOrg().getOrgID() );
-
-				// alert("replacing " + orgID);
 				this.orgCtr.setSelectedOrg(this.colony.getOrg(orgID));
 			}
 
@@ -89,7 +80,6 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		} else if (msg == "GenDone"){
 			this.genDone(observable.gens);
 		} 
-
 	};
 
 	/* USER ACTIONS */
@@ -105,7 +95,6 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	this.userStep = function(){
 		this.setRun(false);
 		if (this.colony.isGenDone()){
-			// this.colony.evolve();
 			this.advanceGen();
 		} else {
 			this.tick(this);
@@ -159,34 +148,21 @@ function colonyController(orgCtr, statsCtr, settCtr){
 		this.saved.addSeed(this.orgCtr.getSelectedOrg().getSeed());
 		this.saveloadView.updateSavedList(this.saved.numSeeds());
 	};
-	// this.userImport = function(s){
-	// 	this.saved.addSeed(s);
-	// 	this.saveloadView.updateSavedList(this.saved.numSeeds());
-	// };	
 	this.userLoad = function(index){
-		//console.log(this.colony.loadSeed(this.saved.getSeed(index)));
-		// console.log("this.saved");
-		// console.log(this.saved);
 		this.setRun(false);
 		this.colony.loadSeed(this.saved.getSeed(index));
 		this.statsCtr.updateViews();
 	};
 	this.userExport = function(index){
-		// console.log("getting seed: " + this.saved.getSeed(index));
 		//Send seed to importExportView
 		this.ieView.exportFile();
 	};
 	this.userImported = function(importedMat){
-		// console.log("getting seed: " + this.saved.getSeed(index));
 		//Send seed to importExportView
-		// this.ieView.exportFile();
-		/* TAYLOR */
-		//this.saved.addSeed(importedMat);
 		this.saved.addSeed(fillToSize(importedMat));
 		this.saveloadView.updateSavedList(this.saved.numSeeds());
 	};
 	this.userSelectSaved = function(index){
-		// console.log("User Selected Saved " + index);
 		var selectedSeedMatrix = this.saved.getSeed(index);
 		this.saveloadView.updateSelectedSavedMatrix(
 			this.saved.getSeed(index)
@@ -196,15 +172,12 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	};
 
 	this.setRun = function(newRun){
-		// console.log("Setting Run State: " + newRun);
-
 		if (this.run === false){
 		/* STARTING */
 			if (newRun === true){
 				if (this.colony.isGenDone()){
 					this.genDone();
 				}
-				
 				// Set a regular interval based on the speed setting 
 				// 	that calls the tick function. 
 				// Store returned reference in winIntervalID so we can 
@@ -234,7 +207,6 @@ function colonyController(orgCtr, statsCtr, settCtr){
 	};
 
 	this.advanceGen = function(){
-		// this.colony.evolve();
 		this.colony.advanceGen();
 		this.statsCtr.updateViews();
 		this.orgCtr.updateOrgView();

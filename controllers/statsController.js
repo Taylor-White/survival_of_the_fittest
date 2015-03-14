@@ -23,18 +23,6 @@ function statsController(){
 			this.observers[i].receiveMessage(this, msg);
 		}};
 
-	/*	OBSERVER METHODS */
-	/* parses the message passed and decides how to handle it */
-	this.receiveMessage = function(observable, msg){
-		// console.log("orgCtrl received " + msg);
-		if(msg == "EXAMPLE1"){
-			// this.example1();
-		} else if (msg == "EXAMPLE2"){
-			// this.example2();
-		}
-	};
-
-
 	/* INTERFACE */
 	this.setStats = function(stats){
 		this.stats = stats;
@@ -45,10 +33,7 @@ function statsController(){
 	};
 
 	this.updateOrgStatsView = function(){
-		// console.log(" --- Updating Org Stats View --- ");
-		// console.log(" catch | " + this.stats.toString());
 		for (var i = 0; i < this.stats.numOrgs; i++) {
-			// console.log("     " + i + " | " + this.stats);
 			var os = this.stats.getOrgStats(i+1);
 			var sv = this.statsView;
 			sv.updateBirths(this.stats.getOrgStats(i+1).getBirths(), i+1);

@@ -17,8 +17,6 @@ var CELL_WIDTH = CANVAS_WIDTH/COLUMNS; //Pixel width of cell
 var CELL_HEIGHT = CANVAS_HEIGHT/ROWS; //Pixel height of cell
 
 function organismView(){
-	// console.log("creating Organism View");
-
 	/* function to update the organism on the canvas */
 	this.update = function(state){
 		var c = this.canvas;

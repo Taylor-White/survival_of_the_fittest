@@ -82,11 +82,9 @@ function settings(){
 	/* Toggles */
 	this.toggleBirthArrayVal = function(neighbs){
 		this.birthArray[neighbs] = this.birthArray[neighbs] == 1? 0:1;
-		// alert("User toggled Birth " + neighbs);
 	};
 	this.toggleSustainArrayVal = function(neighbs){
 		this.sustainArray[neighbs] = this.sustainArray[neighbs] == 1? 0:1;
-		// alert("User toggled Sustain " + neighbs);
 	};
 
 	/* Getters */

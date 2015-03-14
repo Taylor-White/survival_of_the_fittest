@@ -13,7 +13,6 @@ function stats(numOrgs){
 	this.orgStatsArray = [];
 
 	this.updateOrgStats = function(orgID, born, dead, explored){
-		// console.log("Updating Org Stats: " + orgID + ", " + born + ", " + dead + ", " + explored);
 		var os = this.orgStatsArray[orgID-1];
 		os.addToBirths(born);
 		os.addToDeaths(dead);
@@ -66,8 +65,6 @@ function stats(numOrgs){
 
 /* Colony Stats Object */
 function colStats(orgStatsArray){
-	// console.log("Creating colStats");
-
 	this.age = 0;
 	this.gens = 0;
 
@@ -194,7 +191,6 @@ function colStats(orgStatsArray){
 
 /* Organism Stats Object*/
 function orgStats(orgID){
-	// console.log("Creating orgStats");
 	this.orgID = orgID;
 	this.births = 0;
 	this.deaths = 0;
@@ -241,20 +237,15 @@ function orgStats(orgID){
 
 	/* Adders */
 	this.addToBirths = function(x){
-		// console.log("Adding " + x + " to Births")
 		this.births += x;
-		// console.log("Total " + this.births + " Births")
 	};
 	this.addToDeaths = function(x){
-		// console.log("Adding " + x + " to Deaths")
 		this.deaths += x;
 	};
 	this.addToSustains = function(x){
-		// console.log("Adding " + x + " to Deaths")
 		this.sustains += x;
 	};
 	this.addToExplored = function(x){
-		// console.log("Adding " + x + " to Explored")
 		this.explored += x;
 	};
 

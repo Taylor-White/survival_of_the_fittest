@@ -39,8 +39,6 @@ function importExportView() {
 		}
 	};
 	this.updateDownloadify = function(){
-
-
 		/* FROM EXTERNAL LIBRARY DOWNLOADIFY */
 		/* 	uses Flash, so it can't call other js functions
 				for security reasons */
@@ -49,7 +47,6 @@ function importExportView() {
 				return 'seed.lif';
 			},
 			data: function() {
-				//alert("Exporting " + exportString);
 				return exportString;
 			},
 			onComplete: function() {
@@ -61,7 +58,6 @@ function importExportView() {
 			onError: function() {
 				alert('You must put something in the File Contents or there will be nothing to save!');
 			},
-			// transparent: false,
 			swf: 'libraries/downloadify/media/downloadify.swf',
 			downloadImage: 'libraries/downloadify/images/download.png',
 			width: 175,
@@ -72,9 +68,7 @@ function importExportView() {
 	};
 
 	this.prepAfterLoad = function(iev) {
-
 		this.updateDownloadify();
-
 		/* Define onclick functions */
 		$("#export").click(function(event) {
 			iev.notifyObservers("UserExport" + loadSelected);
@@ -83,15 +77,8 @@ function importExportView() {
 
 	/* Helper function for testing */
 	this.prepExport = function(matrix) {
-		// matrix = [
-		// 	["1", "0", "1", "0"],
-		// 	["1", "0", "1", "1"],
-		// 	["1", "0", "0", "1"],
-		// 	["0", "1", "0", "0"]
-		// ];
 		exportString = this.convertToLif(matrix);
 		this.updateDownloadify();
-		// alert("Downloadify would export\n" + exportString);
 	};
 
 	/* converts matrix to .lif 1.05 format */
@@ -117,28 +104,20 @@ function importExportView() {
 
 	fileInput.addEventListener('change',
 		function(that){
-			// return function(){that.tick(that);};
 			return function(e) {
 				var file = fileInput.files[0];
 				var fileTypes = ['lif', 'cells'];
-
 				/* file extension from input file */
 				var extension = file.name.split('.').pop().toLowerCase();
 				/* is extension in acceptable types? */
 				validExtension = fileTypes.indexOf(extension) > -1;
-
 				if (validExtension) {
 					var newMat;
 					var reader = new FileReader();
-
 					reader.onload = function(e) {
-
 						display(reader.result);
-
 						that.imported = extractMat(reader.result);
 						that.notifyObservers("UserImported");
-						// alert(that.imported);
-
 					};
 					reader.readAsText(file);
 				} else {
