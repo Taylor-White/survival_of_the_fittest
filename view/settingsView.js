@@ -65,7 +65,11 @@ function settingsView(){
 	this.setFitnessExploredVal = function(val){
 		$("#fitnessExploredDisplay").text(val);
 		$(".fitnessExplore").slider( "option", "value", val);
-	};						
+	};	
+	this.setFitnessSustainVal = function(val){
+		$("#fitnessSustainDisplay").text(val);
+		$(".fitnessSustain").slider( "option", "value", val);
+	};							
 	this.toString = function(){
 		return "The Settings View";
 	};
@@ -97,6 +101,7 @@ function settingsView(){
 		$(".mutRate").slider({min:0, max: 100}).slider("pips", {step: 10}).slider("float");
 		$(".fitnessBirth").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");	
 		$(".fitnessDeath").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");
+		$(".fitnessSustain").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");
 		$(".fitnessExplore").slider({min:-20, max: 20, step: .5}).slider("pips", {step: 2}).slider("float");
 
 		$(".lifetime").change(function(sv, i){
@@ -141,6 +146,9 @@ function settingsView(){
 		$( ".fitnessExplore" ).on("slidestop", function(event, ui){
 			sv.notifyObservers("fitnessExplore" + ui.value);
 		});
+		$( ".fitnessSustain" ).on("slidestop", function(event, ui){
+			sv.notifyObservers("fitnessSustain" + ui.value);
+		});		
 		
 	};
 

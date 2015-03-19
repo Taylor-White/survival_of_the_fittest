@@ -113,7 +113,7 @@ function organism(orgID, numCols, numRows){
 				var neighbours = CalcNeighbours(this.state, row, col);
 				if(this.state[row][col] == ALIVE){
 					if(susArray[neighbours] == 1){
-						// sustainsCount++; -- need to add sustain to stats
+						sustainsCount++;
 						nextState[row][col] = ALIVE;
 					} else {
 						this.orgStats.addToDeaths(1);
@@ -192,8 +192,9 @@ function organism(orgID, numCols, numRows){
 	this.updateFitness = function(){
 		var fb = this.settings.getFitScalerB();
 		var fd = this.settings.getFitScalerD();
+		var fs = this.settings.getFitScalerS();
 		var fe = this.settings.getFitScalerE();
-		var points = fb*this.orgStats.getBirths()+fd*this.orgStats.getDeaths()+fe*this.orgStats.getExplored();
+		var points = fb*this.orgStats.getBirths()+fd*this.orgStats.getDeaths()+fs*this.orgStats.getSustains()+fe*this.orgStats.getExplored();
 		this.setFitness(points);
 	};
 

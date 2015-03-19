@@ -76,6 +76,10 @@ function settingsController(){
 			var sFitDeath = parseInt(msg.substring(12, msg.length));
 			this.settings.setFitScalerD(sFitDeath);
 			this.updateSettingsView();
+		} else if (msg.substring(0,14) == "fitnessSustain"){
+			var sFitSustain = parseInt(msg.substring(14, msg.length));
+			this.settings.setFitScalerS(sFitSustain);
+			this.updateSettingsView();
 		} else if (msg.substring(0,14) == "fitnessExplore"){
 			var sFitExplore = parseInt(msg.substring(14, msg.length));
 			this.settings.setFitScalerE(sFitExplore);
@@ -107,6 +111,7 @@ function settingsController(){
 		var mv = this.settings.getMutRate();
 		var fbv = this.settings.getFitScalerB();
 		var fdv = this.settings.getFitScalerD();
+		var fsv = this.settings.getFitScalerS();
 		var fev = this.settings.getFitScalerE();
 
 		this.settingsView.setWidthVal(wv);
@@ -118,6 +123,7 @@ function settingsController(){
 		this.settingsView.setMutRateVal(mv);
 		this.settingsView.setFitnessBirthVal(fbv);
 		this.settingsView.setFitnessDeathVal(fdv);
+		this.settingsView.setFitnessSustainVal(fsv);
 		this.settingsView.setFitnessExploredVal(fev);
 
 
